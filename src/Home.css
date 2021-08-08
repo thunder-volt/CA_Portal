@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+.home {
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+
+.faq {
+  background-color: rgba(108, 99, 255, 0.59);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.faq h1 {
+  color: #000000;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.footer {
+  background-color: rgba(108, 99, 255, 0.59);
+}
+
+.sponsor h1 {
+  color: #6059df;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+}
+
+.contact h1 {
+  color: #6059df;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+}
+
+.question {
+  width: 50%;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.accordion {
+  background-color: #ffffff;
+  color: black;
+  cursor: pointer;
+  padding: 18px;
+  border: none;
+  border-radius: 7px;
+  text-align: left;
+  outline: none;
+  font-size: 20px;
+  width: 100%;
+}
+
+.question p {
+  display: none;
+}
+
+.panel {
+  font-size: 14px;
+  text-align: start;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #000000;
+  border-radius: 6px;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+label {
+  text-align: start;
+}
+
+.contact {
+  box-sizing: border-box;
+  background-color: #f2f2f2;
+  padding: 10px;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+}
+
+.message-btn {
+  width: 177px;
+  height: 40px;
+  border: none;
+  font-size: 16px;
+  color: #ffffff;
+  background: #6c63ff;
+}
+
+.btn {
+  height: 30px;
+  width: 30px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.contact-btn {
+  height: 20px;
+  width: 25px;
+  margin-right: 5px;
+}
