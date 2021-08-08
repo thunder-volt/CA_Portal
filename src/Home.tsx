@@ -24,7 +24,10 @@ import sponsor8 from './assests/acumen_logo.png'
 import sponsor9 from './assests/ceew_logo.jpg'
 
 function Home() {
-  function displayAnswer() {}
+  const [show1, toggleShow1] = React.useState(false)
+  const [show2, toggleShow2] = React.useState(false)
+  const [show3, toggleShow3] = React.useState(false)
+  const [show4, toggleShow4] = React.useState(false)
 
   return (
     <div className='home'>
@@ -32,68 +35,76 @@ function Home() {
       <div className='faq'>
         <h1>Frequently Asked Questions</h1>
         <div className='question'>
-          <button className='accordion' onClick={displayAnswer}>
+          <button className='accordion' onClick={() => toggleShow1(!show1)}>
             lorem ipsum sit amte ?
             <span className='arrow'>
               <IoIosArrowForward />
             </span>
           </button>
-          <div className='panel'>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </p>
-          </div>
+          {show1 && (
+            <div className='panel'>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+          )}
         </div>
         <div className='question'>
-          <button className='accordion'>
+          <button className='accordion' onClick={() => toggleShow2(!show2)}>
             lorem ipsum sit amte ?
             <span className='arrow'>
               <IoIosArrowForward />
             </span>
           </button>
-          <div className='panel'>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </p>
-          </div>
+          {show2 && (
+            <div className='panel'>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+          )}
         </div>
         <div className='question'>
-          <button className='accordion'>
+          <button className='accordion' onClick={() => toggleShow3(!show3)}>
             lorem ipsum sit amte ?
             <span className='arrow'>
               <IoIosArrowForward />
             </span>
           </button>
-          <div className='panel'>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </p>
-          </div>
+          {show3 && (
+            <div className='panel'>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+          )}
         </div>
         <div className='question'>
-          <button className='accordion'>
+          <button className='accordion' onClick={() => toggleShow4(!show4)}>
             lorem ipsum sit amte ?
             <span className='arrow'>
               <IoIosArrowForward />
             </span>
           </button>
-          <div className='panel'>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </p>
-          </div>
+          {show4 && (
+            <div className='panel'>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+          )}
         </div>
       </div>
       {/**Sponsor Section*/}
@@ -116,7 +127,7 @@ function Home() {
             <img src={sponsor5} alt='Mountains' />
           </div>
         </div>
-        <div className='row'>
+        <div className='row image-row'>
           <div className='column'>
             <img src={sponsor6} alt='Snow' />
           </div>
@@ -151,18 +162,18 @@ function Home() {
           <div className='column'>
             <h3>Contact Information</h3>
             <div className='contact-info'>
-              <p>
+              <div className='contact-ctn'>
                 <IoMdPin className='contact-btn' />
-                Address
-              </p>
-              <p>
+                <p>Address</p>
+              </div>
+              <div className='contact-ctn'>
                 <FaPhoneAlt className='contact-btn' />
-                Phone number
-              </p>
-              <p>
+                <p>Phone number</p>
+              </div>
+              <div className='contact-ctn'>
                 <IoMdMail className='contact-btn' />
-                Mail Id
-              </p>
+                <p>Mail Id</p>
+              </div>
             </div>
           </div>
         </div>

@@ -22,6 +22,17 @@
 
 .footer {
   background-color: rgba(108, 99, 255, 0.59);
+  padding: 30px;
+}
+
+.footer-info {
+  text-align: left;
+  padding: 10px;
+  margin-left: 30px;
+}
+
+.social-btn {
+  margin-top: 35px;
 }
 
 .sponsor h1 {
@@ -57,11 +68,12 @@
   width: 100%;
 }
 
-.question p {
+.hidden {
   display: none;
 }
 
 .panel {
+  display: block;
   font-size: 14px;
   text-align: start;
 }
@@ -78,17 +90,34 @@ textarea {
 }
 
 label {
-  text-align: start;
+  float: left;
 }
 
 .contact {
   box-sizing: border-box;
   background-color: #f2f2f2;
   padding: 10px;
+  padding-bottom: 20px;
+}
+
+.arrow {
+  float: right;
+}
+
+.sponsor {
+  box-sizing: border-box;
+}
+
+.contact-ctn p {
+  display: inline-block;
 }
 
 .row {
   display: flex;
+}
+
+.contact .row {
+  margin-left: 20px;
 }
 
 .column {
@@ -115,4 +144,5 @@ label {
   height: 20px;
   width: 25px;
   margin-right: 5px;
+  display: inline-block;
 }
