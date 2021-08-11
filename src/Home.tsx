@@ -35,110 +35,137 @@ function Home() {
       <div className='faq'>
         <h1>Frequently Asked Questions</h1>
         <div className='question'>
-          <button className='accordion' onClick={() => toggleShow1(!show1)}>
+          <div className='accordion' onClick={() => toggleShow1(!show1)}>
             lorem ipsum sit amte ?
-            <span className='arrow'>
-              <IoIosArrowForward />
-            </span>
-          </button>
-          {show1 && (
-            <div className='panel'>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </p>
-            </div>
-          )}
+            {show1 ? (
+              <span className='down-arrow'>
+                <IoIosArrowDown />
+              </span>
+            ) : (
+              <span className='arrow'>
+                <IoIosArrowForward />
+              </span>
+            )}
+            {show1 && (
+              <span className='panel'>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+              </span>
+            )}
+          </div>
         </div>
         <div className='question'>
-          <button className='accordion' onClick={() => toggleShow2(!show2)}>
+          <div className='accordion' onClick={() => toggleShow2(!show2)}>
             lorem ipsum sit amte ?
-            <span className='arrow'>
-              <IoIosArrowForward />
-            </span>
-          </button>
-          {show2 && (
-            <div className='panel'>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </p>
-            </div>
-          )}
+            {show2 ? (
+              <span className='down-arrow'>
+                <IoIosArrowDown />
+              </span>
+            ) : (
+              <span className='arrow'>
+                <IoIosArrowForward />
+              </span>
+            )}
+            {show2 && (
+              <span className='panel'>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+              </span>
+            )}
+          </div>
         </div>
         <div className='question'>
-          <button className='accordion' onClick={() => toggleShow3(!show3)}>
+          <div className='accordion' onClick={() => toggleShow3(!show3)}>
             lorem ipsum sit amte ?
-            <span className='arrow'>
-              <IoIosArrowForward />
-            </span>
-          </button>
-          {show3 && (
-            <div className='panel'>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </p>
-            </div>
-          )}
+            {show3 ? (
+              <span className='down-arrow'>
+                <IoIosArrowDown />
+              </span>
+            ) : (
+              <span className='arrow'>
+                <IoIosArrowForward />
+              </span>
+            )}
+            {show3 && (
+              <span className='panel'>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+              </span>
+            )}
+          </div>
         </div>
         <div className='question'>
-          <button className='accordion' onClick={() => toggleShow4(!show4)}>
+          <div className='accordion' onClick={() => toggleShow4(!show4)}>
             lorem ipsum sit amte ?
-            <span className='arrow'>
-              <IoIosArrowForward />
-            </span>
-          </button>
-          {show4 && (
-            <div className='panel'>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </p>
-            </div>
-          )}
+            {show4 ? (
+              <span className='down-arrow'>
+                <IoIosArrowDown />
+              </span>
+            ) : (
+              <span className='arrow'>
+                <IoIosArrowForward />
+              </span>
+            )}
+            {show4 && (
+              <span className='panel'>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+              </span>
+            )}
+          </div>
         </div>
       </div>
       {/**Sponsor Section*/}
       <div className='sponsor'>
         <h1>Sponsors</h1>
-        <div className='row'>
-          <div className='column'>
-            <img src={sponsor1} alt='Snow' />
+        <div className='image-row'>
+          <div className='image-column'>
+            <img src={sponsor1} alt='' />
           </div>
-          <div className='column'>
-            <img src={sponsor2} alt='Forest' />
+          <div className='image-column'>
+            <img src={sponsor2} alt='' />
           </div>
-          <div className='column'>
-            <img src={sponsor3} alt='Mountains' />
+          <div className='image-column'>
+            <img src={sponsor3} alt='' />
           </div>
-          <div className='column'>
-            <img src={sponsor4} alt='Mountains' />
+          <div className='image-column'>
+            <img src={sponsor4} alt='' />
           </div>
-          <div className='column'>
-            <img src={sponsor5} alt='Mountains' />
+          <div className='image-column'>
+            <img src={sponsor5} alt='' />
           </div>
         </div>
-        <div className='row image-row'>
-          <div className='column'>
-            <img src={sponsor6} alt='Snow' />
+        <div className='sec-image-row'>
+          <div className='sec-image-column'>
+            <img src={sponsor6} alt='' />
           </div>
-          <div className='column'>
-            <img src={sponsor7} alt='Forest' />
+          <div className='sec-image-column'>
+            <img src={sponsor4} alt='' />
           </div>
-          <div className='column'>
-            <img src={sponsor8} alt='Mountains' />
+          <div className='sec-image-column'>
+            <img src={sponsor8} alt='' />
           </div>
-          <div className='column'>
-            <img src={sponsor9} alt='Mountains' />
+          <div className='sec-image-column'>
+            <img src={sponsor9} alt='' />
+          </div>
+          <div className='sec-image-column'>
+            <img src={sponsor2} alt='' />
           </div>
         </div>
       </div>
@@ -149,13 +176,19 @@ function Home() {
         </div>
         <div className='row'>
           <div className='column'>
-            <form>
-              <label>NAME</label>
-              <input type='text' id='name' name='name'></input>
-              <label>EMAIL</label>
-              <input type='text' id='email' name='email'></input>
-              <label>MESSAGE</label>
-              <textarea id='message' name='message'></textarea>
+            <form className='contact-forn'>
+              <div className='contact-input'>
+                <label>NAME</label>
+                <input type='text' id='name' name='name'></input>
+              </div>
+              <div className='contact-input'>
+                <label>EMAIL</label>
+                <input type='text' id='email' name='email'></input>
+              </div>
+              <div className='contact-input'>
+                <label>MESSAGE</label>
+                <input id='message' name='message'></input>
+              </div>
               <button className='message-btn'>Message</button>
             </form>
           </div>

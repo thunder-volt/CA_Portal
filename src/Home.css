@@ -17,7 +17,7 @@
 .faq h1 {
   color: #000000;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 36px;
 }
 
 .footer {
@@ -64,7 +64,7 @@
   border-radius: 7px;
   text-align: left;
   outline: none;
-  font-size: 20px;
+  font-size: 18px;
   width: 100%;
 }
 
@@ -76,11 +76,15 @@
   display: block;
   font-size: 14px;
   text-align: start;
+  background-color: #ffffff;
 }
 
-input,
-textarea {
-  width: 100%;
+.contact .row {
+  margin-left: 8px;
+}
+
+input {
+  width: 90%;
   padding: 12px;
   border: 1px solid #000000;
   border-radius: 6px;
@@ -91,6 +95,8 @@ textarea {
 
 label {
   float: left;
+  position: relative;
+  left: 3%;
 }
 
 .contact {
@@ -100,7 +106,8 @@ label {
   padding-bottom: 20px;
 }
 
-.arrow {
+.arrow,
+.down-arrow {
   float: right;
 }
 
@@ -114,10 +121,39 @@ label {
 
 .row {
   display: flex;
+  flex-wrap: wrap;
 }
 
-.contact .row {
-  margin-left: 20px;
+.image-row,
+.sec-image-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sec-image-row {
+  padding: 5px;
+  margin-top: 8px;
+}
+
+.image-column {
+  width: 20%;
+}
+
+.sec-image-column {
+  width: 20%;
+}
+
+@media screen and (max-width: 800px) {
+  .image-column,
+  .sec-image-column {
+    flex: 50%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .column {
+    flex: 100%;
+  }
 }
 
 .column {
@@ -145,4 +181,14 @@ label {
   width: 25px;
   margin-right: 5px;
   display: inline-block;
+}
+
+.contact-ctn {
+  display: flex;
+  align-items: center;
+}
+
+.contact-info {
+  position: relative;
+  left: 35%;
 }
