@@ -1,0 +1,341 @@
+.faq {
+  background-color: rgba(108, 99, 255, 0.59);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 30px;
+  min-height: 500px;
+}
+
+.faq h1 {
+  color: #000000;
+  font-weight: 500;
+  font-size: 36px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.faq .question {
+  position: relative;
+  overflow-y: hidden;
+}
+
+.question {
+  width: 100%;
+  max-width: 700px;
+  margin: 5px 0;
+  border-radius: 7px;
+  padding: 15px 25px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.top h3 {
+  text-align: left;
+  font-size: 20px;
+  letter-spacing: 1px;
+  font-weight: 500;
+  color: rgb(32, 32, 32);
+}
+@media screen and (max-width: 700px) {
+  .top h3 {
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+.panel {
+  margin-top: 15px;
+  display: block;
+  font-size: 15px;
+  text-align: start;
+  background-color: #ffffff;
+}
+
+.sponsor {
+  width: 100%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.sponsor h1 {
+  color: #6059df;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+}
+.sponsor .imgContainer {
+  width: 100%;
+  max-width: 1300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.sponsor .imgContainer img {
+  display: block;
+  width: auto;
+  height: 120px;
+  max-width: calc(100% - 20px);
+  object-fit: contain;
+  margin: 30px;
+}
+
+.contact {
+  background-color: #f2f2f2;
+  /* min-height: 70vh; */
+  padding: 30px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.contact h1 {
+  color: #6059df;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.contact .row {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+.contact .row .column {
+  width: calc(50% - 40px);
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+@media screen and (max-width: 700px) {
+  .contact .row {
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .contact .row .column {
+    width: calc(100% - 40px);
+    max-width: 500px;
+    justify-content: center;
+    align-items: flex-start;
+  }
+}
+.contact .row .column form {
+  width: 100%;
+  height: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+.contact .row .column form .contact-input {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+}
+.contact .row .column form .contact-input label {
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+.contact .row .column form .contact-input input,
+.contact .row .column form .contact-input textarea {
+  width: 100%;
+  padding: 7px 15px;
+  border: 1.5px solid rgb(204, 204, 204);
+  outline: none;
+  resize: none;
+  border-radius: 5px;
+}
+.contact .row .column form .message-btn {
+  width: 100px;
+  padding: 7px 15px;
+  border: 1.5px solid rgb(204, 204, 204);
+  outline: none;
+  background: #6c63ff;
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+.contact .row .column h3 {
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-top: 20px;
+}
+@media screen and (max-width: 700px) {
+  .contact .row .column h3 {
+    text-align: left;
+  }
+}
+.contact .row .column .contact-info {
+  width: fit-content;
+}
+.contact .row .column .contact-info .contact-ctn {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgb(29, 29, 29);
+  letter-spacing: 1px;
+  margin: 20px 0px;
+}
+.contact .row .column .contact-info .contact-ctn svg {
+  font-size: 20px;
+  color: rgb(29, 29, 29);
+  margin-right: 10px;
+}
+.footer {
+  background-color: #ada9f0;
+  padding: 50px;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.footer .row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media screen and (max-width: 700px) {
+  .footer {
+    padding: 20px;
+  }
+  .footer .row {
+    flex-direction: column;
+    height: 100%;
+    align-items: flex-start;
+  }
+  .footer .row .column .social-btn {
+    margin-top: 20px;
+  }
+}
+.footer .row .footer-info h3 {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: rgb(19, 19, 19);
+}
+.footer .row .footer-info p {
+  letter-spacing: 0.5px;
+  color: rgb(19, 19, 19);
+}
+.footer .row .social-btn {
+  width: 220px;
+}
+.footer .row .social-btn a {
+  color: rgb(19, 19, 19);
+  font-size: 35px;
+  margin: 0 10px;
+}
+/* 
+.footer-info {
+  text-align: left;
+  padding: 10px;
+  margin-left: 30px;
+}
+
+.social-btn {
+  margin-top: 35px;
+} */
+/* 
+.contact-ctn p {
+  display: inline-block;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.image-row,
+.sec-image-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sec-image-row {
+  padding: 5px;
+  margin-top: 8px;
+}
+
+.image-column {
+  width: 20%;
+}
+
+.sec-image-column {
+  width: 20%;
+}
+
+@media screen and (max-width: 800px) {
+  .image-column,
+  .sec-image-column {
+    flex: 50%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .column {
+    flex: 100%;
+  }
+}
+
+.column {
+  flex: 50%;
+}
+
+.message-btn {
+  width: 177px;
+  height: 40px;
+  border: none;
+  font-size: 16px;
+  color: #ffffff;
+  background: #6c63ff;
+}
+
+.btn {
+  height: 30px;
+  width: 30px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.contact-btn {
+  height: 20px;
+  width: 25px;
+  margin-right: 5px;
+  display: inline-block;
+}
+
+.contact-ctn {
+  display: flex;
+  align-items: center;
+}
+
+.contact-info {
+  position: relative;
+  left: 35%;
+} */
