@@ -1,0 +1,246 @@
+.Body{
+    margin-top: 40px;
+    padding-left: 8%;
+    padding-right: 8%;
+}
+
+.Body_Item1{
+    height: fit-content;
+    display: flex;
+    flex-direction: row;   
+    justify-content: space-between;
+    transition: .3s all;
+}
+
+.Image_Container > img{
+    margin-top: 10px;
+    transition: .3s all;
+}
+
+.Landing_text{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    transition: .3s all;
+    width: 100%;
+}
+.ambassador{
+    text-align: right;
+    margin-top: 10px;
+    font-size: 25px;
+    transition: .3s all;
+}
+
+.Join{
+    font-size: 70px;
+    color: rgb(47, 47, 189);
+    transition: .3s all;
+    text-align: right;
+}
+.Register_Container{
+    display: flex;
+    justify-content: right;
+    margin-top: 15px;
+    transition: .3s all;
+    text-align: right;
+    height: fit-content;
+
+}
+.button{
+    background-color: rgb(48, 48, 187);
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    transition: .3s all;
+    position: absolute;
+    margin-right: 8%;
+    right: 0;
+}
+
+.Left{
+    font-size: 70px;
+    color: rgb(47, 47, 189);
+    transition: .3s all;
+    text-align: left;
+}
+
+#Center{
+    font-size: 70px;
+    color: rgb(47, 47, 189);
+    /* transition: .3s all; */
+    text-align: left;
+    padding-left: 2%;
+}
+
+.Body_Item2{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.heading{
+    font-size: 50px;
+    color: rgb(47, 47, 189);
+}
+
+.Role_details{
+    display: flex;
+    padding-top: 50px;
+    justify-content: space-between;
+}
+.text{
+    width: 40%;
+    text-align: left;
+    
+}
+
+.information{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    padding-left: 1%;
+    padding-right: 2%;
+}
+       /* Media Queries */
+
+@media(max-width:760px){
+    .Body_Item1{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .Image_Container > img {
+        width: 100%;
+    }
+    .Join{
+        font-size: 40px;
+        color: rgb(47, 47, 189);
+        text-align: center;
+    }
+
+    .Left{
+        font-size: 40px;
+        color: rgb(47, 47, 189);
+        transition: .3s all;
+        text-align: left;
+    }
+    
+    #Center{
+        font-size: 40px;
+        color: rgb(47, 47, 189);
+        /* transition: .3s all; */
+        text-align: left;
+        padding-left: 2%;
+    }
+    .ambassador{
+        text-align: center !important ;
+        margin-top: 10px;
+        font-size: 18px;
+    }
+    .Register_Container{
+        
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+        transition: .3s all;
+        position:relative ! important ;
+    }
+    .button{
+        
+        margin-right: -2%;
+        right: 0;
+        position:relative ; 
+        justify-content:center;
+    }
+
+    
+    .heading{
+        font-size: 35px !important;
+        text-align: center;
+    }
+
+    #Center{
+        text-align: center;
+    }
+
+    .Role_details{
+        display: flex;
+        flex-direction: column-reverse;
+
+    }
+  
+    .text{
+        text-align: center;
+        width: 100%;
+    }
+
+    .Role_Image > img{
+        width: 100%;
+    }
+}
+
+
+@media(max-width:1180px){
+    .Join{
+        font-size: 50px;
+        color: rgb(47, 47, 189);
+    }
+    .ambassador{
+        text-align: right;
+        margin-top: 10px;
+        font-size: 20px;
+    }
+    .Left{
+        font-size: 50px;
+        color: rgb(47, 47, 189);
+        transition: .3s all;
+        text-align: left;
+    }
+    
+    #Center{
+        font-size: 50px;
+        color: rgb(47, 47, 189);
+        /* transition: .3s all; */
+        text-align: left;
+        padding-left: 2%;
+    }
+}
+
+@media(max-width:1040px){
+    .Join{
+        font-size: 40px;
+        color: rgb(47, 47, 189);
+    }
+    .ambassador{
+        text-align: right;
+        margin-top: 10px;
+        font-size: 18px;
+    }
+    .Left{
+        font-size: 40px;
+        color: rgb(47, 47, 189);
+        transition: .3s all;
+        text-align: center;
+    }
+    
+    #Center{
+        font-size: 30px;
+        color: rgb(47, 47, 189);
+        transition: .3s all;
+        text-align: center;
+        padding-left: 2%;
+    }
+
+}
+
+@media (max-width:815px){
+    .Image_Container > img {
+        width: 98%;
+    }
+
+
+
+    .heading{
+        font-size: 40px;
+        color: rgb(47, 47, 189);
+    }
+}
