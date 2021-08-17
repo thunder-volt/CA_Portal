@@ -47,7 +47,7 @@ const Body = () => {
                 </div>
             </div>
             <div className="Body_Item3">
-            <div  id='Center'>
+            <div  className="kkk" id='Center' >
                 <b>Responsibilities</b> and specific duties
             </div>
             <div className="information">

@@ -76,6 +76,12 @@
     margin-top: 50px;
     margin-bottom: 50px;
 }
+
+/* .Body_Item3{
+    margin-top: 50px;
+    margin-bottom: 50px;
+} */
+
 .heading{
     font-size: 50px;
     color: rgb(47, 47, 189);
@@ -84,11 +90,14 @@
 .Role_details{
     display: flex;
     padding-top: 50px;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 .text{
-    width: 40%;
+    width: 45%;
     text-align: left;
+    padding-right: 50px;
+    font-size: 22px;
+    margin-right: 8%;
     
 }
 
@@ -100,7 +109,16 @@
     padding-left: 1%;
     padding-right: 2%;
 }
-       /* Media Queries */
+/* .information{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    /* text-align: center; */
+   
+
+
+
+     /* Media Queries */
 
 @media(max-width:760px){
     .Body_Item1{
