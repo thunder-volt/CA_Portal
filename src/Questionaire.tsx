@@ -4,8 +4,8 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NONAME } from "dns";
 import React from "react";
+import { FaAngleRight, FaHandPointRight, FaTimes } from "react-icons/fa";
 import Header from "./Header";
 import "./Questionaire.css";
 
@@ -129,74 +129,86 @@ function Questionaire() {
             TERMS AND CONDITIONS FOR CA PROGRAM, SHAASTRA 2021, IIT MADRAS
           </h2>
           <button onClick={() => setTermsCondition(false)}>
-            <FontAwesomeIcon icon={faTimes} />
+            <FaTimes />
           </button>
           <ul>
             <li>
-              <FontAwesomeIcon icon={faHandPointRight} />
-              The CA will be a part of the organizing team of Shaastra 2021 and
-              he/she must ensure that his/her college has no objection to this.
-              Shaastra will not be responsible for any issues arising due to
-              objection of college authorities in the later stage
+              <FaHandPointRight />
+              <p>
+                The CA will be a part of the organizing team of Shaastra 2021
+                and he/she must ensure that his/her college has no objection to
+                this. Shaastra will not be responsible for any issues arising
+                due to objection of college authorities in the later stage
+              </p>
             </li>
             <li>
-              <FontAwesomeIcon icon={faHandPointRight} />
-              The internship certificate will only be provided subject to
-              completion of fixed minimum points
+              <FaHandPointRight />
+              <p>
+                The internship certificate will only be provided subject to
+                completion of fixed minimum points
+              </p>
             </li>
             <li>
-              <FontAwesomeIcon icon={faHandPointRight} />
-              Shaastra reserves the right to change the points awarded for every
-              task and minimum points required for the certificate as well as
-              bonus incentives and goodies.
+              <FaHandPointRight />
+              <p>
+                Shaastra reserves the right to change the points awarded for
+                every task and minimum points required for the certificate as
+                well as bonus incentives and goodies.
+              </p>
             </li>
             <li>
-              <FontAwesomeIcon icon={faHandPointRight} />
-              Tasks allotted to CAs will include, but not be limited to:
-              <ul>
-                <li>
-                  <FontAwesomeIcon icon={faAngleRight} />
-                  Putting up posters
-                </li>
-                <li>
-                  <FontAwesomeIcon icon={faAngleRight} />
-                  Sharing posts put up by the Shaastra Facebook page
-                </li>
-                <li>
-                  <FontAwesomeIcon icon={faAngleRight} />
-                  Sending mails for publicity
-                </li>
-                <li>
-                  <FontAwesomeIcon icon={faAngleRight} />
-                  Getting MoUs signed
-                </li>
-                <li>
-                  <FontAwesomeIcon icon={faAngleRight} />
-                  Taking care of organizational aspects of events including
-                  facilities and requirements
-                </li>
-                <li>
-                  <FontAwesomeIcon icon={faAngleRight} />
-                  Visiting colleges or other public venues for carrying out
-                  on-ground publicity
-                </li>
-                <li>
-                  <FontAwesomeIcon icon={faAngleRight} />
-                  Getting participants through referrals
-                </li>
-              </ul>
+              <FaHandPointRight />
+              <p>
+                Tasks allotted to CAs will include, but not be limited to:
+                <ul>
+                  <li>
+                    <FaAngleRight />
+                    Putting up posters
+                  </li>
+                  <li>
+                    <FaAngleRight />
+                    Sharing posts put up by the Shaastra Facebook page
+                  </li>
+                  <li>
+                    <FaAngleRight />
+                    Sending mails for publicity
+                  </li>
+                  <li>
+                    <FaAngleRight />
+                    Getting MoUs signed
+                  </li>
+                  <li>
+                    <FaAngleRight />
+                    Taking care of organizational aspects of events including
+                    facilities and requirements
+                  </li>
+                  <li>
+                    <FaAngleRight />
+                    Visiting colleges or other public venues for carrying out
+                    on-ground publicity
+                  </li>
+                  <li>
+                    <FaAngleRight />
+                    Getting participants through referrals
+                  </li>
+                </ul>
+              </p>
             </li>
             <li>
-              <FontAwesomeIcon icon={faHandPointRight} />
-              All official communication will be done via the CA portal and
-              email. It is the responsibility of the CA to check his/her email
-              and the CA portal regularly and acknowledge the tasks assigned to
-              him/her.
+              <FaHandPointRight />
+              <p>
+                All official communication will be done via the CA portal and
+                email. It is the responsibility of the CA to check his/her email
+                and the CA portal regularly and acknowledge the tasks assigned
+                to him/her.
+              </p>
             </li>
             <li>
-              <FontAwesomeIcon icon={faHandPointRight} />
-              Should there be any discrepancies or issues, the decision taken by
-              Shaastra shall be final and binding
+              <FaHandPointRight />
+              <p>
+                Should there be any discrepancies or issues, the decision taken
+                by Shaastra shall be final and binding
+              </p>
             </li>
           </ul>
         </div>

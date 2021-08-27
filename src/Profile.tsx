@@ -1,6 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserEdit } from "@fortawesome/free-solid-svg-icons";
 import user from "./assets/Ranveer-Singh.jpg";
 import "./Profile.css";
 import Header from "./Header";

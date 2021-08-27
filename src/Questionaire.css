@@ -158,14 +158,17 @@
   outline: none;
   width: 40px;
   height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  background-color: rgb(255, 27, 72);
-  color: #fff;
+  color: rgb(255, 27, 72);
+  background-color: #fff;
   font-size: 22px;
   cursor: pointer;
 }
 .Questionaire .termsAndCondition button:hover {
-  background-color: crimson;
+  color: red;
 }
 .Questionaire .termsAndCondition ul {
   list-style: none;
@@ -180,13 +183,13 @@
   display: flex;
   align-items: flex-start;
 }
-.Questionaire .termsAndCondition ul li:nth-of-type(4) {
-  display: block;
+.Questionaire .termsAndCondition ul li p {
+  width: calc(100% - 30px);
 }
 .Questionaire .termsAndCondition ul li:nth-of-type(4) ul {
   position: relative;
-  left: 50px;
-  width: calc(100% - 50px);
+  left: 20px;
+  width: calc(100% - 20px);
 }
 .Questionaire .termsAndCondition ul li svg {
   margin-right: 10px;

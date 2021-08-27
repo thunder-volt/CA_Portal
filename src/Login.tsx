@@ -4,8 +4,7 @@ import "./Login.css";
 import loginIllustration from "./assets/illustration3.png";
 import registerIllustration from "./assets/illustration4.png";
 import shaastraLogo from "./assets/Shaastra_logo.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { FaAngleDoubleLeft } from "react-icons/fa";
 
 function Login() {
   const [login, setLogin] = React.useState(false);
@@ -22,7 +21,7 @@ function Login() {
       <div className="Login_header">
         <img src={shaastraLogo} alt="" />
         <Link to="/">
-          <FontAwesomeIcon icon={faChevronLeft} />
+          <FaAngleDoubleLeft />
           Back to Home
         </Link>
       </div>

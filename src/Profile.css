@@ -57,6 +57,7 @@
   letter-spacing: 3px;
   font-size: 2em;
   font-weight: 600;
+  text-align: center;
 }
 .Profile .Profile_status span {
   color: #ff5e00;

@@ -1,6 +1,5 @@
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import shaastraLogo from "./assets/Shaastra_logo.png";
 import "./Header.css";
@@ -11,7 +10,7 @@ function Header() {
     <div className="Header">
       <img src={shaastraLogo} alt="" />
       <button onClick={() => setHeader(!header)}>
-        <FontAwesomeIcon icon={faBars} />
+        <FaBars />
       </button>
       <ul className={header ? "active" : ""}>
         <li>
