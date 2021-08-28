@@ -204,6 +204,11 @@ function Task() {
   const [Com_tasks, setCom_tasks] = React.useState(0);
   const [points_earned, setPoints_earned] = React.useState(0);
   const [curr_task, setCurr_task] = React.useState(0);
+  const [pending, setPending] = React.useState(true);
+  const [Task_List_marker, setTask_List_marker] = React.useState({
+    left: "30px",
+    width: window.innerWidth > 500 ? "176px" : "102.73px",
+  });
 
   React.useEffect(() => {
     let temp = 0;
@@ -223,53 +228,120 @@ function Task() {
       <div className="Task">
         <h1>Tasks</h1>
         <div className="Task_taskCount">
-          <h3>TOTAL TASKS COMPLETED : {Com_tasks}</h3>
-          <h3>TOTAL TASKS REMAINING : {tasks.length - Com_tasks}</h3>
+          <h3>TASKS COMPLETED : {Com_tasks}</h3>
+          <h3>TASKS REMAINING : {tasks.length - Com_tasks}</h3>
           <h3>POINTS EARNED : {points_earned}</h3>
         </div>
         <div className="Task_List">
           <div className="navbar">
-            <button>PENDING TASKS</button>
-            <button>COMPLETED TASKS</button>
-            <span id="Task_List_marker"></span>
+            <button
+              onClick={(e: any) => {
+                setTask_List_marker({
+                  left: e?.target?.offsetLeft + "px",
+                  width: e?.target?.offsetWidth + "px",
+                });
+                setPending(true);
+              }}
+            >
+              {window.innerWidth < 500 ? "PENDING" : "PENDING TASKS"}
+            </button>
+            <button
+              onClick={(e: any) => {
+                console.log(e);
+                setTask_List_marker({
+                  left: e?.target?.offsetLeft + "px",
+                  width: e?.target?.offsetWidth + "px",
+                });
+                setPending(false);
+              }}
+            >
+              {window.innerWidth < 500 ? "COMPLETED" : "COMPLETED TASKS"}
+            </button>
+            <span
+              id="Task_List_marker"
+              style={{
+                left: Task_List_marker.left,
+                width: Task_List_marker.width,
+              }}
+            ></span>
           </div>
           <ul>
             {tasks.map((task) => {
-              return (
-                <li onClick={() => setCurr_task(task.id)}>
-                  <p>{task.task_title}</p>
-                  <p>POINTS : {task.points}</p>
-                  {curr_task === task.id ? (
-                    <div className="fullTaskView">
-                      <button
-                        onClick={() => {
-                          setCurr_task(0);
-                          console.log(curr_task);
-                        }}
-                      >
-                        CLOSE <FaTimes />
-                      </button>
-                      <div className="header">
-                        <p>{task.task_title}</p>
-                        <p>Points : {task.points}</p>
+              if (pending) {
+                if (!task.status) {
+                  return (
+                    <li onClick={() => setCurr_task(task.id)}>
+                      <p>{task.task_title}</p>
+                      <p>POINTS : {task.points}</p>
+                      {curr_task === task.id ? (
+                        <div className="fullTaskView">
+                          <button
+                            onClick={() => {
+                              setCurr_task(0);
+                              console.log(curr_task);
+                            }}
+                          >
+                            CLOSE <FaTimes />
+                          </button>
+                          <div className="header">
+                            <p>{task.task_title}</p>
+                            <p>Points : {task.points}</p>
+                          </div>
+                          <p className="taskDesc">{task.task_desc}</p>
+                          <div className="formGroup">
+                            <p>Upload proof for above task</p>
+                            <input type="file" />
+                            <button>SUBMIT</button>
+                          </div>
+                          <p className="feedback">
+                            <span>Feedback :</span>
+                            <br />
+                            {task.feedback}
+                          </p>
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                    </li>
+                  );
+                }
+              } else {
+                return (
+                  <li onClick={() => setCurr_task(task.id)}>
+                    <p>{task.task_title}</p>
+                    <p>POINTS : {task.points}</p>
+                    {curr_task === task.id ? (
+                      <div className="fullTaskView">
+                        <button
+                          onClick={() => {
+                            setCurr_task(0);
+                            console.log(curr_task);
+                          }}
+                        >
+                          CLOSE <FaTimes />
+                        </button>
+                        <div className="header">
+                          <p>{task.task_title}</p>
+                          <p>Points : {task.points}</p>
+                        </div>
+                        <p className="taskDesc">{task.task_desc}</p>
+                        <div className="formGroup">
+                          <p>Upload proof for above task</p>
+                          <input type="file" />
+                          <button>SUBMIT</button>
+                        </div>
+                        <p className="feedback">
+                          <span>Feedback :</span>
+                          <br />
+                          {task.feedback}
+                        </p>
                       </div>
-                      <p className="taskDesc">{task.task_desc}</p>
-                      <div className="formGroup">
-                        <p>Upload proof for above task</p>
-                        <input type="file" />
-                        <button>SUBMIT</button>
-                      </div>
-                      <p className="feedback">
-                        <span>Feedback :</span>
-                        <br />
-                        {task.feedback}
-                      </p>
-                    </div>
-                  ) : (
-                    <></>
-                  )}
-                </li>
-              );
+                    ) : (
+                      <></>
+                    )}
+                  </li>
+                );
+              }
             })}
           </ul>
         </div>

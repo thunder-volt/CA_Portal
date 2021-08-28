@@ -25,6 +25,13 @@
 .Task .Task_taskCount h3:nth-of-type(3) {
   color: #6c63ff;
 }
+@media screen and (max-width: 800px) {
+  .Task .Task_taskCount {
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+  }
+}
 .Task_List {
   width: 100%;
   display: flex;
@@ -34,6 +41,7 @@
 }
 .Task_List .navbar {
   width: 100%;
+  padding: 0 30px;
   max-width: 1150px;
   position: relative;
   height: 35px;
@@ -50,19 +58,28 @@
   color: rgb(17, 17, 17);
   cursor: pointer;
 }
+@media screen and (max-width: 500px) {
+  .Task_List .navbar {
+    display: flex;
+    justify-content: space-between;
+  }
+  .Task_List .navbar button {
+    margin: 0;
+  }
+}
 .Task_List .navbar #Task_List_marker {
-  width: 165px;
   height: 4px;
   border-radius: 4px;
   background-color: #6c63ff;
   position: absolute;
-  left: 0;
   bottom: 0;
+  transition: 0.4s;
 }
 .Task_List ul {
   list-style: none;
   width: 100%;
   max-width: 1000px;
+  padding: 0 20px;
 }
 .Task_List ul li {
   width: 100%;
