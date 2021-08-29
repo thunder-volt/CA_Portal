@@ -51,7 +51,7 @@ const App = () => {
   return (
     <div>
     <Nav/>
-    <Body/>    
+    {/* <Body/>     */}
     </div>
   )
 }
