@@ -20,7 +20,7 @@ function App() {
         <Route exact path="/tasks" component={Task} />
       </Router>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
