@@ -6,48 +6,251 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { FaAngleRight, FaHandPointRight, FaTimes } from "react-icons/fa";
+import { useHistory } from "react-router-dom";
+import { useFillQuestionnaireMutation } from "./generated";
 import Header from "./Header";
 import "./Questionaire.css";
 
 function Questionaire() {
-  const [TermsCondition, setTermsCondition] = React.useState(false);
-  const [pastExperiennce, setpastExperiennce] = React.useState(false);
+  const history = useHistory();
+  const [TermsCondition, setTermsCondition] = React.useState<boolean>();
+  const [pastCAExperiennce, setPastCAExperiennce] = React.useState<boolean>();
+  const [pastExperiennce, setpastExperiennce] = React.useState<boolean>();
+
+  const [college, setCollege] = React.useState<string>();
+  const [collegeaddress, setCollegeaddress] = React.useState<string>();
+  const [city, setCity] = React.useState<string>();
+  const [state, setState] = React.useState<string>();
+  const [Degree, setDegree] = React.useState<string>();
+  const [branch, setBranch] = React.useState<string>();
+  const [year, setYear] = React.useState<string>();
+  const [postaladdress, setPostaladdress] = React.useState<string>();
+  const [pcity, setPcity] = React.useState<string>();
+  const [pstate, setPstate] = React.useState<string>();
+  const [pincode, setPincode] = React.useState<string>();
+  const [contactno, setContactno] = React.useState<string>();
+  const [whatsappno, setWhatsappno] = React.useState<string>();
+  const [Q1, setQ1] = React.useState<string>();
+  const [Q2, setQ2] = React.useState<string>();
+  const [Q2a, setQ2a] = React.useState<boolean>();
+  const [Q2b, setQ2b] = React.useState<boolean>();
+  const [Q2c, setQ2c] = React.useState<boolean>();
+  const [Q2d, setQ2d] = React.useState<boolean>();
+  const [Q3, setQ3] = React.useState<string>();
+  const [Q4, setQ4] = React.useState<string>();
+  const [Q5, setQ5] = React.useState<string>();
+  const [Q6, setQ6] = React.useState<string>();
+
+  React.useEffect(() => {
+    const list = [];
+    if (Q2a) list.push("Facebook");
+    if (Q2b) list.push("LinkedIn");
+    if (Q2c) list.push("Twitter");
+    if (Q2d) list.push("Instagram");
+    setQ2(list.join(", "));
+  }, [Q2a, Q2b, Q2c, Q2d]);
+
+  const [fillQuestionnaireMutation, { data, loading, error }] =
+    useFillQuestionnaireMutation();
+
+  const submitQuestionnaire = async (e: any) => {
+    e.preventDefault();
+    try {
+      await fillQuestionnaireMutation({
+        variables: {
+          questionnaireInput: {
+            college: college!,
+            collegeaddress: collegeaddress!,
+            city: city!,
+            state: state!,
+            Degree: Degree!,
+            branch: branch!,
+            year: year!,
+            postaladdress: postaladdress!,
+            pcity: pcity!,
+            pstate: pstate!,
+            pincode: pincode!,
+            contactno: contactno!,
+            whatsappno: whatsappno!,
+            Q1: pastCAExperiennce ? Q1! : "NO",
+            Q2: Q2!,
+            Q3: Q3!,
+            Q4: Q4!,
+            Q5: Q5!,
+            Q6: pastExperiennce ? Q6! : "NO",
+          },
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) {
+    if (
+      error.message.includes("duplicate key value violates unique constraint")
+    )
+      return <p>Questionnaire has been filled already</p>;
+    return <p>Some Error Occurred</p>;
+  }
+  if (data) {
+    if (data.fillQuestionnaire) {
+      history.replace("/me");
+    } else return <p>Some Error Occurred</p>;
+  }
 
   return (
     <>
       <Header />
       <div className="Questionaire">
         <h1>QUESTIONAIRE</h1>
-        <form>
+        <form onSubmit={submitQuestionnaire}>
           <div className="wrapper">
             <div className="left">
-              <input required type="text" placeholder="COLLEGE NAME" />
-              <input required type="text" placeholder="COLLEGE ADDRESS" />
-              <input required type="text" placeholder="CITY" />
-              <input required type="text" placeholder="STATE" />
-              <input required type="text" placeholder="DEGREE" />
-              <input required type="text" placeholder="BRANCH" />
-              <input required type="text" placeholder="YEAR" />
+              <input
+                required
+                type="text"
+                value={college}
+                onChange={(e: any) => setCollege(e.target.value)}
+                name="college"
+                placeholder="COLLEGE NAME"
+              />
+              <input
+                required
+                type="text"
+                value={collegeaddress}
+                onChange={(e: any) => setCollegeaddress(e.target.value)}
+                name="coll-add"
+                placeholder="COLLEGE ADDRESS"
+              />
+              <input
+                required
+                type="text"
+                value={city}
+                onChange={(e: any) => setCity(e.target.value)}
+                name="coll-city"
+                placeholder="CITY"
+              />
+              <input
+                required
+                type="text"
+                value={state}
+                onChange={(e: any) => setState(e.target.value)}
+                name="coll-state"
+                placeholder="STATE"
+              />
+              <input
+                required
+                type="text"
+                value={Degree}
+                onChange={(e: any) => setDegree(e.target.value)}
+                name="degree"
+                placeholder="DEGREE"
+              />
+              <input
+                required
+                type="text"
+                value={branch}
+                onChange={(e: any) => setBranch(e.target.value)}
+                name="branch"
+                placeholder="BRANCH"
+              />
+              <input
+                required
+                type="text"
+                value={year}
+                onChange={(e: any) => setYear(e.target.value)}
+                name="year"
+                placeholder="YEAR"
+              />
             </div>
             <div className="right">
-              <textarea placeholder="POSTAL ADDRESS"></textarea>
-              <input required type="text" placeholder="CITY" />
-              <input required type="text" placeholder="STATE" />
-              <input required type="text" placeholder="PINCODE" />
-              <input required type="text" placeholder="CONTACT NUMBER" />
-              <input required type="text" placeholder="WHATSAPP NUMBER" />
+              <textarea
+                required
+                value={postaladdress}
+                onChange={(e: any) => setPostaladdress(e.target.value)}
+                name="address"
+                placeholder="POSTAL ADDRESS"
+              ></textarea>
+              <input
+                required
+                type="text"
+                value={pcity}
+                onChange={(e: any) => setPcity(e.target.value)}
+                name="city"
+                placeholder="CITY"
+              />
+              <input
+                required
+                type="text"
+                value={pstate}
+                onChange={(e: any) => setPstate(e.target.value)}
+                name="state"
+                placeholder="STATE"
+              />
+              <input
+                required
+                type="text"
+                value={pincode}
+                onChange={(e: any) => setPincode(e.target.value)}
+                name="pincode"
+                placeholder="PINCODE"
+              />
+              <input
+                required
+                type="text"
+                value={contactno}
+                onChange={(e: any) => setContactno(e.target.value)}
+                name="con-num"
+                placeholder="CONTACT NUMBER"
+              />
+              <input
+                required
+                type="text"
+                value={whatsappno}
+                onChange={(e: any) => setWhatsappno(e.target.value)}
+                name="whatsapp-num"
+                placeholder="WHATSAPP NUMBER"
+              />
             </div>
           </div>
           <h3>OTHER GENERAL QUESTIONS</h3>
           <p>Were you a Shaastra CA previously ? </p>
           <div className="inputBox">
-            <input required type="radio" name="previouslyCA" value="yes" />
+            <input
+              required
+              type="radio"
+              name="previouslyCA"
+              value="yes"
+              onClick={() => setPastCAExperiennce(true)}
+            />
             <label>YES</label>
-            <input required type="radio" name="previouslyCA" value="no" />
+            <input
+              required
+              type="radio"
+              name="previouslyCA"
+              value="no"
+              onClick={() => setPastCAExperiennce(false)}
+            />
             <label>NO</label>
           </div>
-          <p>If Your answer to the above question is yes, which year ? </p>
-          <select name="previouslyCAyear">
+          <p
+            style={{
+              display: pastCAExperiennce ? "block" : "none",
+            }}
+          >
+            If Your answer to the above question is yes, which year ?{" "}
+          </p>
+          <select
+            required={pastCAExperiennce}
+            name="previouslyCAyear"
+            style={{
+              display: pastCAExperiennce ? "block" : "none",
+            }}
+            onChange={(e: any) => setQ1(e.target.value)}
+            value={Q1}
+          >
             <option value="">SELECT</option>
             <option value="2021">2021</option>
             <option value="2020">2020</option>
@@ -60,24 +263,66 @@ function Questionaire() {
           </select>
           <p>Which social media sites do you use ? </p>
           <div className="inputBox socialUse">
-            <input type="checkbox" name="socialHandles" id="" />
+            <input
+              type="checkbox"
+              name="socialHandles"
+              id=""
+              checked={Q2a}
+              onChange={() => setQ2a(!Q2a)}
+            />
             <label>Facebook</label>
-            <input type="checkbox" name="socialHandles" id="" />
+            <input
+              type="checkbox"
+              name="socialHandles"
+              id=""
+              checked={Q2b}
+              onChange={() => setQ2b(!Q2b)}
+            />
             <label>LinkedIn</label>
-            <input type="checkbox" name="socialHandles" id="" />
+            <input
+              type="checkbox"
+              name="socialHandles"
+              id=""
+              checked={Q2c}
+              onChange={() => setQ2c(!Q2c)}
+            />
             <label>Twitter</label>
-            <input type="checkbox" name="socialHandles" id="" />
+            <input
+              type="checkbox"
+              name="socialHandles"
+              id=""
+              checked={Q2d}
+              onChange={() => setQ2d(!Q2d)}
+            />
             <label>Instagram</label>
           </div>
           {/* <input required type="text" placeholder="(Short answer type)" /> */}
           <p>Facebook Profile Link: </p>
-          <input required type="url" placeholder="URL" />
+          <input
+            required
+            type="url"
+            placeholder="URL"
+            onChange={(e: any) => setQ3(e.target.value)}
+            value={Q3}
+          />
           <p>Why do you wish to become a Campus Ambassador ? </p>
-          <input required type="text" placeholder="(Short answer type)" />
+          <input
+            required
+            type="text"
+            placeholder="(Short answer type)"
+            onChange={(e: any) => setQ4(e.target.value)}
+            value={Q4}
+          />
           <p>
             Why do you think you are the right candidate for this position ?{" "}
           </p>
-          <input required type="text" placeholder="(Short answer type)" />
+          <input
+            required
+            type="text"
+            placeholder="(Short answer type)"
+            onChange={(e: any) => setQ5(e.target.value)}
+            value={Q5}
+          />
           <p>
             Do you have any past experience in handling Positions of
             Responsibility ?{" "}
@@ -101,11 +346,14 @@ function Questionaire() {
             <label>NO</label>
           </div>
           <input
+            required={pastExperiennce}
             type="text"
             style={{
               display: pastExperiennce ? "block" : "none",
             }}
             placeholder="Describe the experience"
+            value={Q6}
+            onChange={(e: any) => setQ6(e.target.value)}
           />
           <div className="inputBox termsUse">
             <input required type="checkbox" />

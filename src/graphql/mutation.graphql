@@ -1,15 +1,19 @@
-mutation login($loginInput: LoginInput!){
-  login(data: $loginInput){
-    name,
-    email,
+mutation login($loginInput: LoginInput!) {
+  login(data: $loginInput) {
+    name
+    email
     role
-  } 
+  }
 }
 
-mutation createUser($createUserInput: CreateUserInput!){
+mutation createUser($createUserInput: CreateUserInput!) {
   createUser(data: $createUserInput)
 }
 
-mutation logoutUser{
+mutation logoutUser {
   logoutUser
+}
+
+mutation fillQuestionnaire($questionnaireInput: QuestionnaireInput!) {
+  fillQuestionnaire(data: $questionnaireInput)
 }

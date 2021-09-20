@@ -2,8 +2,13 @@ import React from "react";
 import user from "./assets/Ranveer-Singh.jpg";
 import "./Profile.css";
 import Header from "./Header";
+import { useContext } from "react";
+import AuthContext from "./utils/context";
+import { useGetQuestionnaireQuery } from "./generated";
 
 function Profile() {
+  const { role } = useContext(AuthContext);
+  const { data } = useGetQuestionnaireQuery();
   return (
     <>
       <Header />
@@ -13,14 +18,21 @@ function Profile() {
             <img src={user} alt="" />
           </div>
           <div className="contentBox">
-            <h1>FULL NAME</h1>
-            <p>EMAIL@GMAIL.COM</p>
-            <p>INDIAN INSTITUTE OF TECHNOLOGY MADRAS, TAMIL NADU</p>
-            <p>CHENNAI , TAMIL NADU - 444444</p>
+            <h1>{localStorage.getItem("name")?.toLocaleUpperCase()}</h1>
+            <p>{localStorage.getItem("email")?.toLocaleUpperCase()}</p>
+            <p>
+              {data?.getQuestionnaire.college.toLocaleUpperCase()},{" "}
+              {data?.getQuestionnaire.state.toLocaleUpperCase()}
+            </p>
+            <p>
+              {data?.getQuestionnaire.pcity.toLocaleUpperCase()},{" "}
+              {data?.getQuestionnaire.pstate.toLocaleUpperCase()} -{" "}
+              {data?.getQuestionnaire.pincode.toLocaleUpperCase()}
+            </p>
           </div>
         </div>
         <p className="Profile_status">
-          APPLICATION STATUS : <span>PENDING</span>
+          APPLICATION STATUS : <span>{role.toLocaleUpperCase()}</span>
         </p>
         <div className="Profile_edit">
           <form></form>

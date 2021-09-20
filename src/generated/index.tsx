@@ -40,7 +40,7 @@ export type FilterTaskReview = {
 
 export type GetUsersFilter = {
   coord?: Maybe<Scalars['String']>;
-  role?: Maybe<Scalars['String']>;
+  role?: Maybe<UserRole>;
 };
 
 export type GetUsersOutput = {
@@ -227,6 +227,8 @@ export type QuestionnaireInput = {
   Q5: Scalars['String'];
   Q6: Scalars['String'];
   branch: Scalars['String'];
+  city: Scalars['String'];
+  college: Scalars['String'];
   collegeaddress: Scalars['String'];
   contactno: Scalars['String'];
   pcity: Scalars['String'];
@@ -303,6 +305,13 @@ export type User = {
   totalPoints: Scalars['Float'];
 };
 
+export enum UserRole {
+  Admin = 'ADMIN',
+  Registered = 'REGISTERED',
+  Rejected = 'REJECTED',
+  Selected = 'SELECTED'
+}
+
 export type Questionnaire = {
   Degree: Scalars['String'];
   Q1: Scalars['String'];
@@ -312,6 +321,8 @@ export type Questionnaire = {
   Q5: Scalars['String'];
   Q6: Scalars['String'];
   branch: Scalars['String'];
+  city: Scalars['String'];
+  college: Scalars['String'];
   collegeaddress: Scalars['String'];
   contactno: Scalars['String'];
   id: Scalars['ID'];
@@ -342,6 +353,18 @@ export type LogoutUserMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type LogoutUserMutation = { logoutUser: boolean };
+
+export type FillQuestionnaireMutationVariables = Exact<{
+  questionnaireInput: QuestionnaireInput;
+}>;
+
+
+export type FillQuestionnaireMutation = { fillQuestionnaire: boolean };
+
+export type GetQuestionnaireQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetQuestionnaireQuery = { getQuestionnaire: { college: string, collegeaddress: string, city: string, state: string, Degree: string, branch: string, year: string, postaladdress: string, pcity: string, pstate: string, pincode: string, contactno: string, whatsappno: string, Q1: string, Q2: string, Q3: string, Q4: string, Q5: string, Q6: string } };
 
 
 export const LoginDocument = gql`
@@ -440,3 +463,89 @@ export function useLogoutUserMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type LogoutUserMutationHookResult = ReturnType<typeof useLogoutUserMutation>;
 export type LogoutUserMutationResult = ApolloReactCommon.MutationResult<LogoutUserMutation>;
 export type LogoutUserMutationOptions = ApolloReactCommon.BaseMutationOptions<LogoutUserMutation, LogoutUserMutationVariables>;
+export const FillQuestionnaireDocument = gql`
+    mutation fillQuestionnaire($questionnaireInput: QuestionnaireInput!) {
+  fillQuestionnaire(data: $questionnaireInput)
+}
+    `;
+export type FillQuestionnaireMutationFn = ApolloReactCommon.MutationFunction<FillQuestionnaireMutation, FillQuestionnaireMutationVariables>;
+
+/**
+ * __useFillQuestionnaireMutation__
+ *
+ * To run a mutation, you first call `useFillQuestionnaireMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useFillQuestionnaireMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [fillQuestionnaireMutation, { data, loading, error }] = useFillQuestionnaireMutation({
+ *   variables: {
+ *      questionnaireInput: // value for 'questionnaireInput'
+ *   },
+ * });
+ */
+export function useFillQuestionnaireMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<FillQuestionnaireMutation, FillQuestionnaireMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<FillQuestionnaireMutation, FillQuestionnaireMutationVariables>(FillQuestionnaireDocument, options);
+      }
+export type FillQuestionnaireMutationHookResult = ReturnType<typeof useFillQuestionnaireMutation>;
+export type FillQuestionnaireMutationResult = ApolloReactCommon.MutationResult<FillQuestionnaireMutation>;
+export type FillQuestionnaireMutationOptions = ApolloReactCommon.BaseMutationOptions<FillQuestionnaireMutation, FillQuestionnaireMutationVariables>;
+export const GetQuestionnaireDocument = gql`
+    query getQuestionnaire {
+  getQuestionnaire {
+    college
+    collegeaddress
+    city
+    state
+    Degree
+    branch
+    year
+    postaladdress
+    pcity
+    pstate
+    pincode
+    contactno
+    whatsappno
+    Q1
+    Q2
+    Q3
+    Q4
+    Q5
+    Q6
+  }
+}
+    `;
+
+/**
+ * __useGetQuestionnaireQuery__
+ *
+ * To run a query within a React component, call `useGetQuestionnaireQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetQuestionnaireQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetQuestionnaireQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetQuestionnaireQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetQuestionnaireQuery, GetQuestionnaireQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<GetQuestionnaireQuery, GetQuestionnaireQueryVariables>(GetQuestionnaireDocument, options);
+      }
+export function useGetQuestionnaireLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetQuestionnaireQuery, GetQuestionnaireQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<GetQuestionnaireQuery, GetQuestionnaireQueryVariables>(GetQuestionnaireDocument, options);
+        }
+export type GetQuestionnaireQueryHookResult = ReturnType<typeof useGetQuestionnaireQuery>;
+export type GetQuestionnaireLazyQueryHookResult = ReturnType<typeof useGetQuestionnaireLazyQuery>;
+export type GetQuestionnaireQueryResult = ApolloReactCommon.QueryResult<GetQuestionnaireQuery, GetQuestionnaireQueryVariables>;
+export function refetchGetQuestionnaireQuery(variables?: GetQuestionnaireQueryVariables) {
+      return { query: GetQuestionnaireDocument, variables: variables }
+    }
