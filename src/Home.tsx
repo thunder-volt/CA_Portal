@@ -14,15 +14,7 @@ import {
   FaChevronRight,
 } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
-import sponsor1 from "./assets/drdo.png";
-import sponsor2 from "./assets/accessible_india.png";
-import sponsor3 from "./assets/star_sports.png";
-import sponsor4 from "./assets/indian_armed_forces.png";
-import sponsor5 from "./assets/tata4.png";
-import sponsor6 from "./assets/shell.png";
-import sponsor7 from "./assets/GSC_logo.png";
-import sponsor8 from "./assets/acumen_logo.png";
-import sponsor9 from "./assets/ceew_logo.jpg";
+import sponsor1 from "./assets/edufabrica.png";
 
 import illustration1 from "./assets/illustration1.svg";
 import illustration2 from "./assets/illustration2.svg";
@@ -153,185 +145,151 @@ function Home() {
         <ul>
           <li>
             <FaHandPointRight />
-            Medals for the top three CA’s
+            <p>Medals for the top three CA’s</p>
           </li>
           <li>
             <FaHandPointRight />
-            Internships for the Top 20 CA’s
+            <p>Internships for the Top 20 CA’s</p>
           </li>
           <li>
             <FaHandPointRight />
-            Free workshops for the top 50 CA’s
+            <p>Free workshops for the top 50 CA’s</p>
           </li>
           <li>
             <FaHandPointRight />
-            Merch and coupons for the CA’s who are placed in 51-100
+            <p>Merch and coupons for the CA’s who are placed in 51-100</p>
           </li>
           <li>
             <FaHandPointRight />
-            Certificates for the CA’s who have sufficient points in the CA
-            program
+            <p>
+              Certificates for the CA’s who have sufficient points in the CA
+              program
+            </p>
           </li>
           <li>
             <FaHandPointRight />
-            Task specific rewards for those who get very high points in the form
-            of vouchers.(Can be done for the tasks after CA program result is
-            announced)
+            <p>
+              Task specific rewards for those who get very high points in the
+              form of vouchers.(Can be done for the tasks after CA program
+              result is announced)
+            </p>
           </li>
           <li>
             <FaHandPointRight />
-            Endorsement in LinkedIn for those who are still active till the end
+            <p>
+              Endorsement in LinkedIn for those who are still active till the
+              end
+            </p>
           </li>
           <li>
             <FaHandPointRight />
-            Recommendation letter from Shaastra for highly enthu CA’s.
+            <p>Recommendation letter from Shaastra for highly enthu CA’s.</p>
           </li>
           <li>
             <FaHandPointRight />
-            Free trip to some location.
+            <p>Free trip to some location.</p>
           </li>
           <li>
             <FaHandPointRight />
-            Special Feast for those CA’s who attend Shaastra.
+            <p>Special Feast for those CA’s who attend Shaastra.</p>
           </li>
         </ul>
       </div>
       <div className="Home_prizes">
         <h1>Prizes</h1>
-        <div className="cardBox">
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-        </div>
+        <ul>
+          <li>
+            <FaHandPointRight />
+            <p>Sponsored Internships for the top 30CAs.</p>
+          </li>
+          <li>
+            <FaHandPointRight />{" "}
+            <p>A Chance to showcase your Management Skills.</p>
+          </li>
+          <li>
+            <FaHandPointRight /> <p>Build a strong network among your peers.</p>
+          </li>
+          <li>
+            <FaHandPointRight /> <p>Upskill workshops exclusive for CAs.</p>
+          </li>
+          <li>
+            <FaHandPointRight />{" "}
+            <p>Shaastra Merchandise and exciting goodies for the CAs.</p>
+          </li>
+          <li>
+            <FaHandPointRight />{" "}
+            <p>
+              Event and Task-specific rewards such as coupons, vouchers and
+              goodies.
+            </p>
+          </li>
+          <li>
+            <FaHandPointRight />{" "}
+            <p>
+              Shaastra credits for top-performing CAs in Shaastra Grand
+              Championship.
+            </p>
+          </li>
+          <li>
+            <FaHandPointRight />{" "}
+            <p>
+              Marketing internship certificates to CAs crossing a certain
+              threshold points.
+            </p>
+          </li>
+          <li>
+            <FaHandPointRight />{" "}
+            <p>
+              Develop expertise in areas like team management, event
+              organization, public speaking, social media, content writing and
+              promotion, and various other technical skills
+            </p>
+          </li>
+          <li>
+            <FaHandPointRight />
+            <p>Special Feast for those CA’s who attend Shaastra.</p>
+          </li>
+        </ul>
       </div>
       <div className="Home_testimonials">
         <h1>Testimonials</h1>
-
-        <div className="slider_box">
-          <div className="swiper_prev" ref={navigationPrevRef}>
-            <FaChevronLeft />
+        <div className="cardBox">
+          <div className="card">
+            <p>
+              I was the top performer at the CA program of Shaastra, IIT Madras.
+              I got lots of incentives from Shaastra which includes my
+              completion certificates, Merchandise of Shaastra, Microsoft, and
+              Foxmula company. Being the top rank holder in Shaastra CA program,
+              The Foxmula company gave me a splendid internship opportunity. My
+              experience with Shaastra was very good. The way this organization
+              conducted those events was praiseworthy and meritorious. I love
+              the work environment, interaction, conduction, and execution of
+              everything. I would love to give my thanks to the team for the
+              consideration, recognition, appreciation, and felicitation for
+              honoring me as the top CA at Shaastra.
+            </p>
+            <span>- FIZA RAHMANI</span>
           </div>
-          <Swiper
-            spaceBetween={20}
-            slidesPerView="auto"
-            centeredSlides={window.innerWidth <= 600 ? true : false}
-            loop={true}
-            navigation={{
-              prevEl: navigationPrevRef.current,
-              nextEl: navigationNextRef.current,
-            }}
-            onInit={(swiper) => {
-              // @ts-ignore
-              swiper.params.navigation.nextEl = navigationNextRef.current;
-              // @ts-ignore
-              swiper.params.navigation.prevEl = navigationPrevRef.current;
-              swiper.navigation.update();
-            }}
-          >
-            <SwiperSlide>
-              <div className="card">
-                <p>
-                  As a Campus Ambassador for SHAASTRA 2020, I was able to
-                  develop my level of confidence as well as my leadership
-                  quality. I am happy that I got a chance to make the fellow
-                  students in my region enjoy the technical treat. I was able to
-                  learn how to work as a team, manage them and how to overcome
-                  the difficulties in most of the situations.
-                </p>
-                <span>
-                  - Ajitu Kumar Best CA,
-                  <br /> Shaastra 2020
-                </span>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="card">
-                <p>
-                  As a Campus Ambassador for SHAASTRA 2020, I was able to
-                  develop my level of confidence as well as my leadership
-                  quality. I am happy that I got a chance to make the fellow
-                  students in my region enjoy the technical treat. I was able to
-                  learn how to work as a team, manage them and how to overcome
-                  the difficulties in most of the situations.
-                </p>
-                <span>
-                  - Ajitu Kumar Best CA,
-                  <br /> Shaastra 2020
-                </span>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="card">
-                <p>
-                  As a Campus Ambassador for SHAASTRA 2020, I was able to
-                  develop my level of confidence as well as my leadership
-                  quality. I am happy that I got a chance to make the fellow
-                  students in my region enjoy the technical treat. I was able to
-                  learn how to work as a team, manage them and how to overcome
-                  the difficulties in most of the situations.
-                </p>
-                <span>
-                  - Ajitu Kumar Best CA,
-                  <br /> Shaastra 2020
-                </span>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="card">
-                <p>
-                  As a Campus Ambassador for SHAASTRA 2020, I was able to
-                  develop my level of confidence as well as my leadership
-                  quality. I am happy that I got a chance to make the fellow
-                  students in my region enjoy the technical treat. I was able to
-                  learn how to work as a team, manage them and how to overcome
-                  the difficulties in most of the situations.
-                </p>
-                <span>
-                  - Ajitu Kumar Best CA,
-                  <br /> Shaastra 2020
-                </span>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="card">
-                <p>
-                  As a Campus Ambassador for SHAASTRA 2020, I was able to
-                  develop my level of confidence as well as my leadership
-                  quality. I am happy that I got a chance to make the fellow
-                  students in my region enjoy the technical treat. I was able to
-                  learn how to work as a team, manage them and how to overcome
-                  the difficulties in most of the situations.
-                </p>
-                <span>
-                  - Ajitu Kumar Best CA,
-                  <br /> Shaastra 2020
-                </span>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="card">
-                <p>
-                  As a Campus Ambassador for SHAASTRA 2020, I was able to
-                  develop my level of confidence as well as my leadership
-                  quality. I am happy that I got a chance to make the fellow
-                  students in my region enjoy the technical treat. I was able to
-                  learn how to work as a team, manage them and how to overcome
-                  the difficulties in most of the situations.
-                </p>
-                <span>
-                  - Ajitu Kumar Best CA,
-                  <br /> Shaastra 2020
-                </span>
-              </div>
-            </SwiperSlide>
-          </Swiper>
-          <div className="swiper_next" ref={navigationNextRef}>
-            <FaChevronRight />
+          <div className="card">
+            <p>
+              .Shaastra is one of the best technical events I have promoted, and
+              it has helped me in improving my communication skills and also
+              increased my network. I would say it is one of the systematically
+              organized technical events in India. And I am glad that I was a
+              part of this event.
+            </p>
+            <span>- Suraj</span>
+          </div>
+          <div className="card">
+            <p>
+              As a CA, I had great exposure in representing Shaastra in my
+              campus and publicizing various workshops and tech events hosted by
+              them.The program had ample of opportunities to learn on the go,
+              starting from student engagement to strategizing effective social
+              media campaigns. The outreach team too was extremely welcoming and
+              responsive, It's been a pleasure working with Shaastra!
+            </p>
+            <span>- Besmah Gani Ansary</span>
           </div>
         </div>
       </div>
@@ -392,18 +350,23 @@ function Home() {
         })}
       </div>
       <div className="sponsor">
-        <h1>Sponsors</h1>
         <div className="imgContainer">
-          <img src={sponsor1} alt="" />
-          <img src={sponsor2} alt="" />
-          <img src={sponsor3} alt="" />
-          <img src={sponsor5} alt="" />
-          <img src={sponsor6} alt="" />
-          <img src={sponsor4} alt="" />
-          <img src={sponsor7} alt="" />
-          <img src={sponsor8} alt="" />
-          <img src={sponsor9} alt="" />
+          <h1>Sponsors</h1>
+          <p>
+            Edufabrica is an emerging training company that offers Official
+            Microsoft certified training in India across Delhi and all over
+            India in the most demanding technological courses and focusing on
+            providing effective and comprehensive Career Guidance workshops in
+            India. It offers wide range of technical training in advanced and
+            basic levels with brand certifications from HP, Microsoft and
+            EC-Council and over the past year it has become synonym for quality
+            Microsoft and HP certified training in India. It has variant
+            programs that run year around. Its services ranges from providing
+            Best Technical Workshop in India to short duration trainings such as
+            winter training and summer training
+          </p>
         </div>
+        <img src={sponsor1} alt="" />
       </div>
       <div className="contact">
         <div>

@@ -13,6 +13,9 @@ import Logout from "./logout";
 import AuthContext from "./utils/context";
 import Body1 from "./Body1";
 import { Rejected, Selected } from "./Body2";
+import ForgotPassword from "./ForgotPassword";
+import VerificationPage from "./VerificationPage";
+import ResendVerificationMail from "./ResendVerificationMail";
 
 const App = () => {
   const { role } = useContext(AuthContext);
@@ -26,12 +29,23 @@ const App = () => {
           {role === "REGISTERED" && (
             <Route exact path="/me" component={Body1} />
           )}
-          {role === "SELECTED" && <Route exact path="/me" component={Selected} />}
-          {role === "REJECTED" && <Route exact path="/me" component={Rejected} />}
+          {role === "SELECTED" && (
+            <Route exact path="/me" component={Selected} />
+          )}
+          {role === "REJECTED" && (
+            <Route exact path="/me" component={Rejected} />
+          )}
           <Route exact path="/questionaire" component={Questionaire} />
           <Route exact path="/leaderboards" component={LeaderBoard} />
           <Route exact path="/tasks" component={Task} />
           <Route exact path="/logout" component={Logout} />
+          <Route exact path="/forgotpassword" component={ForgotPassword} />
+          <Route exact path="/verification" component={VerificationPage} />
+          <Route
+            exact
+            path="/resendverification"
+            component={ResendVerificationMail}
+          />
         </Router>
       </div>
     </ApolloProvider>

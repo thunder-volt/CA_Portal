@@ -7,6 +7,8 @@ import shaastraLogo from "./assets/Shaastra_logo.png";
 import { FaAngleDoubleLeft } from "react-icons/fa";
 import { useCreateUserMutation, useLoginMutation } from "./generated";
 import AuthContext from "./utils/context";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   const [login, setLogin] = React.useState(false);
@@ -17,6 +19,9 @@ function Login() {
   const [Rpassword, setRpassword] = React.useState("");
   const [Rcpassword, setRcpassword] = React.useState("");
   const [notmatch, setNotmatch] = React.useState(false);
+  const [Popup, setPopupDetails] = React.useState({
+    message: "User Already Exists",
+  });
   const { setRole } = useContext(AuthContext);
   const history = useHistory();
 
@@ -27,7 +32,7 @@ function Login() {
         localStorage.setItem("email", data?.login.email);
         localStorage.setItem("role", data?.login.role);
         setRole(data?.login.role);
-        history.push("/me")
+        history.push("/me");
       }
     },
   });
@@ -118,7 +123,9 @@ function Login() {
   return (
     <div className="Login">
       <div className="Login_header">
-        <img src={shaastraLogo} alt="" />
+        <Link to="/">
+          <img src={shaastraLogo} alt="" />
+        </Link>
         <Link to="/">
           <FaAngleDoubleLeft />
           Back to Home
@@ -161,6 +168,9 @@ function Login() {
               <p>
                 Don't have an account ?{" "}
                 <span onClick={() => setLogin(false)}>Register</span>
+              </p>
+              <p>
+                <Link to="/forgotpassword">Forgot password ?</Link>
               </p>
             </>
           ) : (
@@ -211,6 +221,10 @@ function Login() {
                 Already have an account ?{" "}
                 <span onClick={() => setLogin(true)}>Login</span>
               </p>
+              <p>
+                Didn't recieved verification Link ?{" "}
+                <Link to="/resendverification">Resend</Link>
+              </p>
             </>
           )}
         </form>
@@ -218,6 +232,17 @@ function Login() {
           <img src={registerIllustration} alt="" />
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

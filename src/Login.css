@@ -14,8 +14,8 @@
   align-items: center;
   justify-content: space-between;
 }
-.Login_header img {
-  height: 100%;
+.Login_header a img {
+  height: 70px;
   object-fit: contain;
 }
 .Login_header a {
@@ -110,6 +110,16 @@
   margin-left: 5px;
   color: #564ed3;
   cursor: pointer;
+}
+.Login_Container form a {
+  text-decoration: none;
+  color: #000;
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+.Login_Container form a:hover {
+  color: #564ed3;
 }
 @media screen and (max-width: 600px) {
   .Login_header {

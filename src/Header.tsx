@@ -10,7 +10,9 @@ function Header() {
   const { role } = useContext(AuthContext);
   return (
     <div className="Header">
-      <img src={shaastraLogo} alt="" />
+      <Link to="/">
+        <img src={shaastraLogo} alt="" />
+      </Link>
       <button onClick={() => setHeader(!header)}>
         <FaBars />
       </button>
@@ -21,10 +23,11 @@ function Header() {
         <li>
           <Link to="/questionaire">QUESTIONAIRE</Link>
         </li>
-        {role !== null && role !== "" &&
-        <li>
-          <Link to="/profile">PROFILE</Link>
-        </li>}
+        {role !== null && role !== "" && (
+          <li>
+            <Link to="/profile">PROFILE</Link>
+          </li>
+        )}
         {role === null || role === "" ? (
           <li>
             <Link to="/login">LOGIN</Link>
