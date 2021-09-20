@@ -7,6 +7,8 @@ import Login from "./Login";
 import Profile from "./Profile";
 import Questionaire from "./Questionaire";
 import Task from "./Task";
+import Application from "./Application";
+import Search_filter from "./search_filter";
 import { ApolloProvider } from "@apollo/client";
 import client from "./graphql";
 import Logout from "./logout";
@@ -41,6 +43,8 @@ const App = () => {
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/forgotpassword" component={ForgotPassword} />
           <Route exact path="/verification" component={VerificationPage} />
+          <Route exact path="/search" component={Search_filter} />
+          <Route exact path="/application" component={Application} />
           <Route
             exact
             path="/resendverification"
