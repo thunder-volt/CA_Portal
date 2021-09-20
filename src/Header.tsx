@@ -12,7 +12,9 @@ function Header() {
   const { role } = useContext(AuthContext);
   return (
     <div className="Header">
-      <img src={shaastraLogo} alt="" />
+      <Link to="/">
+        <img src={shaastraLogo} alt="" />
+      </Link>
       <button onClick={() => setHeader(!header)}>
         <FaBars />
       </button>

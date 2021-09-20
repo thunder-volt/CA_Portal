@@ -1,9 +1,3 @@
-import {
-  faAngleRight,
-  faHandPointRight,
-  faTimes,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { FaAngleRight, FaHandPointRight, FaTimes } from "react-icons/fa";
 import { useHistory } from "react-router-dom";

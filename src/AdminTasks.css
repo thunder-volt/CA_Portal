@@ -42,6 +42,12 @@
   padding-right: 18px;
   border-radius: 5px;
   color: white;
+  margin-bottom: 8px;
+}
+
+.form-ctn {
+  z-index: 1;
+  position: fixed;
 }
 
 .task-lists ul {
@@ -57,7 +63,7 @@
   margin-bottom: 4px;
 }
 
-.task-item {
+.task-items {
   display: flex;
   justify-content: space-between;
   border: 1px solid #a3a3a3;
@@ -65,10 +71,12 @@
   border-radius: 11px;
   padding-left: 12px;
   padding-right: 12px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  margin: 2px;
 }
 
-.task-item p {
+.task-items p {
   font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
+  font-size: 20px;
 }
