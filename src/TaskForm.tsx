@@ -1,10 +1,20 @@
 import React from 'react'
+import ReactMde from 'react-mde'
 import { useState } from 'react'
+import * as Showdown from 'showdown'
+import 'react-mde/lib/styles/css/react-mde-all.css'
 import './TaskForm.css'
 
 interface FuncProps {
   toggleForm: () => void
 }
+
+const converter = new Showdown.Converter({
+  tables: true,
+  simplifiedAutoLink: true,
+  strikethrough: true,
+  tasklists: true,
+})
 
 function TaskForm(props: FuncProps) {
   function handleSubmit() {
@@ -15,6 +25,9 @@ function TaskForm(props: FuncProps) {
   const [description, setdescription] = useState('description')
   const [deadline, setdeadline] = useState('')
   const [points, setpoints] = useState(40)
+  const [selectedTab, setSelectedTab] = React.useState<'write' | 'preview'>(
+    'write'
+  )
 
   function handleChange() {
     props.toggleForm()
@@ -36,11 +49,15 @@ function TaskForm(props: FuncProps) {
         </div>
         <div className='input-ctn'>
           <p>Description :</p>
-          <input
-            type='text'
+          <ReactMde
             value={description}
-            onChange={(e) => setdescription(e.target.value)}
-          ></input>
+            onChange={setdescription}
+            selectedTab={selectedTab}
+            onTabChange={setSelectedTab}
+            generateMarkdownPreview={(markdown) =>
+              Promise.resolve(converter.makeHtml(markdown))
+            }
+          />
         </div>
         <div className='input-ctn'>
           <p>Deadline :</p>
