@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Header from "./Header";
 import "./Home.css";
 import {
@@ -32,6 +32,7 @@ import SwiperCore, { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
+import AuthContext from "./utils/context";
 SwiperCore.use([Navigation]);
 
 function Home() {
@@ -84,6 +85,7 @@ function Home() {
   ]);
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
+  const { role } = useContext(AuthContext);
   return (
     <>
       <Header />
@@ -95,7 +97,7 @@ function Home() {
           <h1>JOIN THE FAMILY</h1>
           <h3>STUDENT AMBASSADOR</h3>
           <p>Lorem ipsum dolor sit amet</p>
-          <Link to="/Login">REGISTER</Link>
+          {(role === null || role === "") && <Link to="/Login">REGISTER</Link>}
         </div>
       </div>
       <div className="Home_roles">

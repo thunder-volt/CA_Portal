@@ -9,7 +9,7 @@ const Body1 = () => {
                  <b>THANK YOU FOR APPLYING FOR CAMPUS AMABASSADOR</b>
             </div>
             <div className='Style1t'>
-                YOUR APPLICATION IS UNDER PROCESS
+                YOUR APPLICATION IS UNDER PROCESS. <a href="./"><span className='redt'>click here</span></a>to go to CA portal
             </div>
         </div>
     )

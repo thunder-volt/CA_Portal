@@ -71,7 +71,7 @@ function Questionaire() {
           </div>
           {/* <input required type="text" placeholder="(Short answer type)" /> */}
           <p>Facebook Profile Link: </p>
-          <input required type="text" placeholder="URL" />
+          <input required type="url" placeholder="URL" />
           <p>Why do you wish to become a Campus Ambassador ? </p>
           <input required type="text" placeholder="(Short answer type)" />
           <p>

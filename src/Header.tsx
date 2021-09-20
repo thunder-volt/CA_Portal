@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import shaastraLogo from "./assets/Shaastra_logo.png";
 import "./Header.css";
+import AuthContext from "./utils/context";
 
 function Header() {
   const [header, setHeader] = React.useState(false);
+  const { role } = useContext(AuthContext);
   return (
     <div className="Header">
       <img src={shaastraLogo} alt="" />
@@ -19,12 +21,19 @@ function Header() {
         <li>
           <Link to="/questionaire">QUESTIONAIRE</Link>
         </li>
+        {role !== null && role !== "" &&
         <li>
           <Link to="/profile">PROFILE</Link>
-        </li>
-        <li>
-          <Link to="/login">LOGIN</Link>
-        </li>
+        </li>}
+        {role === null || role === "" ? (
+          <li>
+            <Link to="/login">LOGIN</Link>
+          </li>
+        ) : (
+          <li>
+            <Link to="/logout">LOGOUT</Link>
+          </li>
+        )}
       </ul>
     </div>
   );

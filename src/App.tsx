@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./Home";
@@ -7,63 +7,35 @@ import Login from "./Login";
 import Profile from "./Profile";
 import Questionaire from "./Questionaire";
 import Task from "./Task";
-
-// function App() {
-//   return (
-//     <div className="App">
-      
-//     <Nav/>
-//     <Body/>    
-   
-//       {/* <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.tsx</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header> */}
-//     </div>
-//   );
-// }
-
-// export default App;
-
-// import Nav from "./Nav";
-// import Body from "./Body";
-
-// const App = () => {
-//   return (
-//     <div>
-//     <Nav/>
-//     <Body/>    
-//     </div>
-//   )
-// }
-
-// export default App
-import Nav from "./Nav";
-import Body from "./Body";
+import { ApolloProvider } from "@apollo/client";
+import client from "./graphql";
+import Logout from "./logout";
+import AuthContext from "./utils/context";
+import Body1 from "./Body1";
+import { Rejected, Selected } from "./Body2";
 
 const App = () => {
+  const { role } = useContext(AuthContext);
   return (
-    <div className="App">
-      <Router>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/profile" component={Profile} />
-        <Route exact path="/questionaire" component={Questionaire} />
-        <Route exact path="/leaderboards" component={LeaderBoard} />
-        <Route exact path="/tasks" component={Task} />
-      </Router>
-    </div>
-  )
-}
+    <ApolloProvider client={client}>
+      <div className="App">
+        <Router>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/profile" component={Profile} />
+          {role === "REGISTERED" && (
+            <Route exact path="/me" component={Body1} />
+          )}
+          {role === "SELECTED" && <Route exact path="/me" component={Selected} />}
+          {role === "REJECTED" && <Route exact path="/me" component={Rejected} />}
+          <Route exact path="/questionaire" component={Questionaire} />
+          <Route exact path="/leaderboards" component={LeaderBoard} />
+          <Route exact path="/tasks" component={Task} />
+          <Route exact path="/logout" component={Logout} />
+        </Router>
+      </div>
+    </ApolloProvider>
+  );
+};
 
-export default App
+export default App;

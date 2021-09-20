@@ -1,7 +1,7 @@
 import React from 'react';
 import "./Body1.css"
 
-const Body2 = () => {
+const Selected = () => {
     return (
         
         <div className="Bodyt" >
@@ -9,10 +9,24 @@ const Body2 = () => {
                  <b>CONGRATULATIONS!!</b>
             </div>
             <div className='Style2t'>
-                YOU ARE SELECTED AS A CA FOR SHAASTRA 2022. <span className='redt'>click here</span> click here to go to CA portal
+                YOU ARE SELECTED AS A CA FOR SHAASTRA 2022. <a href="./"><span className='redt'>click here</span></a> to go to CA portal
             </div>
         </div>
     )
 }
 
-export default Body2
+const Rejected = () => {
+    return (
+        
+        <div className="Bodyt" >
+            <div className='Body_Item2t'>
+                 <b>CONGRATULATIONS!!</b>
+            </div>
+            <div className='Style2t'>
+                YOU ARE SELECTED AS A CA FOR SHAASTRA 2022. <a href="./"><span className='redt'>click here</span></a> to go to CA portal
+            </div>
+        </div>
+    )
+}
+
+export { Selected, Rejected }
