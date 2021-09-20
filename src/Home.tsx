@@ -333,7 +333,7 @@ function Home() {
                 style={
                   show[faq.no]
                     ? {
-                        height: "fit-content",
+                        height: "max-content",
                         paddingTop: "15px",
                       }
                     : {
