@@ -5,10 +5,21 @@ import Header from "./Header";
 import { useContext } from "react";
 import AuthContext from "./utils/context";
 import { useGetQuestionnaireQuery } from "./generated";
+import { useHistory } from "react-router-dom";
 
 function Profile() {
   const { role } = useContext(AuthContext);
-  const { data } = useGetQuestionnaireQuery();
+  const { data, error } = useGetQuestionnaireQuery();
+  const history = useHistory();
+
+  if (error) {
+    if (error.message.includes("Access denied!")) {
+      window.alert("Please login to contunie");
+      history.push("./login");
+    }
+    return <p>Some error occurred</p>;
+  }
+
   return (
     <>
       <Header />

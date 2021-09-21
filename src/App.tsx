@@ -18,6 +18,7 @@ import { Rejected, Selected } from "./Body2";
 import ForgotPassword from "./ForgotPassword";
 import VerificationPage from "./VerificationPage";
 import ResendVerificationMail from "./ResendVerificationMail";
+import MyApplication from "./MyApplication";
 
 const App = () => {
   const { role } = useContext(AuthContext);
@@ -44,6 +45,7 @@ const App = () => {
           <Route exact path="/forgotpassword" component={ForgotPassword} />
           <Route exact path="/verification" component={VerificationPage} />
           <Route exact path="/search" component={Search_filter} />
+          <Route exact path="/my-application" component={MyApplication} />
           <Route exact path="/application" component={Application} />
           <Route
             exact

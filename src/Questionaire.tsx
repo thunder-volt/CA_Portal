@@ -86,6 +86,10 @@ function Questionaire() {
       error.message.includes("duplicate key value violates unique constraint")
     )
       return <p>Questionnaire has been filled already</p>;
+    if (error.message.includes("Access denied!")) {
+      window.alert("Please login to contunie");
+      history.push("./login");
+    }
     return <p>Some Error Occurred</p>;
   }
   if (data) {

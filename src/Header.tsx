@@ -29,7 +29,7 @@ function Header() {
         )}
         {role !== null && role !== "" && data?.getQuestionnaire !== null && (
           <li>
-            <Link to="/questionaire">MY APPLICATION</Link>
+            <Link to="/my-application">MY APPLICATION</Link>
           </li>
         )}
         {role !== null && role !== "" && (
