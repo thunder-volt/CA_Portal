@@ -1,16 +1,16 @@
-mutation login($loginInput: LoginInput!){
-  login(data: $loginInput){
-    name,
-    email,
+mutation login($loginInput: LoginInput!) {
+  login(data: $loginInput) {
+    name
+    email
     role
-  } 
+  }
 }
 
-mutation createUser($createUserInput: CreateUserInput!){
+mutation createUser($createUserInput: CreateUserInput!) {
   createUser(data: $createUserInput)
 }
 
-mutation logoutUser{
+mutation logoutUser {
   logoutUser
 }
 
@@ -77,4 +77,7 @@ query getQuestionnaireByUserId($userid: String!)
     Q4,
     Q5,Q6
   }
+}
+mutation fillQuestionnaire($questionnaireInput: QuestionnaireInput!) {
+  fillQuestionnaire(data: $questionnaireInput)
 }
