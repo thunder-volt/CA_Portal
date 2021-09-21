@@ -14,14 +14,19 @@ function Application() {
   const {data: getUserData, loading : getUserLoading, error : getUserError} = useGetUserQuery({variables: {userId: id}})
   const history = useHistory()
   const [coord, setCoord] = React.useState("")
-  const [input, setInput] = React.useState<ApplicationResultInput>({coord:"",id:id,isSelected:false})
+  var [input, setInput] = React.useState<ApplicationResultInput>({coord:"",id:id,isSelected:false})
   console.log(data)
+  console.log(getUserData?.getUser?.role)
 
   const accept = async () => {
-    setInput({coord: coord, id: id, isSelected: true})
+    setCoord(coord)
+    await setInput(prevState => {return {...prevState, isSelected: true, id: id,coord: coord}})
     try
     {
-      const resp = await applicationMutation({variables: {data: input}})
+      console.log(coord)
+      const resp = await applicationMutation({variables: {data: {isSelected: true, id:id, coord:coord}}})
+      console.log(resp.data?.applicationResult)
+      console.log(getUserData?.getUser?.role)
     }
     catch(err)
     {
@@ -30,10 +35,12 @@ function Application() {
     history.push('/search')
   }
   const reject = async () => {
-    setInput({coord: coord, id: id, isSelected: false})
+    setInput({...input, isSelected: false, id: id, coord:coord})
     try 
     {
       const resp = await applicationMutation({variables: {data: input}})
+      console.log(resp.data?.applicationResult)
+      console.log(getUserData?.getUser?.role)
     }
     catch(err)
     {
@@ -145,9 +152,9 @@ function Application() {
             {data?.getQuestionnaireByUserId.Q6}
           </p>
           <label htmlFor="sfafaferfaef"></label>
-          <select onChange={(e) => {
-            e.preventDefault()
-            setCoord(e.target.value)
+          <select onChange={async (e) => {
+            await setCoord(e.target.value)
+            console.log(coord)
             }}>
             <option value="Anshid">Anshid</option>
             <option value="Samrudha Lakshmi">Samrudha Lakshmi</option>

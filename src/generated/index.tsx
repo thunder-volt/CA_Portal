@@ -402,7 +402,7 @@ export type GetUsersQueryVariables = Exact<{
 }>;
 
 
-export type GetUsersQuery = { getUsers?: Maybe<{ count: number, users: Array<{ name: string, id: string, caID?: Maybe<string>, email: string }> }> };
+export type GetUsersQuery = { getUsers?: Maybe<{ count: number, users: Array<{ name: string, id: string, caID?: Maybe<string>, email: string, role: string, coord?: Maybe<string> }> }> };
 
 export type GetQuestionnaireQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -428,7 +428,7 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { getUser?: Maybe<{ name: string, email: string }> };
+export type GetUserQuery = { getUser?: Maybe<{ name: string, email: string, role: string }> };
 
 
 export const LoginDocument = gql`
@@ -690,6 +690,8 @@ export const GetUsersDocument = gql`
       id
       caID
       email
+      role
+      coord
     }
     count
   }
@@ -875,6 +877,7 @@ export const GetUserDocument = gql`
   getUser(userId: $userId) {
     name
     email
+    role
   }
 }
     `;

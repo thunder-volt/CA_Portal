@@ -46,6 +46,8 @@ query getUsers($filter: GetUsersFilter, $Skip: Float, $limit: Float){
             id,
             caID,
             email,
+            role,
+            coord
         },
         count
     }
