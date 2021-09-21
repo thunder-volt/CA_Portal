@@ -14,6 +14,26 @@ mutation logoutUser {
   logoutUser
 }
 
+mutation verifyUser($token: String!) {
+  verifyUser(token: $token)
+}
+
+mutation resendVerificationMail(
+  $requestForgotPassInput: RequestForgotPassInput!
+) {
+  resendVerificationMail(data: $requestForgotPassInput)
+}
+
+mutation reqForgotPassVerification(
+  $requestForgotPassInput: RequestForgotPassInput!
+) {
+  reqForgotPassVerification(data: $requestForgotPassInput)
+}
+
+mutation resetPassword($resetPasswordInput: ResetPasswordInput!) {
+  resetPassword(data: $resetPasswordInput)
+}
+
 mutation fillQuestionnaire($questionnaireInput: QuestionnaireInput!) {
   fillQuestionnaire(data: $questionnaireInput)
 }
