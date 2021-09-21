@@ -382,6 +382,13 @@ export type GetQuestionnaireByUserIdQueryVariables = Exact<{
 
 export type GetQuestionnaireByUserIdQuery = { getQuestionnaireByUserId: { college: string, collegeaddress: string, city: string, state: string, Degree: string, branch: string, year: string, postaladdress: string, pcity: string, pstate: string, pincode: string, contactno: string, whatsappno: string, Q1: string, Q2: string, Q3: string, Q4: string, Q5: string, Q6: string } };
 
+export type FillQuestionnaireMutationVariables = Exact<{
+  questionnaireInput: QuestionnaireInput;
+}>;
+
+
+export type FillQuestionnaireMutation = { fillQuestionnaire: boolean };
+
 
 export const LoginDocument = gql`
     mutation login($loginInput: LoginInput!) {
@@ -667,3 +674,34 @@ export type GetQuestionnaireByUserIdQueryResult = ApolloReactCommon.QueryResult<
 export function refetchGetQuestionnaireByUserIdQuery(variables?: GetQuestionnaireByUserIdQueryVariables) {
       return { query: GetQuestionnaireByUserIdDocument, variables: variables }
     }
+export const FillQuestionnaireDocument = gql`
+    mutation fillQuestionnaire($questionnaireInput: QuestionnaireInput!) {
+  fillQuestionnaire(data: $questionnaireInput)
+}
+    `;
+export type FillQuestionnaireMutationFn = ApolloReactCommon.MutationFunction<FillQuestionnaireMutation, FillQuestionnaireMutationVariables>;
+
+/**
+ * __useFillQuestionnaireMutation__
+ *
+ * To run a mutation, you first call `useFillQuestionnaireMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useFillQuestionnaireMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [fillQuestionnaireMutation, { data, loading, error }] = useFillQuestionnaireMutation({
+ *   variables: {
+ *      questionnaireInput: // value for 'questionnaireInput'
+ *   },
+ * });
+ */
+export function useFillQuestionnaireMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<FillQuestionnaireMutation, FillQuestionnaireMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<FillQuestionnaireMutation, FillQuestionnaireMutationVariables>(FillQuestionnaireDocument, options);
+      }
+export type FillQuestionnaireMutationHookResult = ReturnType<typeof useFillQuestionnaireMutation>;
+export type FillQuestionnaireMutationResult = ApolloReactCommon.MutationResult<FillQuestionnaireMutation>;
+export type FillQuestionnaireMutationOptions = ApolloReactCommon.BaseMutationOptions<FillQuestionnaireMutation, FillQuestionnaireMutationVariables>;

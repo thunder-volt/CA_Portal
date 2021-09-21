@@ -1,0 +1,23 @@
+query getQuestionnaire {
+  getQuestionnaire {
+    college
+    collegeaddress
+    city
+    state
+    Degree
+    branch
+    year
+    postaladdress
+    pcity
+    pstate
+    pincode
+    contactno
+    whatsappno
+    Q1
+    Q2
+    Q3
+    Q4
+    Q5
+    Q6
+  }
+}
