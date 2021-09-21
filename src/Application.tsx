@@ -2,21 +2,23 @@ import { stringify } from "querystring";
 import React from "react";
 import { useHistory, useParams } from "react-router";
 import "./Application.css";
+import { FaUserCircle } from "react-icons/fa";
 import images1 from "./assets/demopic.jpg";
-import {ApplicationResultInput, useApplicationResultMutation, useGetQuestionnaireByUserIdQuery, UserRole} from "./generated"
+import {ApplicationResultInput, useApplicationResultMutation, useGetQuestionnaireByUserIdQuery, useGetUserQuery, UserRole} from "./generated"
 
 function Application() {
   let {id}:any = useParams()
   console.log(id)
   const {data,loading,error} = useGetQuestionnaireByUserIdQuery({variables: {userid: id}})
   const [applicationMutation] = useApplicationResultMutation()
+  const {data: getUserData, loading : getUserLoading, error : getUserError} = useGetUserQuery({variables: {userId: id}})
   const history = useHistory()
   const [coord, setCoord] = React.useState("")
   const [input, setInput] = React.useState<ApplicationResultInput>({coord:"",id:"",isSelected:false})
   console.log(data)
 
   const accept = async () => {
-    setInput({coord: coord, id: stringify(id), isSelected: true})
+    setInput({coord: coord, id: id, isSelected: true})
     try
     {
       const resp = await applicationMutation({variables: {data: input}})
@@ -28,7 +30,7 @@ function Application() {
     history.push('/search')
   }
   const reject = async () => {
-    setInput({coord: coord, id: stringify(id), isSelected: false})
+    setInput({coord: coord, id: id, isSelected: false})
     try 
     {
       const resp = await applicationMutation({variables: {data: input}})
@@ -40,7 +42,7 @@ function Application() {
     history.push('/search')
   }
 
-
+  if(getUserData)
   return (
     <div className="Application">
       <div>
@@ -48,11 +50,12 @@ function Application() {
         <div className="flexdis">
           <div>
             <h2>PROFILE DETAILS :</h2>
-            <h2 className="details">{localStorage.getItem('name')}</h2>
-            <h2 className="details">{localStorage.getItem('email')}</h2>
+            <h2 className="details">{getUserData.getUser?.name}</h2>
+            <h2 className="details">{getUserData.getUser?.email}</h2>
           </div>
           <div>
-            <img className="photo" src={images1} alt="" />
+            <FaUserCircle className="photo" size="30%"></FaUserCircle>
+            {/* <img className="photo" src={FaUserCircle} alt="" /> */}
           </div>
         </div>
         <div className="column">
@@ -110,11 +113,11 @@ function Application() {
         <div className="questions">
           <h3>Were you a Shaastra CA previously?</h3>
           <div>
-            <p>{data?.getQuestionnaireByUserId.Q1}</p>
+            <p>{data?.getQuestionnaireByUserId.Q1 === "NO" ? "NO" : "YES"}</p>
           </div>
           <p></p>
           <h3>If Your answer to the above question is yes, which year ?</h3>
-          <p>{data?.getQuestionnaireByUserId.Q1}</p>
+          <p>{data?.getQuestionnaireByUserId.Q1 === "NO" ? "-" : data?.getQuestionnaireByUserId.Q1}</p>
           <h3>Which social media sites do you use? </h3>
           <p>
             {data?.getQuestionnaireByUserId.Q2}
@@ -146,17 +149,30 @@ function Application() {
             e.preventDefault()
             setCoord(e.target.value)
             }}>
-            <option>SOME USER NAME</option>
-            <option>Coordinator1 </option>
-            <option>Coordinator2 </option>
-            <option>Coordinator3 </option>
+            <option value="Anshid">Anshid</option>
+            <option value="Samrudha Lakshmi">Samrudha Lakshmi</option>
+            <option value="Poojitha R">Poojitha R</option>
+            <option value="Sukriti">Sukriti </option>
+            <option value="Vishwa">Vishwa</option>
+            <option value="Pavan Kumar">Pavan Kumar</option>
+            <option value="Joshik Sravan">Joshik Sravan</option>
+            <option value="Sadguru Sharan">Sadguru Sharan</option>
+            <option value="Keerthana">Keerthana</option>
+            <option value="Ankit">Ankit</option>
+            <option value="Gokul Vijay">Gokul Vijay</option>
+            <option value="Vinaykumar">Vinaykumar</option>
+            <option value="Aditya">Aditya</option>
+            <option value="Rahul Bumb">Rahul Bumb</option>
+            <option value="Umesh">Umesh</option>
+            <option value="Reethika">Reethika</option>
           </select>
         </div>
       </div>
       <button className="submit" onClick={accept}>ACCEPT</button>
       <button className="decline" onClick={reject}>DECLINE</button>
     </div>
-  );
+  )
+  else return null
 }
 
 export default Application;

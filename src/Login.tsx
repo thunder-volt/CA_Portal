@@ -130,16 +130,7 @@ function Login() {
   }
 }
 const onClose = () => {history.push('')}
-  // if(Popup.message != "User Already Exists")
-  //   return <Modal isOpen={true} onClose={onClose}>
-  //   <ModalOverlay></ModalOverlay>
-  //   <ModalContent backgroundColor="#AACDBE" color="#222244">
-  //       <ModalCloseButton onClick={onClose}></ModalCloseButton>
-  //       <ModalBody >
-  //           <p>"error</p>
-  //       </ModalBody>
-  //   </ModalContent>
-  //   </Modal>
+
   return (
     <div className="Login">
       <div className="Login_header">
@@ -247,11 +238,11 @@ const onClose = () => {history.push('')}
               </p>
             </>
           )}
-          {/* {
+          {
             error ? 
             <Modal isOpen={true} onClose={onClose}>
                     <ModalOverlay></ModalOverlay>
-                    <ModalContent backgroundColor="#AACDBE" color="#222244">
+                    <ModalContent backgroundColor="white" color="black">
                         <ModalCloseButton onClick={onClose}></ModalCloseButton>
                         <ModalBody >
                             <p>{error?.message}</p>
@@ -259,7 +250,7 @@ const onClose = () => {history.push('')}
                     </ModalContent>
                     </Modal>
                     : null
-          } */}
+          }
         </form>
         <div className="imgBox">
           <img src={registerIllustration} alt="" />
