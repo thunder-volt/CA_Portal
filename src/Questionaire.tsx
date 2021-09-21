@@ -2,6 +2,7 @@ import React from "react";
 import { FaAngleRight, FaHandPointRight, FaTimes } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import { useFillQuestionnaireMutation } from "./generated";
+import {Dialog, Box} from '@material-ui/core';
 import Header from "./Header";
 import "./Questionaire.css";
 
@@ -77,25 +78,65 @@ function Questionaire() {
       });
     } catch (e) {
       console.log(e);
+        const closeHandler= () => {window.location.reload()}
+        return(
+          <Dialog onClose={closeHandler} open={true} >
+              <p>Some error occurred.</p>
+              <button onClick={closeHandler}>Close</button>
+          </Dialog>
+      );
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) 
+  {
+    return(
+      <Dialog open={true} > 
+          <p>Loading...</p>
+      </Dialog>
+  )}
   if (error) {
     if (
       error.message.includes("duplicate key value violates unique constraint")
     )
-      return <p>Questionnaire has been filled already</p>;
+    {
+      const closeHandler= () => {history.push('/')}
+      return(
+        <Dialog onClose={closeHandler} open={true} >
+            <p>Questionnaire has been filled already</p>
+            <button onClick={closeHandler}>Close</button>
+        </Dialog>
+    );};
     if (error.message.includes("Access denied!")) {
-      window.alert("Please login to contunie");
-      history.push("./login");
+        const closeHandler= () => {history.push('/login')}
+        return(
+          <Dialog onClose={closeHandler} open={true} >
+              <p>Please login to continue.</p>
+              <button onClick={closeHandler}>Close</button>
+          </Dialog>
+      );
     }
-    return <p>Some Error Occurred</p>;
+    else
+    {
+      const closeHandler= () => {window.location.reload()}
+      return(
+        <Dialog onClose={closeHandler} open={true} >
+            <p>Some error occurred.</p>
+            <button onClick={closeHandler}>Close</button> 
+        </Dialog>
+    );}
   }
   if (data) {
     if (data.fillQuestionnaire) {
       history.replace("/me");
-    } else return <p>Some Error Occurred</p>;
+    } else {
+      const closeHandler= () => {window.location.reload()}
+      return(
+        <Dialog onClose={closeHandler} open={true} >
+            <p>Some error occurred.</p>
+            <button onClick={closeHandler}>Close</button>
+        </Dialog>
+    );};
   }
 
   return (

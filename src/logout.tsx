@@ -1,5 +1,7 @@
 import React from "react";
 import { useLogoutUserMutation } from "./generated";
+import { Dialog, Box } from "@material-ui/core";
+import { useHistory } from "react-router";
 
 const Logout = () => {
   const [logoutUserMutation, { data, loading, error }] = useLogoutUserMutation({
@@ -11,6 +13,7 @@ const Logout = () => {
       }
     },
   });
+  const history = useHistory()
 
   const logoutHandler = async () => {
     try {
@@ -22,12 +25,34 @@ const Logout = () => {
 
   logoutHandler();
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Some error occured</p>;
+  if (loading) return <Dialog open={true} ><p>Loading...</p></Dialog>;
+  if (error)
+  {
+    const closeHandler= () => {window.location.reload()}
+    return(
+      <Dialog onClose={closeHandler} open={true} >
+          <p>Some error occurred</p>
+          <button onClick={closeHandler}>Close</button>
+      </Dialog>
+  );}
   if (data) {
-    if (data.logoutUser) return <p>Logout successful</p>;
-    return <p>Some error occured</p>;
-  } else return <p>Loading...</p>;
+    if (data.logoutUser) {
+      const closeHandler= () => {history.push('/')}
+      return(
+        <Dialog onClose={closeHandler} open={true} >
+            <p>Logout successful.</p>
+            <button onClick={closeHandler}>Close</button>
+        </Dialog>
+    );}
+    {
+      const closeHandler= () => {history.push('/')}
+      return(
+        <Dialog onClose={closeHandler} open={true} >
+            <p>Some error occurred</p>
+            <button onClick={closeHandler}>Close</button>
+        </Dialog>
+    );}
+  } else return <Dialog open={true} ><p>Loading...</p></Dialog>;
 };
 
 export default Logout;

@@ -6,6 +6,7 @@ import { useContext } from "react";
 import AuthContext from "./utils/context";
 import { useGetQuestionnaireQuery } from "./generated";
 import { useHistory } from "react-router-dom";
+import {Dialog, Box} from "@material-ui/core"
 
 function Profile() {
   const { role } = useContext(AuthContext);
@@ -14,10 +15,22 @@ function Profile() {
 
   if (error) {
     if (error.message.includes("Access denied!")) {
-      window.alert("Please login to contunie");
-      history.push("./login");
+        const closeHandler= () => {history.push('/login')}
+        return(
+          <Dialog onClose={closeHandler} open={true} >
+              <p>Please login to continue.</p>
+              <button onClick={closeHandler}>Close</button>
+          </Dialog>
+      );
     }
-    return <p>Some error occurred</p>;
+    {
+      const closeHandler= () => {history.push('/')}
+      return(
+        <Dialog onClose={closeHandler} open={true} >
+            <p>Some error occurred.</p>
+            <button onClick={closeHandler}>Close</button>
+        </Dialog>
+    );}
   }
 
   return (

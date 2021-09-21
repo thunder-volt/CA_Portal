@@ -1,22 +1,16 @@
 import React, { useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory} from "react-router-dom";
 import "./Login.css";
 import loginIllustration from "./assets/illustration3.png";
 import registerIllustration from "./assets/illustration4.png";
 import shaastraLogo from "./assets/Shaastra_logo.png";
 import { FaAngleDoubleLeft } from "react-icons/fa";
+import {Dialog, Box} from "@material-ui/core"
 import { useCreateUserMutation, useLoginMutation } from "./generated";
 import AuthContext from "./utils/context";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  useDisclosure,
-  ModalBody,
-  ModalCloseButton,
-} from "@chakra-ui/react"
+
 
 function Login() {
   const [login, setLogin] = React.useState(false);
@@ -27,14 +21,14 @@ function Login() {
   const [Rpassword, setRpassword] = React.useState("");
   const [Rcpassword, setRcpassword] = React.useState("");
   const [notmatch, setNotmatch] = React.useState(false);
-  const [Popup, setPopupDetails] = React.useState({
-    message: "User Already Exists",
-  });
-  const [e, setError] = React.useState(false)
+
+ 
+  // const [Popup, setPopupDetails] = React.useState({
+  //   message: "User Already Exists",
+  // // });
   const { setRole } = useContext(AuthContext);
   const history = useHistory();
 
-  // var { isOpen, onOpen, onClose } = useDisclosure()
 
   const [loginMutation, { data, loading, error }] = useLoginMutation({
     onCompleted(data) {
@@ -44,7 +38,6 @@ function Login() {
         localStorage.setItem("email", data?.login.email);
         localStorage.setItem("role", data?.login.role);
         setRole(data?.login.role);
-        history.push("/me");
       }
     },
   });
@@ -57,6 +50,11 @@ function Login() {
       error: createUserError,
     },
   ] = useCreateUserMutation();
+  
+  if (data) {
+    history.push("/me");
+    return null;
+  }
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -73,8 +71,13 @@ function Login() {
         console.log('done')
       if (!login) {
         if (notmatch) {
-          window.alert("Password didn't match");
-          return;
+            const closeHandler= () => {history.push('/login')}
+            return(
+              <Dialog onClose={closeHandler} open={true} >
+                  <p>Password didn't match</p>
+                  <button onClick={closeHandler}>Close</button>
+              </Dialog>
+          );
         }
         await createUserMutation({
           variables: {
@@ -92,44 +95,94 @@ function Login() {
   };
 
   if (error || createUserError) {
-    setError(true)
     if (
       error?.message.includes(
         'Could not find any entity of type "User" matching'
       )
     )
-    setPopupDetails({message: "User not registered"})
+    {
+      const handleClose = () => {window.location.reload()}
+      return(
+        <Dialog onClose={handleClose} open={true} >
+            <p>User not registered. Please register</p>
+            <button onClick={handleClose}>Close</button>
+        </Dialog>
+    );}
     else
     if (error?.message === "Invalid Credential")
-      setPopupDetails({message: "Invalid Credentials"})
+    {
+      const closeHandler= () => {window.location.reload()}
+      return(
+        <Dialog onClose={closeHandler} open={true} >
+            <p>Invalid credentials</p>
+            <button onClick={closeHandler}>Close</button>
+        </Dialog>
+    );}
     else
     if (error?.message === "Oops, email not verified!")
-      setPopupDetails({message: "Please verify your email"})
+    {
+      const closeHandler= () => {history.push('/')}
+      return(
+        <Dialog onClose={closeHandler} open={true} >
+            <p>Please verify your email</p>
+            <button onClick={closeHandler}>Close</button>
+        </Dialog>
+    );}
     else
     if (
       createUserError?.message.includes(
         "duplicate key value violates unique constraint"
       )
     )
-      setPopupDetails({message: "User registered already. Please login to continue..."})
-    else setPopupDetails({message: "Some error occured"})
+    {
+      const closeHandler= () => {window.location.reload()}
+      return(
+        <Dialog onClose={closeHandler} open={true} >
+            <p>User registered. Login to continue...</p>
+            <button onClick={closeHandler}>Close</button>
+        </Dialog>
+    );}
+    else  {
+      const closeHandler= () => {window.location.reload()}
+      return(
+        <Dialog onClose={closeHandler} open={true} >
+            <p>Some error occurred</p>
+            <button onClick={closeHandler}>Close</button>
+        </Dialog>
+    );}
   }
 
 
   if (loading || createUserLoading) {
-    setPopupDetails({message: "Loading..."})
+      return(
+        <Dialog open={true} >
+            <p>Loading...</p>
+        </Dialog>
+    );
   }
 
   if (createUserData) {
     if (createUserData.createUser)
-      setPopupDetails({message: " Verification mail has been sent to your registered mail ID. Please verify your mail to continue..."})
-    else setPopupDetails({message: "Some error occured"})
+    {
+      const closeHandler= () => {history.push('/')}
+      return(
+        <Dialog onClose={closeHandler} open={true} >
+            <p>Verification mail has been sent to your registered mail ID. Please verify your mail to continue...</p>
+            <button onClick={closeHandler}>Close</button>
+        </Dialog>
+    );}
+    else
+    {
+        const closeHandler= () => {window.location.reload()}
+        return(
+          <Dialog onClose={closeHandler} open={true} >
+              <p>Some error occurred</p>
+              <button onClick={closeHandler}>Close</button>
+          </Dialog>
+      );
+    }
   
-  if (data) {
-    return null;
-  }
 }
-const onClose = () => {history.push('')}
 
   return (
     <div className="Login">
@@ -238,19 +291,6 @@ const onClose = () => {history.push('')}
               </p>
             </>
           )}
-          {
-            error ? 
-            <Modal isOpen={true} onClose={onClose}>
-                    <ModalOverlay></ModalOverlay>
-                    <ModalContent backgroundColor="white" color="black">
-                        <ModalCloseButton onClick={onClose}></ModalCloseButton>
-                        <ModalBody >
-                            <p>{error?.message}</p>
-                        </ModalBody>
-                    </ModalContent>
-                    </Modal>
-                    : null
-          }
         </form>
         <div className="imgBox">
           <img src={registerIllustration} alt="" />

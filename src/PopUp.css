@@ -1,0 +1,18 @@
+.MuiPaper-root p 
+{
+    padding: 15px;
+}
+.MuiPaper-root button 
+{
+    background-color: #6c63ff;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    padding: 8px;
+    margin: auto;
+    align-self: center;
+}
+.MuiPaper-root
+{
+    padding: 20px;
+}
