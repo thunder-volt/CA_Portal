@@ -12,6 +12,8 @@ import {
   FaHandPointRight,
   FaChevronLeft,
   FaChevronRight,
+  FaYoutube,
+  FaYoutubeSquare,
 } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import sponsor1 from "./assets/edufabrica.png";
@@ -78,6 +80,9 @@ function Home() {
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
   const { role } = useContext(AuthContext);
+  const [contactName, setContactName] = React.useState("");
+  const [contactEmail, setContactEmail] = React.useState("");
+  const [contactMessage, setContactMessage] = React.useState("");
   return (
     <>
       <Header />
@@ -88,7 +93,12 @@ function Home() {
         <div className="contentBox">
           <h1>JOIN THE FAMILY</h1>
           <h3>STUDENT AMBASSADOR</h3>
-          <p>Lorem ipsum dolor sit amet</p>
+          <p>
+            The CAMPUS AMBASSADOR PROGRAM is a national level marketing
+            internship cum networking program of the tech savvy people. We aim
+            to hone and nurture the MARKETING and LEADERSHIP SKILLS of the
+            student community through this Campus Ambassador program
+          </p>
           {(role === null || role === "") && <Link to="/login">REGISTER</Link>}
         </div>
       </div>
@@ -377,33 +387,53 @@ function Home() {
             <form className="contact-form">
               <div className="contact-input">
                 <label>NAME</label>
-                <input type="text" id="name" name="name" />
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={contactName}
+                  onChange={(e) => setContactName(e.target.value)}
+                />
               </div>
               <div className="contact-input">
                 <label>EMAIL</label>
-                <input type="text" id="email" name="email" />
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={contactEmail}
+                  onChange={(e) => setContactEmail(e.target.value)}
+                />
               </div>
               <div className="contact-input">
                 <label>MESSAGE</label>
-                <textarea id="message" name="message" rows={4} />
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={4}
+                  value={contactMessage}
+                  onChange={(e) => setContactMessage(e.target.value)}
+                />
               </div>
-              <button className="message-btn">Message</button>
+              <button type="button" className="message-btn">
+                Message
+              </button>
             </form>
           </div>
           <div className="column">
             <h3>Contact Information</h3>
             <div className="contact-info">
               <div className="contact-ctn">
-                <FaMapMarkerAlt className="contact-btn" />
-                <p>Address</p>
+                <FaPhoneAlt className="contact-btn" />
+                <p>Shvetha Sivaprasad - 6379764273</p>
               </div>
               <div className="contact-ctn">
                 <FaPhoneAlt className="contact-btn" />
-                <p>Phone number</p>
+                <p>Madhan Kumar - 6303564574</p>
               </div>
               <div className="contact-ctn">
-                <FaEnvelope className="contact-btn" />
-                <p>Mail Id</p>
+                <FaPhoneAlt className="contact-btn" />
+                <p>Mohan Kumar - 9952729095</p>
               </div>
             </div>
           </div>
@@ -413,22 +443,28 @@ function Home() {
         <div className="row">
           <div className="column">
             <div className="footer-info">
-              <h3>Lorem ipsum dolor sit amet</h3>
+              <h3>You must be the change you wish to see in the world</h3>
               <p>Get In touch with us using any of the platforms</p>
             </div>
           </div>
           <div className="column">
             <div className="social-btn">
-              <a href="#">
+              <a target="_blank" href="https://www.facebook.com/Shaastra/">
                 <FaFacebookSquare className="btn" />
               </a>
-              <a href="#">
-                <FaTwitterSquare className="btn" />
+              <a target="_blank" href="https://www.youtube.com/c/iitmshaastra">
+                <FaYoutubeSquare className="btn" />
               </a>
-              <a href="#">
+              <a
+                target="_blank"
+                href="https://www.instagram.com/shaastra_iitm/?_se=c2h2ZXRoYUBzaGFhc3RyYS5vcmc%3D"
+              >
                 <FaInstagram className="btn" />
               </a>
-              <a href="#">
+              <a
+                target="_blank"
+                href="https://www.linkedin.com/company/shaastra-iit-madras/"
+              >
                 <FaLinkedin className="btn" />
               </a>
             </div>

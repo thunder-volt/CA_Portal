@@ -1,16 +1,15 @@
 import React, { useContext } from "react";
-import { Link, useHistory} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./Login.css";
 import loginIllustration from "./assets/illustration3.png";
 import registerIllustration from "./assets/illustration4.png";
 import shaastraLogo from "./assets/Shaastra_logo.png";
 import { FaAngleDoubleLeft } from "react-icons/fa";
-import {Dialog, Box} from "@material-ui/core"
+import { Dialog, Box } from "@material-ui/core";
 import { useCreateUserMutation, useLoginMutation } from "./generated";
 import AuthContext from "./utils/context";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 
 function Login() {
   const [login, setLogin] = React.useState(false);
@@ -22,18 +21,16 @@ function Login() {
   const [Rcpassword, setRcpassword] = React.useState("");
   const [notmatch, setNotmatch] = React.useState(false);
 
- 
   // const [Popup, setPopupDetails] = React.useState({
   //   message: "User Already Exists",
   // // });
   const { setRole } = useContext(AuthContext);
   const history = useHistory();
 
-
   const [loginMutation, { data, loading, error }] = useLoginMutation({
     onCompleted(data) {
       if (data?.login) {
-        console.log(data.login)
+        console.log(data.login);
         localStorage.setItem("name", data?.login.name);
         localStorage.setItem("email", data?.login.email);
         localStorage.setItem("role", data?.login.role);
@@ -41,7 +38,7 @@ function Login() {
       }
     },
   });
-  
+
   const [
     createUserMutation,
     {
@@ -50,7 +47,7 @@ function Login() {
       error: createUserError,
     },
   ] = useCreateUserMutation();
-  
+
   if (data) {
     history.push("/me");
     return null;
@@ -68,15 +65,17 @@ function Login() {
             },
           },
         });
-        console.log('done')
+      console.log("done");
       if (!login) {
         if (notmatch) {
-            const closeHandler= () => {history.push('/login')}
-            return(
-              <Dialog onClose={closeHandler} open={true} >
-                  <p>Password didn't match</p>
-                  <button onClick={closeHandler}>Close</button>
-              </Dialog>
+          const closeHandler = () => {
+            history.push("/login");
+          };
+          return (
+            <Dialog onClose={closeHandler} open={true}>
+              <p>Password didn't match</p>
+              <button onClick={closeHandler}>Close</button>
+            </Dialog>
           );
         }
         await createUserMutation({
@@ -99,90 +98,100 @@ function Login() {
       error?.message.includes(
         'Could not find any entity of type "User" matching'
       )
-    )
-    {
-      const handleClose = () => {window.location.reload()}
-      return(
-        <Dialog onClose={handleClose} open={true} >
-            <p>User not registered. Please register</p>
-            <button onClick={handleClose}>Close</button>
+    ) {
+      const handleClose = () => {
+        window.location.reload();
+      };
+      return (
+        <Dialog onClose={handleClose} open={true}>
+          <p>User not registered. Please register</p>
+          <button onClick={handleClose}>Close</button>
         </Dialog>
-    );}
-    else
-    if (error?.message === "Invalid Credential")
-    {
-      const closeHandler= () => {window.location.reload()}
-      return(
-        <Dialog onClose={closeHandler} open={true} >
-            <p>Invalid credentials</p>
-            <button onClick={closeHandler}>Close</button>
+      );
+    } else if (error?.message === "Invalid Credential") {
+      const closeHandler = () => {
+        window.location.reload();
+      };
+      return (
+        <Dialog onClose={closeHandler} open={true}>
+          <p>Invalid credentials</p>
+          <button onClick={closeHandler}>Close</button>
         </Dialog>
-    );}
-    else
-    if (error?.message === "Oops, email not verified!")
-    {
-      const closeHandler= () => {history.push('/')}
-      return(
-        <Dialog onClose={closeHandler} open={true} >
-            <p>Please verify your account by the clicking on the verification link sent to your registered email</p>
-            <button onClick={closeHandler}>Close</button>
+      );
+    } else if (error?.message === "Oops, email not verified!") {
+      const closeHandler = () => {
+        history.push("/");
+      };
+      return (
+        <Dialog onClose={closeHandler} open={true}>
+          <p>
+            Please verify your account by the clicking on the verification link
+            sent to your registered email
+          </p>
+          <button onClick={closeHandler}>Close</button>
         </Dialog>
-    );}
-    else
-    if (
+      );
+    } else if (
       createUserError?.message.includes(
         "duplicate key value violates unique constraint"
       )
-    )
-    {
-      const closeHandler= () => {window.location.reload()}
-      return(
-        <Dialog onClose={closeHandler} open={true} >
-            <p>User registered. Login to continue!</p>
-            <button onClick={closeHandler}>Close</button>
+    ) {
+      const closeHandler = () => {
+        window.location.reload();
+      };
+      return (
+        <Dialog onClose={closeHandler} open={true}>
+          <p>User registered. Login to continue!</p>
+          <button onClick={closeHandler}>Close</button>
         </Dialog>
-    );}
-    else  {
-      const closeHandler= () => {window.location.reload()}
-      return(
-        <Dialog onClose={closeHandler} open={true} >
-            <p>Some error occurred</p>
-            <button onClick={closeHandler}>Close</button>
+      );
+    } else {
+      const closeHandler = () => {
+        window.location.reload();
+      };
+      return (
+        <Dialog onClose={closeHandler} open={true}>
+          <p>Some error occurred</p>
+          <button onClick={closeHandler}>Close</button>
         </Dialog>
-    );}
+      );
+    }
   }
 
-
   if (loading || createUserLoading) {
-      return(
-        <Dialog open={true} >
-            <p>Loading...</p>
-        </Dialog>
+    return (
+      <Dialog open={true}>
+        <p>Loading...</p>
+      </Dialog>
     );
   }
 
   if (createUserData) {
-    if (createUserData.createUser)
-    {
-      const closeHandler= () => {history.push('/')}
-      return(
-        <Dialog onClose={closeHandler} open={true} >
-            <p>Verification mail has been sent to your registered mail ID. Please verify your mail to continue...</p>
-            <button onClick={closeHandler}>Close</button>
+    if (createUserData.createUser) {
+      const closeHandler = () => {
+        history.push("/");
+      };
+      return (
+        <Dialog onClose={closeHandler} open={true}>
+          <p>
+            Verification mail has been sent to your registered mail ID. Please
+            verify your mail to continue...
+          </p>
+          <button onClick={closeHandler}>Close</button>
         </Dialog>
-    );}
-    else
-    {
-        const closeHandler= () => {window.location.reload()}
-        return(
-          <Dialog onClose={closeHandler} open={true} >
-              <p>Some error occurred</p>
-              <button onClick={closeHandler}>Close</button>
-          </Dialog>
+      );
+    } else {
+      const closeHandler = () => {
+        window.location.reload();
+      };
+      return (
+        <Dialog onClose={closeHandler} open={true}>
+          <p>Some error occurred</p>
+          <button onClick={closeHandler}>Close</button>
+        </Dialog>
       );
     }
-  
-}
+  }
 
   return (
     <div className="Login">

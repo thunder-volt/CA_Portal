@@ -223,7 +223,10 @@ label {
   letter-spacing: 1px;
 }
 .Home_landing .contentBox p {
+  font-size: 14px;
+  font-weight: 450;
   letter-spacing: 1px;
+  max-width: 700px;
 }
 .Home_landing .contentBox a {
   text-decoration: none;
@@ -231,7 +234,7 @@ label {
   background-color: #6c63ff;
   letter-spacing: 1px;
   padding: 7px 15px;
-  margin: 10px;
+  margin: 10px 0;
   display: inline-block;
   border-radius: 5px;
 }
@@ -256,6 +259,18 @@ label {
     flex-direction: column-reverse;
     justify-content: center;
     align-items: center;
+    height: auto;
+    padding: 50px 0 0 0;
+  }
+  .Home_landing .contentBox h1 {
+    font-size: 3em;
+  }
+  .Home_landing .contentBox h3 {
+    font-size: 1.1em;
+  }
+  .Home_landing .contentBox p {
+    font-size: 13px;
+    margin: 10px 0;
   }
   .Home_landing .imgBox {
     position: relative;
@@ -325,7 +340,7 @@ label {
   }
   .Home_roles h1 {
     font-weight: 600;
-    font-size: 2.5em;
+    font-size: 2.1em;
     line-height: 1.2em;
     margin-bottom: 15px;
     color: #6059df;
@@ -392,7 +407,7 @@ label {
 .Home_whyJoinUS h1,
 .Home_responsiblities h1 {
   font-weight: 600;
-  font-size: 2.4em;
+  font-size: 2.1em;
   line-height: 1.2em;
   margin-bottom: 30px;
   color: #6059df;
@@ -544,8 +559,14 @@ label {
   }
 }
 @media screen and (max-width: 750px) {
+  .Home_prizes h1 {
+    font-size: 2.6em;
+  }
   .Home_testimonials .cardBox .card {
     height: fit-content;
+  }
+  .Home_testimonials h1 {
+    font-size: 2.5em;
   }
 }
 .faq {
