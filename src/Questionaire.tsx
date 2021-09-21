@@ -1,5 +1,5 @@
 import React from "react";
-import { FaAngleRight, FaHandPointRight, FaTimes } from "react-icons/fa";
+import { FaBullseye, FaHandPointRight, FaTimes } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import { useFillQuestionnaireMutation } from "./generated";
 import {Dialog, Box} from '@material-ui/core';
@@ -345,9 +345,8 @@ function Questionaire() {
             value={Q3}
           />
           <p>Why do you wish to become a Campus Ambassador ? </p>
-          <input
+          <textarea
             required
-            type="text"
             placeholder="(Short answer type)"
             onChange={(e: any) => setQ4(e.target.value)}
             value={Q4}
@@ -355,9 +354,8 @@ function Questionaire() {
           <p>
             Why do you think you are the right candidate for this position ?{" "}
           </p>
-          <input
+          <textarea
             required
-            type="text"
             placeholder="(Short answer type)"
             onChange={(e: any) => setQ5(e.target.value)}
             value={Q5}
@@ -384,9 +382,8 @@ function Questionaire() {
             />
             <label>NO</label>
           </div>
-          <input
+          <textarea
             required={pastExperiennce}
-            type="text"
             style={{
               display: pastExperiennce ? "block" : "none",
             }}
@@ -449,33 +446,33 @@ function Questionaire() {
                 Tasks allotted to CAs will include, but not be limited to:
                 <ul>
                   <li>
-                    <FaAngleRight />
+                    <FaBullseye />
                     Putting up posters
                   </li>
                   <li>
-                    <FaAngleRight />
+                    <FaBullseye />
                     Sharing posts put up by the Shaastra Facebook page
                   </li>
                   <li>
-                    <FaAngleRight />
+                    <FaBullseye />
                     Sending mails for publicity
                   </li>
                   <li>
-                    <FaAngleRight />
+                    <FaBullseye />
                     Getting MoUs signed
                   </li>
                   <li>
-                    <FaAngleRight />
+                    <FaBullseye />
                     Taking care of organizational aspects of events including
                     facilities and requirements
                   </li>
                   <li>
-                    <FaAngleRight />
+                    <FaBullseye />
                     Visiting colleges or other public venues for carrying out
                     on-ground publicity
                   </li>
                   <li>
-                    <FaAngleRight />
+                    <FaBullseye />
                     Getting participants through referrals
                   </li>
                 </ul>

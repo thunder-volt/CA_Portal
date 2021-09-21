@@ -14,7 +14,7 @@ function Application() {
   const {data: getUserData, loading : getUserLoading, error : getUserError} = useGetUserQuery({variables: {userId: id}})
   const history = useHistory()
   const [coord, setCoord] = React.useState("")
-  const [input, setInput] = React.useState<ApplicationResultInput>({coord:"",id:"",isSelected:false})
+  const [input, setInput] = React.useState<ApplicationResultInput>({coord:"",id:id,isSelected:false})
   console.log(data)
 
   const accept = async () => {

@@ -31,6 +31,7 @@
   align-items: center;
 }
 .Questionaire form input,
+.Questionaire form textarea,
 .Questionaire form select,
 .Questionaire form select option,
 .Questionaire form .wrapper .left input,
@@ -45,6 +46,10 @@
   border: none;
   outline: none;
   background-color: #dfdfdf;
+}
+.Questionaire form textarea{
+  width: 100% !important;
+  resize: vertical;
 }
 .Questionaire form select {
   max-width: 150px;
