@@ -32,7 +32,11 @@
   padding: 12px;
   width: 40px;
 }
-
+tr a 
+{
+  text-decoration: none;
+  color: black;
+}
 tr {
   background-color: #c2bfff;
 }

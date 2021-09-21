@@ -21,3 +21,12 @@ query getQuestionnaire {
     Q6
   }
 }
+
+query getUser($userId: String!)
+{
+  getUser(userId: $userId)
+  {
+    name,
+    email
+  }
+}

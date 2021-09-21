@@ -48,7 +48,7 @@ const App = () => {
           <Route exact path="/verify/:token" component={Verify} />
           <Route exact path="/search" component={Search_filter} />
           <Route exact path="/my-application" component={MyApplication} />
-          <Route exact path="/application" component={Application} />
+          <Route exact path="/application/:id" component={Application} />
           <Route
             exact
             path="/resendverification"

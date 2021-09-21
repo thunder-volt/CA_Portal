@@ -1,7 +1,48 @@
+import { stringify } from "querystring";
 import React from "react";
+import { useHistory, useParams } from "react-router";
 import "./Application.css";
+import { FaUserCircle } from "react-icons/fa";
 import images1 from "./assets/demopic.jpg";
+import {ApplicationResultInput, useApplicationResultMutation, useGetQuestionnaireByUserIdQuery, useGetUserQuery, UserRole} from "./generated"
+
 function Application() {
+  let {id}:any = useParams()
+  console.log(id)
+  const {data,loading,error} = useGetQuestionnaireByUserIdQuery({variables: {userid: id}})
+  const [applicationMutation] = useApplicationResultMutation()
+  const {data: getUserData, loading : getUserLoading, error : getUserError} = useGetUserQuery({variables: {userId: id}})
+  const history = useHistory()
+  const [coord, setCoord] = React.useState("")
+  const [input, setInput] = React.useState<ApplicationResultInput>({coord:"",id:"",isSelected:false})
+  console.log(data)
+
+  const accept = async () => {
+    setInput({coord: coord, id: id, isSelected: true})
+    try
+    {
+      const resp = await applicationMutation({variables: {data: input}})
+    }
+    catch(err)
+    {
+      window.alert(err)
+    }
+    history.push('/search')
+  }
+  const reject = async () => {
+    setInput({coord: coord, id: id, isSelected: false})
+    try 
+    {
+      const resp = await applicationMutation({variables: {data: input}})
+    }
+    catch(err)
+    {
+      window.alert(err)
+    }
+    history.push('/search')
+  }
+
+  if(getUserData)
   return (
     <div className="Application">
       <div>
@@ -9,58 +50,59 @@ function Application() {
         <div className="flexdis">
           <div>
             <h2>PROFILE DETAILS :</h2>
-            <h2 className="details">USER NAME</h2>
-            <h2 className="details">EMAIL@gmail.com</h2>
+            <h2 className="details">{getUserData.getUser?.name}</h2>
+            <h2 className="details">{getUserData.getUser?.email}</h2>
           </div>
           <div>
-            <img className="photo" src={images1} alt="" />
+            <FaUserCircle className="photo" size="30%"></FaUserCircle>
+            {/* <img className="photo" src={FaUserCircle} alt="" /> */}
           </div>
         </div>
         <div className="column">
           <div>
             <ul className="ul11">
               <li>
-                <b>COLLEGE NAME :</b> COLLEGE NAME
+                <b>COLLEGE NAME :</b> {data?.getQuestionnaireByUserId.college}
               </li>
               <li>
-                <b>COLLEGE ADDRESS :</b> COLLEGE ADDRESS
+                <b>COLLEGE ADDRESS :</b> {data?.getQuestionnaireByUserId.collegeaddress}
               </li>
               <li>
-                <b>CITY :</b> CITY
+                <b>CITY :</b> {data?.getQuestionnaireByUserId.city}
               </li>
               <li>
-                <b>STATE :</b> STATE
+                <b>STATE :</b> {data?.getQuestionnaireByUserId.state}
               </li>
               <li>
-                <b>DEGREE:</b> DEGREE
+                <b>DEGREE:</b> {data?.getQuestionnaireByUserId.Degree}
               </li>
               <li>
-                <b>BRANCH :</b> BRANCH
+                <b>BRANCH :</b> {data?.getQuestionnaireByUserId.branch}
               </li>
               <li>
-                <b>YEAR :</b> 2018
+                <b>YEAR :</b> {data?.getQuestionnaireByUserId.year}
               </li>
             </ul>
           </div>
           <div>
             <ul>
               <li>
-                <b>POSTAL ADDRESS:</b> POSTAL ADDRESS
+                <b>POSTAL ADDRESS:</b> {data?.getQuestionnaireByUserId.postaladdress}
               </li>
               <li>
-                <b>CITY :</b> CITY
+                <b>CITY :</b> {data?.getQuestionnaireByUserId.pcity}
               </li>
               <li>
-                <b>STATE :</b> STATE
+                <b>STATE :</b> {data?.getQuestionnaireByUserId.pstate}
               </li>
               <li>
-                <b>PINCODE :</b> PINCODE
+                <b>PINCODE :</b> {data?.getQuestionnaireByUserId.pincode}
               </li>
               <li>
-                <b>CONTACT NUMBER :</b> 9877867575
+                <b>CONTACT NUMBER :</b> {data?.getQuestionnaireByUserId.contactno}
               </li>
               <li>
-                <b>WHATSAPP NUMBER :</b> 985766564
+                <b>WHATSAPP NUMBER :</b> {data?.getQuestionnaireByUserId.whatsappno}
               </li>
             </ul>
           </div>
@@ -71,60 +113,66 @@ function Application() {
         <div className="questions">
           <h3>Were you a Shaastra CA previously?</h3>
           <div>
-            <p>Yes</p>
+            <p>{data?.getQuestionnaireByUserId.Q1 === "NO" ? "NO" : "YES"}</p>
           </div>
           <p></p>
           <h3>If Your answer to the above question is yes, which year ?</h3>
-          <p>2018</p>
+          <p>{data?.getQuestionnaireByUserId.Q1 === "NO" ? "-" : data?.getQuestionnaireByUserId.Q1}</p>
           <h3>Which social media sites do you use? </h3>
           <p>
-            Lorem ipsum dolor, sit amet reprehenderit accusantium illum sed
-            doloribus quisquam
+            {data?.getQuestionnaireByUserId.Q2}
           </p>
           <h3> Facebook Profile Link: </h3>
           <p>
-            link
-            <link rel="stylesheet" href="styles.css" />
+            {data?.getQuestionnaireByUserId.Q3}
+            <link rel="stylesheet" href="styles.css"  />
           </p>
           <h3> Why do you wish to become a Campus Ambassador? </h3>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus
-            modi laborum voluptatum, pariatur quibusdam doloribus dolorum fugit
-            rerum excepturi nulla recusandae repellendus error cupiditate
-            perferendis illum rem autem voluptatem ipsam?
+            {data?.getQuestionnaireByUserId.Q4}
           </p>
           <h3>
             Why do you think you are the right candidate for this position?
           </h3>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus
-            modi laborum voluptatum, pariatur quibusdam doloribus dolorum fugit
-            rerum excepturi nulla recusandae repellendus error cupiditate
-            perferendis illum rem autem voluptatem ipsam?
+            {data?.getQuestionnaireByUserId.Q5}
           </p>
           <h3>
             Do you have any past experience in handling Positions of
             Responsibility?{" "}
           </h3>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus
-            modi laborum voluptatum, pariatur quibusdam doloribus dolorum fugit
-            rerum excepturi nulla recusandae repellendus error cupiditate
-            perferendis illum rem autem voluptatem ipsam?
+            {data?.getQuestionnaireByUserId.Q6}
           </p>
           <label htmlFor="sfafaferfaef"></label>
-          <select>
-            <option>SOME USER NAME</option>
-            <option>Coordinator1 </option>
-            <option>Coordinator2 </option>
-            <option>Coordinator3 </option>
+          <select onChange={(e) => {
+            e.preventDefault()
+            setCoord(e.target.value)
+            }}>
+            <option value="Anshid">Anshid</option>
+            <option value="Samrudha Lakshmi">Samrudha Lakshmi</option>
+            <option value="Poojitha R">Poojitha R</option>
+            <option value="Sukriti">Sukriti </option>
+            <option value="Vishwa">Vishwa</option>
+            <option value="Pavan Kumar">Pavan Kumar</option>
+            <option value="Joshik Sravan">Joshik Sravan</option>
+            <option value="Sadguru Sharan">Sadguru Sharan</option>
+            <option value="Keerthana">Keerthana</option>
+            <option value="Ankit">Ankit</option>
+            <option value="Gokul Vijay">Gokul Vijay</option>
+            <option value="Vinaykumar">Vinaykumar</option>
+            <option value="Aditya">Aditya</option>
+            <option value="Rahul Bumb">Rahul Bumb</option>
+            <option value="Umesh">Umesh</option>
+            <option value="Reethika">Reethika</option>
           </select>
         </div>
       </div>
-      <button className="submit">ACCEPT</button>
-      <button className="decline">DECLINE</button>
+      <button className="submit" onClick={accept}>ACCEPT</button>
+      <button className="decline" onClick={reject}>DECLINE</button>
     </div>
-  );
+  )
+  else return null
 }
 
 export default Application;

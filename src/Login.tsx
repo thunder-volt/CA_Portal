@@ -9,6 +9,14 @@ import { useCreateUserMutation, useLoginMutation } from "./generated";
 import AuthContext from "./utils/context";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  useDisclosure,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react"
 
 function Login() {
   const [login, setLogin] = React.useState(false);
@@ -22,12 +30,16 @@ function Login() {
   const [Popup, setPopupDetails] = React.useState({
     message: "User Already Exists",
   });
+  const [e, setError] = React.useState(false)
   const { setRole } = useContext(AuthContext);
   const history = useHistory();
+
+  // var { isOpen, onOpen, onClose } = useDisclosure()
 
   const [loginMutation, { data, loading, error }] = useLoginMutation({
     onCompleted(data) {
       if (data?.login) {
+        console.log(data.login)
         localStorage.setItem("name", data?.login.name);
         localStorage.setItem("email", data?.login.email);
         localStorage.setItem("role", data?.login.role);
@@ -36,7 +48,7 @@ function Login() {
       }
     },
   });
-
+  
   const [
     createUserMutation,
     {
@@ -58,6 +70,7 @@ function Login() {
             },
           },
         });
+        console.log('done')
       if (!login) {
         if (notmatch) {
           window.alert("Password didn't match");
@@ -79,46 +92,44 @@ function Login() {
   };
 
   if (error || createUserError) {
+    setError(true)
     if (
       error?.message.includes(
         'Could not find any entity of type "User" matching'
       )
     )
-      return <p>User not registered</p>;
-
+    setPopupDetails({message: "User not registered"})
+    else
     if (error?.message === "Invalid Credential")
-      return <p>Invalid Credential</p>;
-
+      setPopupDetails({message: "Invalid Credentials"})
+    else
     if (error?.message === "Oops, email not verified!")
-      return <p>Please verify your email</p>;
-
+      setPopupDetails({message: "Please verify your email"})
+    else
     if (
       createUserError?.message.includes(
         "duplicate key value violates unique constraint"
       )
     )
-      return <p>User registered already. Please login to continue...</p>;
-    else return <p>Some error occurred</p>;
+      setPopupDetails({message: "User registered already. Please login to continue..."})
+    else setPopupDetails({message: "Some error occured"})
   }
 
+
   if (loading || createUserLoading) {
-    return <p>Loading...</p>;
+    setPopupDetails({message: "Loading..."})
   }
 
   if (createUserData) {
     if (createUserData.createUser)
-      return (
-        <p>
-          Verification mail has been sent to your registered mail ID. Please
-          verify your mail to continue...
-        </p>
-      );
-    else return <p>Some error occurred</p>;
-  }
-
+      setPopupDetails({message: " Verification mail has been sent to your registered mail ID. Please verify your mail to continue..."})
+    else setPopupDetails({message: "Some error occured"})
+  
   if (data) {
     return null;
   }
+}
+const onClose = () => {history.push('')}
 
   return (
     <div className="Login">
@@ -227,6 +238,19 @@ function Login() {
               </p>
             </>
           )}
+          {
+            error ? 
+            <Modal isOpen={true} onClose={onClose}>
+                    <ModalOverlay></ModalOverlay>
+                    <ModalContent backgroundColor="white" color="black">
+                        <ModalCloseButton onClick={onClose}></ModalCloseButton>
+                        <ModalBody >
+                            <p>{error?.message}</p>
+                        </ModalBody>
+                    </ModalContent>
+                    </Modal>
+                    : null
+          }
         </form>
         <div className="imgBox">
           <img src={registerIllustration} alt="" />
