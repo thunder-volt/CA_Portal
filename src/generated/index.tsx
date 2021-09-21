@@ -40,7 +40,7 @@ export type FilterTaskReview = {
 
 export type GetUsersFilter = {
   coord?: Maybe<Scalars['String']>;
-  role?: Maybe<Scalars['String']>;
+  role?: Maybe<UserRole>;
 };
 
 export type GetUsersOutput = {
@@ -227,6 +227,8 @@ export type QuestionnaireInput = {
   Q5: Scalars['String'];
   Q6: Scalars['String'];
   branch: Scalars['String'];
+  city: Scalars['String'];
+  college: Scalars['String'];
   collegeaddress: Scalars['String'];
   contactno: Scalars['String'];
   pcity: Scalars['String'];
@@ -303,6 +305,13 @@ export type User = {
   totalPoints: Scalars['Float'];
 };
 
+export enum UserRole {
+  Admin = 'ADMIN',
+  Registered = 'REGISTERED',
+  Rejected = 'REJECTED',
+  Selected = 'SELECTED'
+}
+
 export type Questionnaire = {
   Degree: Scalars['String'];
   Q1: Scalars['String'];
@@ -312,6 +321,8 @@ export type Questionnaire = {
   Q5: Scalars['String'];
   Q6: Scalars['String'];
   branch: Scalars['String'];
+  city: Scalars['String'];
+  college: Scalars['String'];
   collegeaddress: Scalars['String'];
   contactno: Scalars['String'];
   id: Scalars['ID'];
@@ -342,6 +353,34 @@ export type LogoutUserMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type LogoutUserMutation = { logoutUser: boolean };
+
+export type ApplicationResultMutationVariables = Exact<{
+  data: ApplicationResultInput;
+}>;
+
+
+export type ApplicationResultMutation = { applicationResult: boolean };
+
+export type GetUsersQueryVariables = Exact<{
+  filter?: Maybe<GetUsersFilter>;
+  Skip?: Maybe<Scalars['Float']>;
+  limit?: Maybe<Scalars['Float']>;
+}>;
+
+
+export type GetUsersQuery = { getUsers?: Maybe<{ count: number, users: Array<{ name: string, id: string, caID?: Maybe<string>, email: string }> }> };
+
+export type GetQuestionnaireQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetQuestionnaireQuery = { getQuestionnaire: { college: string, collegeaddress: string, city: string, state: string, Degree: string, branch: string, year: string, postaladdress: string, pcity: string, pstate: string, pincode: string, contactno: string, whatsappno: string, Q1: string, Q2: string, Q3: string, Q4: string, Q5: string, Q6: string } };
+
+export type GetQuestionnaireByUserIdQueryVariables = Exact<{
+  userid: Scalars['String'];
+}>;
+
+
+export type GetQuestionnaireByUserIdQuery = { getQuestionnaireByUserId: { college: string, collegeaddress: string, city: string, state: string, Degree: string, branch: string, year: string, postaladdress: string, pcity: string, pstate: string, pincode: string, contactno: string, whatsappno: string, Q1: string, Q2: string, Q3: string, Q4: string, Q5: string, Q6: string } };
 
 
 export const LoginDocument = gql`
@@ -440,3 +479,191 @@ export function useLogoutUserMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type LogoutUserMutationHookResult = ReturnType<typeof useLogoutUserMutation>;
 export type LogoutUserMutationResult = ApolloReactCommon.MutationResult<LogoutUserMutation>;
 export type LogoutUserMutationOptions = ApolloReactCommon.BaseMutationOptions<LogoutUserMutation, LogoutUserMutationVariables>;
+export const ApplicationResultDocument = gql`
+    mutation applicationResult($data: ApplicationResultInput!) {
+  applicationResult(data: $data)
+}
+    `;
+export type ApplicationResultMutationFn = ApolloReactCommon.MutationFunction<ApplicationResultMutation, ApplicationResultMutationVariables>;
+
+/**
+ * __useApplicationResultMutation__
+ *
+ * To run a mutation, you first call `useApplicationResultMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useApplicationResultMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [applicationResultMutation, { data, loading, error }] = useApplicationResultMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useApplicationResultMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<ApplicationResultMutation, ApplicationResultMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<ApplicationResultMutation, ApplicationResultMutationVariables>(ApplicationResultDocument, options);
+      }
+export type ApplicationResultMutationHookResult = ReturnType<typeof useApplicationResultMutation>;
+export type ApplicationResultMutationResult = ApolloReactCommon.MutationResult<ApplicationResultMutation>;
+export type ApplicationResultMutationOptions = ApolloReactCommon.BaseMutationOptions<ApplicationResultMutation, ApplicationResultMutationVariables>;
+export const GetUsersDocument = gql`
+    query getUsers($filter: GetUsersFilter, $Skip: Float, $limit: Float) {
+  getUsers(filter: $filter, skip: $Skip, limit: $limit) {
+    users {
+      name
+      id
+      caID
+      email
+    }
+    count
+  }
+}
+    `;
+
+/**
+ * __useGetUsersQuery__
+ *
+ * To run a query within a React component, call `useGetUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUsersQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *      Skip: // value for 'Skip'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useGetUsersQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUsersQuery, GetUsersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, options);
+      }
+export function useGetUsersLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUsersQuery, GetUsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, options);
+        }
+export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>;
+export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>;
+export type GetUsersQueryResult = ApolloReactCommon.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
+export function refetchGetUsersQuery(variables?: GetUsersQueryVariables) {
+      return { query: GetUsersDocument, variables: variables }
+    }
+export const GetQuestionnaireDocument = gql`
+    query getQuestionnaire {
+  getQuestionnaire {
+    college
+    collegeaddress
+    city
+    state
+    Degree
+    branch
+    year
+    postaladdress
+    pcity
+    pstate
+    pincode
+    contactno
+    whatsappno
+    Q1
+    Q2
+    Q3
+    Q4
+    Q5
+    Q6
+  }
+}
+    `;
+
+/**
+ * __useGetQuestionnaireQuery__
+ *
+ * To run a query within a React component, call `useGetQuestionnaireQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetQuestionnaireQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetQuestionnaireQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetQuestionnaireQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetQuestionnaireQuery, GetQuestionnaireQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<GetQuestionnaireQuery, GetQuestionnaireQueryVariables>(GetQuestionnaireDocument, options);
+      }
+export function useGetQuestionnaireLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetQuestionnaireQuery, GetQuestionnaireQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<GetQuestionnaireQuery, GetQuestionnaireQueryVariables>(GetQuestionnaireDocument, options);
+        }
+export type GetQuestionnaireQueryHookResult = ReturnType<typeof useGetQuestionnaireQuery>;
+export type GetQuestionnaireLazyQueryHookResult = ReturnType<typeof useGetQuestionnaireLazyQuery>;
+export type GetQuestionnaireQueryResult = ApolloReactCommon.QueryResult<GetQuestionnaireQuery, GetQuestionnaireQueryVariables>;
+export function refetchGetQuestionnaireQuery(variables?: GetQuestionnaireQueryVariables) {
+      return { query: GetQuestionnaireDocument, variables: variables }
+    }
+export const GetQuestionnaireByUserIdDocument = gql`
+    query getQuestionnaireByUserId($userid: String!) {
+  getQuestionnaireByUserId(userid: $userid) {
+    college
+    collegeaddress
+    city
+    state
+    Degree
+    branch
+    year
+    postaladdress
+    pcity
+    pstate
+    pincode
+    contactno
+    whatsappno
+    Q1
+    Q2
+    Q3
+    Q4
+    Q5
+    Q6
+  }
+}
+    `;
+
+/**
+ * __useGetQuestionnaireByUserIdQuery__
+ *
+ * To run a query within a React component, call `useGetQuestionnaireByUserIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetQuestionnaireByUserIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetQuestionnaireByUserIdQuery({
+ *   variables: {
+ *      userid: // value for 'userid'
+ *   },
+ * });
+ */
+export function useGetQuestionnaireByUserIdQuery(baseOptions: ApolloReactHooks.QueryHookOptions<GetQuestionnaireByUserIdQuery, GetQuestionnaireByUserIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<GetQuestionnaireByUserIdQuery, GetQuestionnaireByUserIdQueryVariables>(GetQuestionnaireByUserIdDocument, options);
+      }
+export function useGetQuestionnaireByUserIdLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetQuestionnaireByUserIdQuery, GetQuestionnaireByUserIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<GetQuestionnaireByUserIdQuery, GetQuestionnaireByUserIdQueryVariables>(GetQuestionnaireByUserIdDocument, options);
+        }
+export type GetQuestionnaireByUserIdQueryHookResult = ReturnType<typeof useGetQuestionnaireByUserIdQuery>;
+export type GetQuestionnaireByUserIdLazyQueryHookResult = ReturnType<typeof useGetQuestionnaireByUserIdLazyQuery>;
+export type GetQuestionnaireByUserIdQueryResult = ApolloReactCommon.QueryResult<GetQuestionnaireByUserIdQuery, GetQuestionnaireByUserIdQueryVariables>;
+export function refetchGetQuestionnaireByUserIdQuery(variables?: GetQuestionnaireByUserIdQueryVariables) {
+      return { query: GetQuestionnaireByUserIdDocument, variables: variables }
+    }

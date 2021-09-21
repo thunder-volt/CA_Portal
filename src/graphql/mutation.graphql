@@ -13,3 +13,68 @@ mutation createUser($createUserInput: CreateUserInput!){
 mutation logoutUser{
   logoutUser
 }
+
+mutation applicationResult($data: ApplicationResultInput!)
+{
+  applicationResult(data: $data)
+}
+
+query getUsers($filter: GetUsersFilter, $Skip: Float, $limit: Float){
+    getUsers(filter: $filter, skip: $Skip, limit: $limit){
+        users{
+            name,
+            id,
+            caID,
+            email,
+        },
+        count
+    }
+}
+
+query getQuestionnaire{
+  getQuestionnaire{
+    college,
+    collegeaddress,
+    city,
+    state,
+    Degree,
+    branch,
+    year,
+    postaladdress,
+    pcity,
+    pstate,
+    pincode,
+    contactno,
+    whatsappno,
+    Q1,
+    Q2,
+    Q3,
+    Q4,
+    Q5,Q6
+  }
+}
+
+query getQuestionnaireByUserId($userid: String!)
+{
+  getQuestionnaireByUserId(userid: $userid)
+  {
+    college,
+    collegeaddress,
+    city,
+    state,
+    Degree,
+    branch,
+    year,
+    postaladdress,
+    pcity,
+    pstate,
+    pincode,
+    contactno,
+    whatsappno,
+    Q1,
+    Q2,
+    Q3,
+    Q4,
+    Q5,Q6
+  }
+}

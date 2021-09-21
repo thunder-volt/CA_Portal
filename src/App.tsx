@@ -44,7 +44,7 @@ const App = () => {
           <Route exact path="/forgotpassword" component={ForgotPassword} />
           <Route exact path="/verification" component={VerificationPage} />
           <Route exact path="/search" component={Search_filter} />
-          <Route exact path="/application" component={Application} />
+          <Route exact path="/application/:id" component={Application} />
           <Route
             exact
             path="/resendverification"
