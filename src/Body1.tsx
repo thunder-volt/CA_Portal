@@ -8,7 +8,7 @@ const Body1 = () => {
     return (
       <div className="Bodyt">
         <div className="Body_Item1t">
-          <b>THANK YOU FOR APPLYING FOR CAMPUS AMABASSADOR</b>
+          <b>THANK YOU FOR APPLYING TO CAMPUS AMABASSADOR</b>
         </div>
         <div className="Style1t">
           YOUR APPLICATION IS UNDER PROCESS.{" "}

@@ -124,7 +124,7 @@ function Login() {
       const closeHandler= () => {history.push('/')}
       return(
         <Dialog onClose={closeHandler} open={true} >
-            <p>Please verify your email</p>
+            <p>Please verify your account by the clicking on the verification link sent to your registered email</p>
             <button onClick={closeHandler}>Close</button>
         </Dialog>
     );}
@@ -138,7 +138,7 @@ function Login() {
       const closeHandler= () => {window.location.reload()}
       return(
         <Dialog onClose={closeHandler} open={true} >
-            <p>User registered. Login to continue...</p>
+            <p>User registered. Login to continue!</p>
             <button onClick={closeHandler}>Close</button>
         </Dialog>
     );}

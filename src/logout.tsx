@@ -2,17 +2,12 @@ import React from "react";
 import { useLogoutUserMutation } from "./generated";
 import { Dialog, Box } from "@material-ui/core";
 import { useHistory } from "react-router";
+import { useContext } from "react";
+import AuthContext from "./utils/context";
 
 const Logout = () => {
-  const [logoutUserMutation, { data, loading, error }] = useLogoutUserMutation({
-    onCompleted(date) {
-      if (data?.logoutUser) {
-        localStorage.removeItem("name");
-        localStorage.removeItem("email");
-        localStorage.removeItem("role");
-      }
-    },
-  });
+  const { setRole } = useContext(AuthContext)
+  const [logoutUserMutation, { data, loading, error }] = useLogoutUserMutation();
   const history = useHistory()
 
   const logoutHandler = async () => {
@@ -37,7 +32,13 @@ const Logout = () => {
   );}
   if (data) {
     if (data.logoutUser) {
-      const closeHandler= () => {history.push('/')}
+      localStorage.removeItem("name");
+      localStorage.removeItem("email");
+      localStorage.removeItem("role");
+      const closeHandler= () => {
+        history.push('/');
+        setRole("")
+      }
       return(
         <Dialog onClose={closeHandler} open={true} >
             <p>Logout successful.</p>

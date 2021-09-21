@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Home from "./Home";
 import LeaderBoard from "./LeaderBoard";
@@ -20,6 +20,7 @@ import ResetPassword from "./ResetPassword";
 import ResendVerificationMail from "./ResendVerificationMail";
 import MyApplication from "./MyApplication";
 import Verify from "./Verify";
+//import { Route, Route, Route } from "./utils/routes";
 
 const App = () => {
   const { role } = useContext(AuthContext);
@@ -27,33 +28,55 @@ const App = () => {
     <ApolloProvider client={client}>
       <div className="App">
         <Router>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/profile" component={Profile} />
-          {role === "REGISTERED" && (
-            <Route exact path="/me" component={Body1} />
+          {!!role === false && (
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/forgotpassword" component={ForgotPassword} />
+              <Route
+                exact
+                path="/forgotpassword/:token"
+                component={ResetPassword}
+              />
+              <Route exact path="/verify/:token" component={Verify} />
+              <Route
+                exact
+                path="/resendverification"
+                component={ResendVerificationMail}
+              />
+            </Switch>
           )}
-          {role === "SELECTED" && (
-            <Route exact path="/me" component={Selected} />
+          {(role === "SELECTED" ||
+            role === "REGISTERED" ||
+            role === "REJECTED") && (
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/profile" component={Profile} />
+              {role === "REGISTERED" && (
+                <Route exact path="/me" component={Body1} />
+              )}
+              {role === "SELECTED" && (
+                <Route exact path="/me" component={Selected} />
+              )}
+              {role === "REJECTED" && (
+                <Route exact path="/me" component={Rejected} />
+              )}
+              <Route exact path="/questionaire" component={Questionaire} />
+              {/* <Route exact path="/leaderboards" component={LeaderBoard} />
+          <Route exact path="/tasks" component={Task} /> */}
+              <Route exact path="/logout" component={Logout} />
+              <Route exact path="/my-application" component={MyApplication} />
+            </Switch>
           )}
-          {role === "REJECTED" && (
-            <Route exact path="/me" component={Rejected} />
+          {role === "ADMIN" && (
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/profile" component={Profile} />
+              <Route exact path="/search" component={Search_filter} />
+              <Route exact path="/application/:id" component={Application} />
+              <Route exact path="/logout" component={Logout} />
+            </Switch>
           )}
-          <Route exact path="/questionaire" component={Questionaire} />
-          <Route exact path="/leaderboards" component={LeaderBoard} />
-          <Route exact path="/tasks" component={Task} />
-          <Route exact path="/logout" component={Logout} />
-          <Route exact path="/forgotpassword" component={ForgotPassword} />
-          <Route exact path="/forgotpassword/:token" component={ResetPassword} />
-          <Route exact path="/verify/:token" component={Verify} />
-          <Route exact path="/search" component={Search_filter} />
-          <Route exact path="/my-application" component={MyApplication} />
-          <Route exact path="/application/:id" component={Application} />
-          <Route
-            exact
-            path="/resendverification"
-            component={ResendVerificationMail}
-          />
         </Router>
       </div>
     </ApolloProvider>

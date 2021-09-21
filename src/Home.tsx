@@ -89,7 +89,7 @@ function Home() {
           <h1>JOIN THE FAMILY</h1>
           <h3>STUDENT AMBASSADOR</h3>
           <p>Lorem ipsum dolor sit amet</p>
-          {(role === null || role === "") && <Link to="/Login">REGISTER</Link>}
+          {(role === null || role === "") && <Link to="/login">REGISTER</Link>}
         </div>
       </div>
       <div className="Home_roles">
