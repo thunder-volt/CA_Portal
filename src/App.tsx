@@ -1,5 +1,10 @@
 import React, { useContext } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
 import "./App.css";
 import Home from "./Home";
 import LeaderBoard from "./LeaderBoard";
@@ -51,7 +56,7 @@ const App = () => {
             role === "REJECTED") && (
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route exact path="/profile" component={Profile} />
+              {/* <Route exact path="/profile" component={Profile} /> */}
               {role === "REGISTERED" && (
                 <Route exact path="/me" component={Body1} />
               )}
@@ -71,10 +76,13 @@ const App = () => {
           {role === "ADMIN" && (
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route exact path="/profile" component={Profile} />
-              <Route exact path="/search" component={Search_filter} />
+              {/* <Route exact path="/profile" component={Profile} /> */}
+              <Route exact path="/application" component={Search_filter} />
               <Route exact path="/application/:id" component={Application} />
               <Route exact path="/logout" component={Logout} />
+              <Route exact path="/me">
+                <Redirect to="/" />
+              </Route>
             </Switch>
           )}
         </Router>

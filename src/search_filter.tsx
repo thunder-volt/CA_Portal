@@ -3,6 +3,7 @@ import "./search_filter.css";
 import myFunction from "./search";
 import { GetUsersFilter, useGetUsersQuery, UserRole } from "./generated";
 import {Link} from "@chakra-ui/react"
+import Header from "./Header";
 
 function App() {
   const [filter, setFilter] = React.useState<GetUsersFilter>({role: UserRole.Registered })
@@ -30,7 +31,8 @@ function App() {
   }
   console.log(data)
   return (
-    <div className="Body">
+    <div className="Search-Filter-Body">
+      <Header/>
       <input
         type="text"
         id="myInput"

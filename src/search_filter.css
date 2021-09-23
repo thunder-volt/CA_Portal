@@ -1,5 +1,4 @@
-.Body {
-  margin-top: 250px;
+.Search-Filter-Body {
   text-align: center;
 }
 #myInput {
@@ -11,6 +10,7 @@
   padding: 12px 20px 12px;
   border: 1px solid #ddd;
   margin-bottom: 12px;
+  margin-top: 20px;
 }
 #role
 {

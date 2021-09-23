@@ -10,7 +10,7 @@ function Header() {
   const [header, setHeader] = React.useState(false);
   const { data } = useGetQuestionnaireQuery();
   const { role } = useContext(AuthContext);
-  console.log(data?.getQuestionnaire)
+
   return (
     <div className="Header">
       <Link to="/">
@@ -23,21 +23,26 @@ function Header() {
         <li>
           <Link to="/">HOME</Link>
         </li>
-        {role !== null && role !== "" && data === undefined && (
+        {role === "ADMIN" && (
+          <li>
+            <Link to="/application">APPLICATIONS</Link>
+          </li>
+        )}
+        {role !== "ADMIN" && role !== null && role !== "" && data === undefined && (
           <li>
             <Link to="/questionaire">QUESTIONAIRE</Link>
           </li>
         )}
-        {role !== null && role !== "" && data !== undefined && (
+        {role !== "ADMIN" && role !== null && role !== "" && data !== undefined && (
           <li>
             <Link to="/my-application">MY APPLICATION</Link>
           </li>
         )}
-        {role !== null && role !== "" && (
+        {/* {role !== null && role !== "" && (
           <li>
             <Link to="/profile">PROFILE</Link>
           </li>
-        )}
+        )} */}
         {role === null || role === "" ? (
           <li>
             <Link to="/login">LOGIN</Link>

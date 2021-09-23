@@ -11,6 +11,7 @@ import {
   useGetUserQuery,
   UserRole,
 } from "./generated";
+import Header from "./Header";
 
 function Application() {
   let { id }: any = useParams();
@@ -49,7 +50,7 @@ function Application() {
     } catch (err) {
       window.alert(err);
     }
-    history.push("/search");
+    history.push("/application");
   };
   const reject = async () => {
     setInput({ ...input, isSelected: false, id: id, coord: coord });
@@ -60,15 +61,16 @@ function Application() {
     } catch (err) {
       window.alert(err);
     }
-    history.push("/search");
+    history.push("/application");
   };
 
   if (getUserData)
     return (
       <div className="Application">
+        <Header/>
         <div>
           <h1>APPLICATION</h1>
-          <div className="flexdis">
+          <div className="flexdis" style={{"justifyContent": "space-evenly"}}>
             <div>
               <h2>PROFILE DETAILS :</h2>
               <h2 className="details">{getUserData.getUser?.name}</h2>

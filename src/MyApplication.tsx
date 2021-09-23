@@ -96,7 +96,7 @@ function MyApplication() {
               </div>
             </div>
             <h3 className="details">
-              <b>APPLICATION STATUS: </b>SELECTED
+              <b>APPLICATION STATUS: </b>
               {localStorage.getItem("role")?.toLocaleUpperCase()}
             </h3>
           </div>
@@ -113,9 +113,7 @@ function MyApplication() {
           <p>{data?.getQuestionnaire.Q1}</p>
           <h3> 2. Which social media sites do you use? </h3>
           <p>{data?.getQuestionnaire.Q2}</p>
-          <p></p>
           <h3> 3. Facebook Profile Link: </h3>
-          {data?.getQuestionnaire.Q3}
           <p>{data?.getQuestionnaire.Q3}</p>
           <h3> 4. Why do you wish to become a Campus Ambassador? </h3>
           <p>{data?.getQuestionnaire.Q4}</p>
