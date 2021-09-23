@@ -1,0 +1,113 @@
+.Application {
+  margin-bottom: 10%;
+}
+.MyApplication_profile {
+  background-color: #c3e7fd;
+  margin-left: 10%;
+  border-radius: 10px;
+  width: 80%;
+  padding: 5%;
+}
+.flexdis {
+  display: flex;
+}
+.Application h1 {
+  text-align: center;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.Application p {
+  margin-bottom: 2%;
+  margin-left: 2ch;
+}
+.MyApplication_Name {
+  margin: 5%;
+}
+.MyApplication_Pro_detail {
+  flex: 50%;
+}
+.Address_column2 {
+  flex: 50%;
+  margin-top: 2.5%;
+}
+.ul11 {
+  list-style-type: none;
+  margin-right: 20%;
+  margin-top: 5%;
+}
+.Application ul {
+  list-style-type: none;
+}
+.Application li {
+  margin-bottom: 3%;
+}
+.l11 {
+  margin-bottom: 5% !important;
+}
+.Application .column {
+  display: block;
+  margin-left: 80px;
+}
+.Address {
+  margin-bottom: 1% !important;
+}
+.MyApplication_container {
+  margin-top: 5%;
+  margin-left: 5%;
+}
+.college_details {
+  flex: 50%;
+}
+.questionarise {
+  margin-left: 5%;
+  text-align: left;
+  font-size: x-large;
+  margin-bottom: 3%;
+}
+.MyApplication_Address {
+  display: flex;
+  /* margin-left: 10%; */
+}
+.questions {
+  margin-left: 5%;
+  width: 80%;
+}
+select_coord {
+  margin-top: 40px;
+  width: 1212px;
+  background-color: #a5a0ff;
+  height: 40px;
+}
+.Application .submit {
+  margin-top: 50px;
+  margin-left: 80px;
+  font-weight: bold;
+  width: 120px;
+  height: 30px;
+  background-color: green;
+  border-radius: 2px;
+  margin-right: 200px;
+  color: white;
+}
+.Application .decline {
+  width: 120px;
+  height: 30px;
+  font-weight: bold;
+  background-color: red;
+  border-radius: 2px;
+  color: white;
+}
+p {
+  margin-left: 2%;
+}
+.details {
+  width: 100%;
+  text-align: center;
+  align-items: center;
+}
+@media only screen and (max-width: 768px) {
+  .MyApplication_Address {
+    display: block;
+  }
+}
