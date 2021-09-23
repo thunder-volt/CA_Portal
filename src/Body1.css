@@ -7,6 +7,8 @@
 }
 
 .Body_Item1t{
+    background-image: linear-gradient(
+140deg, #EADEDB 0%, #BC70A4 50%, #BFD641 75%);
     font-size: 65px;
     margin-top: 10%;
     line-height: 90px;
@@ -14,11 +16,13 @@
     margin-left:18%;
     transition: .3s all;
     margin-bottom: 50px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 .Style1t{
     font-size: 35px;
+    background-image: linear-gradient(
+140deg, #EADEDB 0%, #BC70A4 50%, #BFD641 75%);
     font-weight: 300;
     text-transform: uppercase;
 }
@@ -43,6 +47,7 @@
 
 .redt{
     color: red;
+    background-color: aquamarine;
 }
 
 .redt:hover{

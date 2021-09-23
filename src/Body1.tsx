@@ -2,7 +2,24 @@ import React from "react";
 import "./Body1.css";
 import { useGetQuestionnaireQuery } from "./generated";
 import Particles from 'react-tsparticles';
+import { useHistory, useParams } from "react-router";
+import {
+  ApplicationResultInput,
+  useApplicationResultMutation,
+  useGetQuestionnaireByUserIdQuery,
+  useGetUserQuery,
+  UserRole,
+} from "./generated";
+
+
 const Body1 = () => {
+  let { id }: any = useParams();
+  const {
+    data: getUserData,
+    loading: getUserLoading,
+    error: getUserError,
+  } = useGetUserQuery({ variables: { userId: id } });
+
   const { data } = useGetQuestionnaireQuery();
   if (data?.getQuestionnaire)
     return (<div>
@@ -95,9 +112,15 @@ const Body1 = () => {
    
       
       <div className="Bodyt">
+       {/* <div className="jj">
+       <h2 >{getUserData.getUser?.name}</h2>
+       </div> */}
        
         <div className="Body_Item1t">
-          <b>THANK YOU FOR APPLYING TO CAMPUS AMABASSADOR</b>
+        {/* <b>{getUserData.getUser?.name}</b> */}
+        <div>Hello {localStorage.getItem("name")}, </div>
+          <b>THANK YOU FOR APPLYING FOR THE CAMPUS AMBASSADOR PROGRAM</b>
+          
         </div>
         <div className="Style1t">
           YOUR APPLICATION IS UNDER PROCESS.{" "}
@@ -109,6 +132,8 @@ const Body1 = () => {
       </div>
       </div>
     );
+
+    
 
   return (
     <div>
@@ -202,14 +227,18 @@ const Body1 = () => {
    
     <div className="Bodyt">
       <div className="Body_Item1t">
-        <b>THANK YOU FOR APPLYING FOR CAMPUS AMABASSADOR</b>
+        <b> Hello{localStorage.getItem("name")},</b>
+  
+        <b>THANK YOU FOR SIGNING UP FOR THE SHAASTRA CAMPUS AMBASSADOR PROGRAM</b>
+       
+      
       </div>
       <div className="Style1t">
-        TO COMPLETE YOUR APPLICATION PROCESS.{" "}
+        Please complete the questionnaire by{" "}
         <a href="./questionaire">
-          <span className="redt">click here{" "}</span>
+          <span className="redt">clicking here{" "}</span>
         </a>
-        to fill questionaire
+        before "Given Date".
       </div>
     </div>
     </div>
