@@ -69,6 +69,7 @@ export type Mutation = {
   resendVerificationMail: Scalars['Boolean'];
   resetPassword: Scalars['Boolean'];
   reviewTask: Scalars['Boolean'];
+  sendSupportMail: Scalars['Boolean'];
   submitTask: Scalars['Boolean'];
   updateQuestionnaire: Scalars['Boolean'];
   verifyUser: Scalars['Boolean'];
@@ -143,6 +144,11 @@ export type MutationResetPasswordArgs = {
 
 export type MutationReviewTaskArgs = {
   data: ReviewTaskInput;
+};
+
+
+export type MutationSendSupportMailArgs = {
+  data: SendSupportMailInput;
 };
 
 
@@ -259,6 +265,12 @@ export type ReviewTaskInput = {
   points: Scalars['Float'];
   review: Scalars['String'];
   reviewid: Scalars['String'];
+};
+
+export type SendSupportMailInput = {
+  content: Scalars['String'];
+  email: Scalars['String'];
+  name: Scalars['String'];
 };
 
 export type SubmitTaskInput = {
@@ -422,6 +434,13 @@ export type FillQuestionnaireMutationVariables = Exact<{
 
 
 export type FillQuestionnaireMutation = { fillQuestionnaire: boolean };
+
+export type SendSupportMailMutationVariables = Exact<{
+  sendSupportMailInput: SendSupportMailInput;
+}>;
+
+
+export type SendSupportMailMutation = { sendSupportMail: boolean };
 
 export type GetUserQueryVariables = Exact<{
   userId: Scalars['String'];
@@ -872,6 +891,37 @@ export function useFillQuestionnaireMutation(baseOptions?: ApolloReactHooks.Muta
 export type FillQuestionnaireMutationHookResult = ReturnType<typeof useFillQuestionnaireMutation>;
 export type FillQuestionnaireMutationResult = ApolloReactCommon.MutationResult<FillQuestionnaireMutation>;
 export type FillQuestionnaireMutationOptions = ApolloReactCommon.BaseMutationOptions<FillQuestionnaireMutation, FillQuestionnaireMutationVariables>;
+export const SendSupportMailDocument = gql`
+    mutation sendSupportMail($sendSupportMailInput: SendSupportMailInput!) {
+  sendSupportMail(data: $sendSupportMailInput)
+}
+    `;
+export type SendSupportMailMutationFn = ApolloReactCommon.MutationFunction<SendSupportMailMutation, SendSupportMailMutationVariables>;
+
+/**
+ * __useSendSupportMailMutation__
+ *
+ * To run a mutation, you first call `useSendSupportMailMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSendSupportMailMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sendSupportMailMutation, { data, loading, error }] = useSendSupportMailMutation({
+ *   variables: {
+ *      sendSupportMailInput: // value for 'sendSupportMailInput'
+ *   },
+ * });
+ */
+export function useSendSupportMailMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SendSupportMailMutation, SendSupportMailMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<SendSupportMailMutation, SendSupportMailMutationVariables>(SendSupportMailDocument, options);
+      }
+export type SendSupportMailMutationHookResult = ReturnType<typeof useSendSupportMailMutation>;
+export type SendSupportMailMutationResult = ApolloReactCommon.MutationResult<SendSupportMailMutation>;
+export type SendSupportMailMutationOptions = ApolloReactCommon.BaseMutationOptions<SendSupportMailMutation, SendSupportMailMutationVariables>;
 export const GetUserDocument = gql`
     query getUser($userId: String!) {
   getUser(userId: $userId) {

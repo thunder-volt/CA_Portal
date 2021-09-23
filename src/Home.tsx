@@ -27,6 +27,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import AuthContext from "./utils/context";
+import { useSendSupportMailMutation } from "./generated";
 SwiperCore.use([Navigation]);
 
 function Home() {
@@ -83,6 +84,42 @@ function Home() {
   const [contactName, setContactName] = React.useState("");
   const [contactEmail, setContactEmail] = React.useState("");
   const [contactMessage, setContactMessage] = React.useState("");
+  const [sendSupportMailMutation, { error }] = useSendSupportMailMutation({
+    onCompleted() {
+      window.alert("Shaastra Outreach Team will contact you shortly!");
+    },
+  });
+
+  if (error) alert("Message was not successfully received, please retry");
+
+  const handleContactSubmit = async (e: any) => {
+    e.preventDefault();
+    if (
+      contactName.length != 0 &&
+      contactEmail.length != 0 &&
+      contactMessage.length != 0
+    ) {
+      try {
+        await sendSupportMailMutation({
+          variables: {
+            sendSupportMailInput: {
+              name: contactName,
+              email: contactEmail,
+              content: contactMessage,
+            },
+          },
+        });
+      } catch (e) {
+        console.log(e);
+      }
+      setContactName("");
+      setContactEmail("");
+      setContactMessage("");
+    } else {
+      alert("Fill All fields!!");
+      return false;
+    }
+  };
   return (
     <>
       <Header />
@@ -384,13 +421,14 @@ function Home() {
         </div>
         <div className="row">
           <div className="column">
-            <form className="contact-form">
+            <form className="contact-form" onSubmit={handleContactSubmit}>
               <div className="contact-input">
                 <label>NAME</label>
                 <input
                   type="text"
                   id="name"
                   name="name"
+                  required
                   value={contactName}
                   onChange={(e) => setContactName(e.target.value)}
                 />
@@ -401,6 +439,7 @@ function Home() {
                   type="email"
                   id="email"
                   name="email"
+                  required
                   value={contactEmail}
                   onChange={(e) => setContactEmail(e.target.value)}
                 />
@@ -411,11 +450,12 @@ function Home() {
                   id="message"
                   name="message"
                   rows={4}
+                  required
                   value={contactMessage}
                   onChange={(e) => setContactMessage(e.target.value)}
                 />
               </div>
-              <button type="button" className="message-btn">
+              <button type="submit" className="message-btn">
                 Message
               </button>
             </form>

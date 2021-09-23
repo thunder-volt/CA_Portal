@@ -103,3 +103,7 @@ query getQuestionnaireByUserId($userid: String!)
 mutation fillQuestionnaire($questionnaireInput: QuestionnaireInput!) {
   fillQuestionnaire(data: $questionnaireInput)
 }
+
+mutation sendSupportMail($sendSupportMailInput: SendSupportMailInput!) {
+  sendSupportMail(data: $sendSupportMailInput)
+}
