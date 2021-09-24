@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "./Header";
 import "./Body1.css";
 import { useGetQuestionnaireQuery } from "./generated";
 import Particles from 'react-tsparticles';
@@ -13,16 +14,15 @@ import {
 
 
 const Body1 = () => {
-  let { id }: any = useParams();
-  const {
-    data: getUserData,
-    loading: getUserLoading,
-    error: getUserError,
-  } = useGetUserQuery({ variables: { userId: id } });
+  
 
   const { data } = useGetQuestionnaireQuery();
   if (data?.getQuestionnaire)
-    return (<div>
+
+    return (<>
+
+      <Header />
+       <div>
         <Particles
         className='particles'
         style={{
@@ -118,8 +118,8 @@ const Body1 = () => {
        
         <div className="Body_Item1t">
         {/* <b>{getUserData.getUser?.name}</b> */}
-        <div>Hello {localStorage.getItem("name")}, </div>
-          <b>THANK YOU FOR APPLYING FOR THE CAMPUS AMBASSADOR PROGRAM</b>
+        <b>Hello {localStorage.getItem("name")}, </b>
+          <b>Thank you for applying for the Shaastra'22 Campus Ambassador Program.</b>
           
         </div>
         <div className="Style1t">
@@ -131,11 +131,14 @@ const Body1 = () => {
         </div>
       </div>
       </div>
+      </>
     );
 
     
 
   return (
+    <>
+     <Header />
     <div>
 
 <Particles
@@ -227,9 +230,9 @@ const Body1 = () => {
    
     <div className="Bodyt">
       <div className="Body_Item1t">
-        <b> Hello{localStorage.getItem("name")},</b>
+        <b> Hello {localStorage.getItem("name")},</b>
   
-        <b>THANK YOU FOR SIGNING UP FOR THE SHAASTRA CAMPUS AMBASSADOR PROGRAM</b>
+        <b>Thank you for signing Up for the Shaastra'22 Campus Ambassador Program.</b>
        
       
       </div>
@@ -242,6 +245,8 @@ const Body1 = () => {
       </div>
     </div>
     </div>
+    </>
+    
   );
 };
 
