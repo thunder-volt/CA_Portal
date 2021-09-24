@@ -56,7 +56,7 @@ const App = () => {
             role === "REJECTED") && (
             <Switch>
               <Route exact path="/" component={Home} />
-              {/* <Route exact path="/profile" component={Profile} /> */}
+              <Route exact path="/profile" component={Profile} />
               {role === "REGISTERED" && (
                 <Route exact path="/me" component={Body1} />
               )}

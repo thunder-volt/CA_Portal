@@ -103,10 +103,10 @@ const Selected = () => {
             </div>
             <div className='Style2t'>You are Selected as a CA For Shaastra 2022. We cordially welcome you to the team behind India’s largest completely
 student-run technical extravaganza - Shaastra 2022.
-With a Strong Team Of 500 Students Of IIT Madras and Hundreds Of Campus
+With a strong team of 500 Students of IIT Madras and Hundreds of Campus
 Ambassadors across India, Shaastra 2022 aims to give the Best Technical
 Experience to everyone in the country ranging from School students To Engineers
-of the Future. With this in mind, we hope you have an Amazing Journey working
+of the future. With this in mind, we hope you have an Amazing Journey working
 with us as you represent your college.<a href="./"><span className='redt'>CLICK HERE</span></a> TO GO TO THE CA PORTAL.
             </div>
         </div>
