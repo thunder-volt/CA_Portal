@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
-import Header from "./Header";
-import "./Home.css";
+import React, { useContext } from 'react'
+import Header from './Header'
+import './Home.css'
 import {
   FaPhoneAlt,
   FaFacebookSquare,
@@ -14,62 +14,62 @@ import {
   FaChevronRight,
   FaYoutube,
   FaYoutubeSquare,
-} from "react-icons/fa";
-import { IoIosArrowDown } from "react-icons/io";
-import sponsor1 from "./assets/edufabrica.png";
+} from 'react-icons/fa'
+import { IoIosArrowDown } from 'react-icons/io'
+import sponsor1 from './assets/edufabrica.png'
 
-import illustration1 from "./assets/illustration1.svg";
-import illustration2 from "./assets/illustration2.svg";
-import { Link } from "react-router-dom";
+import illustration1 from './assets/illustration1.svg'
+import illustration2 from './assets/illustration2.svg'
+import { Link } from 'react-router-dom'
 
-import SwiperCore, { Navigation } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper.min.css";
-import "swiper/components/navigation/navigation.min.css";
-import AuthContext from "./utils/context";
-import { useSendSupportMailMutation } from "./generated";
-SwiperCore.use([Navigation]);
+import SwiperCore, { Navigation } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/swiper.min.css'
+import 'swiper/components/navigation/navigation.min.css'
+import AuthContext from './utils/context'
+import { useSendSupportMailMutation } from './generated'
+SwiperCore.use([Navigation])
 
 function Home() {
   const [faqs, setFaqs] = React.useState([
     {
       no: 0,
-      question: "What is the CA program / who is a Campus Ambassador ?",
+      question: 'What is the CA program / who is a Campus Ambassador ?',
       answer:
-        "The Campus Ambassador will be the representative of Shaastra, IIT Madras in their resycampus and will help in publicising events and workshops conducted by Shaastra. This will be similar to a digital marketing internship",
+        'The Campus Ambassador will be the representative of Shaastra, IIT Madras in their resycampus and will help in publicising events and workshops conducted by Shaastra. This will be similar to a digital marketing internship',
     },
     {
       no: 1,
-      question: "How / where should I apply ?",
+      question: 'How / where should I apply ?',
       answer:
-        "You can apply for the program using the sign up button you can see in this page. During your sign up answer all the questions asked to you and within a couple of days you will be interviewed by one of our team member. You will be selected based on your answers you give during sign up and you interview. Also remember the login credentials you provide during sign up as you will not be allowed to change the email id.",
+        'You can apply for the program using the sign up button you can see in this page. During your sign up answer all the questions asked to you and within a couple of days you will be interviewed by one of our team member. You will be selected based on your answers you give during sign up and you interview. Also remember the login credentials you provide during sign up as you will not be allowed to change the email id.',
     },
     {
       no: 2,
-      question: "How are the top CAs decided ?",
+      question: 'How are the top CAs decided ?',
       answer:
-        "The top CAs will be decided based on a points system designed to evaluate the performance of CAs in a fair manner. The points system will be shared with you shortly after you get selected.",
+        'The top CAs will be decided based on a points system designed to evaluate the performance of CAs in a fair manner. The points system will be shared with you shortly after you get selected.',
     },
     {
       no: 3,
       question:
         "What to do if you haven't been contacted by anyone from our team regarding interview ?",
       answer:
-        "Send a mail to outreach@shaastra.org stating the above problem. You will receive a reply as soon as possible.",
+        'Send a mail to outreach@shaastra.org stating the above problem. You will receive a reply as soon as possible.',
     },
     {
       no: 4,
-      question: "What is the eligibility / criteria to become a CA ?",
+      question: 'What is the eligibility / criteria to become a CA ?',
       answer:
-        "If you are a student pursuing either B.tech. or B.E. and if you have a valid college ID you can apply for this program.",
+        'If you are a student pursuing either B.tech. or B.E. and if you have a valid college ID you can apply for this program.',
     },
     {
       no: 5,
-      question: "How much time or effort from my part would be required ?",
+      question: 'How much time or effort from my part would be required ?',
       answer:
-        "Not more than 2 hours per week would be required from a Campus Ambassador.",
+        'Not more than 2 hours per week would be required from a Campus Ambassador.',
     },
-  ]);
+  ])
   const [show, toggleShow] = React.useState([
     false,
     false,
@@ -77,23 +77,23 @@ function Home() {
     false,
     false,
     false,
-  ]);
-  const navigationPrevRef = React.useRef(null);
-  const navigationNextRef = React.useRef(null);
-  const { role } = useContext(AuthContext);
-  const [contactName, setContactName] = React.useState("");
-  const [contactEmail, setContactEmail] = React.useState("");
-  const [contactMessage, setContactMessage] = React.useState("");
+  ])
+  const navigationPrevRef = React.useRef(null)
+  const navigationNextRef = React.useRef(null)
+  const { role } = useContext(AuthContext)
+  const [contactName, setContactName] = React.useState('')
+  const [contactEmail, setContactEmail] = React.useState('')
+  const [contactMessage, setContactMessage] = React.useState('')
   const [sendSupportMailMutation, { error }] = useSendSupportMailMutation({
     onCompleted() {
-      window.alert("Shaastra Outreach Team will contact you shortly!");
+      window.alert('Shaastra Outreach Team will contact you shortly!')
     },
-  });
+  })
 
-  if (error) alert("Message was not successfully received, please retry");
+  if (error) alert('Message was not successfully received, please retry')
 
   const handleContactSubmit = async (e: any) => {
-    e.preventDefault();
+    e.preventDefault()
     if (
       contactName.length != 0 &&
       contactEmail.length != 0 &&
@@ -108,26 +108,26 @@ function Home() {
               content: contactMessage,
             },
           },
-        });
+        })
       } catch (e) {
-        console.log(e);
+        console.log(e)
       }
-      setContactName("");
-      setContactEmail("");
-      setContactMessage("");
+      setContactName('')
+      setContactEmail('')
+      setContactMessage('')
     } else {
-      alert("Fill All fields!!");
-      return false;
+      alert('Fill All fields!!')
+      return false
     }
-  };
+  }
   return (
     <>
       <Header />
-      <div className="Home_landing">
-        <div className="imgBox">
-          <img src={illustration1} alt="" />
+      <div className='Home_landing'>
+        <div className='imgBox'>
+          <img src={illustration1} alt='' />
         </div>
-        <div className="contentBox">
+        <div className='contentBox'>
           <h1>JOIN THE FAMILY</h1>
           <h3>STUDENT AMBASSADOR</h3>
           <p>
@@ -136,11 +136,11 @@ function Home() {
             to hone and nurture the MARKETING and LEADERSHIP SKILLS of the
             student community through this Campus Ambassador program
           </p>
-          {(role === null || role === "") && <Link to="/login">REGISTER</Link>}
+          {(role === null || role === '') && <Link to='/login'>REGISTER</Link>}
         </div>
       </div>
-      <div className="Home_roles">
-        <div className="contentBox">
+      <div className='Home_roles'>
+        <div className='contentBox'>
           <h1>The Campus Ambassador program</h1>
           <p>
             The Campus Ambassador program is a national level marketing
@@ -152,11 +152,11 @@ function Home() {
             their college.
           </p>
         </div>
-        <div className="imgBox">
-          <img src={illustration2} alt="" />
+        <div className='imgBox'>
+          <img src={illustration2} alt='' />
         </div>
       </div>
-      <div className="Home_responsiblities">
+      <div className='Home_responsiblities'>
         <h1>Responsiblities and specific duties</h1>
         <ul>
           <li>
@@ -187,7 +187,7 @@ function Home() {
           </li>
         </ul>
       </div>
-      <div className="Home_whyJoinUS">
+      <div className='Home_whyJoinUS'>
         <h1>Why become a Campus Ambassador (CA)?</h1>
         <ul>
           <li>
@@ -242,7 +242,7 @@ function Home() {
           </li>
         </ul>
       </div>
-      <div className="Home_prizes">
+      <div className='Home_prizes'>
         <h1>Prizes</h1>
         <ul>
           <li>
@@ -250,7 +250,7 @@ function Home() {
             <p>Sponsored Internships for the top 30CAs.</p>
           </li>
           <li>
-            <FaHandPointRight />{" "}
+            <FaHandPointRight />{' '}
             <p>A Chance to showcase your Management Skills.</p>
           </li>
           <li>
@@ -260,32 +260,32 @@ function Home() {
             <FaHandPointRight /> <p>Upskill workshops exclusive for CAs.</p>
           </li>
           <li>
-            <FaHandPointRight />{" "}
+            <FaHandPointRight />{' '}
             <p>Shaastra Merchandise and exciting goodies for the CAs.</p>
           </li>
           <li>
-            <FaHandPointRight />{" "}
+            <FaHandPointRight />{' '}
             <p>
               Event and Task-specific rewards such as coupons, vouchers and
               goodies.
             </p>
           </li>
           <li>
-            <FaHandPointRight />{" "}
+            <FaHandPointRight />{' '}
             <p>
               Shaastra credits for top-performing CAs in Shaastra Grand
               Championship.
             </p>
           </li>
           <li>
-            <FaHandPointRight />{" "}
+            <FaHandPointRight />{' '}
             <p>
               Marketing internship certificates to CAs crossing a certain
               threshold points.
             </p>
           </li>
           <li>
-            <FaHandPointRight />{" "}
+            <FaHandPointRight />{' '}
             <p>
               Develop expertise in areas like team management, event
               organization, public speaking, social media, content writing and
@@ -298,10 +298,10 @@ function Home() {
           </li>
         </ul>
       </div>
-      <div className="Home_testimonials">
+      <div className='Home_testimonials'>
         <h1>Testimonials</h1>
-        <div className="cardBox">
-          <div className="card">
+        <div className='cardBox'>
+          <div className='card'>
             <p>
               I was the top performer at the CA program of Shaastra, IIT Madras.
               I got lots of incentives from Shaastra which includes my
@@ -317,7 +317,7 @@ function Home() {
             </p>
             <span>- FIZA RAHMANI</span>
           </div>
-          <div className="card">
+          <div className='card'>
             <p>
               .Shaastra is one of the best technical events I have promoted, and
               it has helped me in improving my communication skills and also
@@ -327,7 +327,7 @@ function Home() {
             </p>
             <span>- Suraj</span>
           </div>
-          <div className="card">
+          <div className='card'>
             <p>
               As a CA, I had great exposure in representing Shaastra in my
               campus and publicizing various workshops and tech events hosted by
@@ -340,38 +340,38 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="faq">
+      <div className='faq'>
         <h1>Frequently Asked Questions</h1>
         {faqs.map((faq) => {
           return (
             <div
-              className="question"
+              className='question'
               onClick={() => {
-                let index = 0;
+                let index = 0
                 toggleShow(
                   show.map((s) => {
                     if (faq.no == index++) {
-                      return !show[faq.no];
-                    } else return s;
+                      return !show[faq.no]
+                    } else return s
                   })
-                );
+                )
               }}
             >
-              <span className="top">
+              <span className='top'>
                 <h3>{faq.question}</h3>
                 <span
                   style={
                     show[faq.no]
                       ? {
-                          transform: "rotate(-90deg)",
-                          transition: "0.5s",
+                          transform: 'rotate(-90deg)',
+                          transition: '0.5s',
                         }
                       : {
-                          transform: "rotate(0deg)",
-                          transition: "0.5s",
+                          transform: 'rotate(0deg)',
+                          transition: '0.5s',
                         }
                   }
-                  className="down-arrow"
+                  className='down-arrow'
                 >
                   <IoIosArrowDown />
                 </span>
@@ -380,24 +380,24 @@ function Home() {
                 style={
                   show[faq.no]
                     ? {
-                        height: "max-content",
-                        paddingTop: "15px",
+                        height: 'max-content',
+                        paddingTop: '15px',
                       }
                     : {
-                        height: "0px",
-                        paddingTop: "0px",
+                        height: '0px',
+                        paddingTop: '0px',
                       }
                 }
-                className="panel"
+                className='panel'
               >
                 <p>{faq.answer}</p>
               </span>
             </div>
-          );
+          )
         })}
       </div>
-      <div className="sponsor">
-        <div className="imgContainer">
+      <div className='sponsor'>
+        <div className='imgContainer'>
           <h1>Sponsors</h1>
           <p>
             Edufabrica is an emerging training company that offers Official
@@ -413,106 +413,110 @@ function Home() {
             winter training and summer training
           </p>
         </div>
-        <img src={sponsor1} alt="" />
+        <img src={sponsor1} alt='' />
       </div>
-      <div className="contact">
+      <div className='contact'>
         <div>
           <h1>Contact Us</h1>
         </div>
-        <div className="row">
-          <div className="column">
-            <form className="contact-form" onSubmit={handleContactSubmit}>
-              <div className="contact-input">
+        <div className='row'>
+          <div className='column'>
+            <form className='contact-form' onSubmit={handleContactSubmit}>
+              <div className='contact-input'>
                 <label>NAME</label>
                 <input
-                  type="text"
-                  id="name"
-                  name="name"
+                  type='text'
+                  id='name'
+                  name='name'
                   required
                   value={contactName}
                   onChange={(e) => setContactName(e.target.value)}
                 />
               </div>
-              <div className="contact-input">
+              <div className='contact-input'>
                 <label>EMAIL</label>
                 <input
-                  type="email"
-                  id="email"
-                  name="email"
+                  type='email'
+                  id='email'
+                  name='email'
                   required
                   value={contactEmail}
                   onChange={(e) => setContactEmail(e.target.value)}
                 />
               </div>
-              <div className="contact-input">
+              <div className='contact-input'>
                 <label>MESSAGE</label>
                 <textarea
-                  id="message"
-                  name="message"
+                  id='message'
+                  name='message'
                   rows={4}
                   required
                   value={contactMessage}
                   onChange={(e) => setContactMessage(e.target.value)}
                 />
               </div>
-              <button type="submit" className="message-btn">
+              <button type='submit' className='message-btn'>
                 Message
               </button>
             </form>
           </div>
-          <div className="column">
+          <div className='column'>
             <h3>Contact Information</h3>
-            <div className="contact-info">
-              <div className="contact-ctn">
-                <FaPhoneAlt className="contact-btn" />
+            <div className='contact-info'>
+              <div className='contact-ctn'>
+                <FaPhoneAlt className='contact-btn' />
                 <p>Shvetha Sivaprasad - 6379764273</p>
               </div>
-              <div className="contact-ctn">
-                <FaPhoneAlt className="contact-btn" />
+              <div className='contact-ctn'>
+                <FaPhoneAlt className='contact-btn' />
                 <p>Madhan Kumar - 6303564574</p>
               </div>
-              <div className="contact-ctn">
-                <FaPhoneAlt className="contact-btn" />
+              <div className='contact-ctn'>
+                <FaPhoneAlt className='contact-btn' />
                 <p>Mohan Kumar - 9952729095</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="footer">
-        <div className="row">
-          <div className="column">
-            <div className="footer-info">
+      <div className='footer'>
+        <div className='row'>
+          <div className='column'>
+            <div className='footer-info'>
               <h3>You must be the change you wish to see in the world</h3>
               <p>Get In touch with us using any of the platforms</p>
             </div>
           </div>
-          <div className="column">
-            <div className="social-btn">
-              <a target="_blank" href="https://www.facebook.com/Shaastra/">
-                <FaFacebookSquare className="btn" />
+          <div className='column'>
+            <div className='social-btn'>
+              <a target='_blank' href='https://www.facebook.com/Shaastra/'>
+                <FaFacebookSquare className='btn' />
               </a>
-              <a target="_blank" href="https://www.youtube.com/c/iitmshaastra">
-                <FaYoutubeSquare className="btn" />
-              </a>
-              <a
-                target="_blank"
-                href="https://www.instagram.com/shaastra_iitm/?_se=c2h2ZXRoYUBzaGFhc3RyYS5vcmc%3D"
-              >
-                <FaInstagram className="btn" />
+              <a target='_blank' href='https://www.youtube.com/c/iitmshaastra'>
+                <FaYoutubeSquare className='btn' />
               </a>
               <a
-                target="_blank"
-                href="https://www.linkedin.com/company/shaastra-iit-madras/"
+                target='_blank'
+                href='https://www.instagram.com/shaastra_iitm/?_se=c2h2ZXRoYUBzaGFhc3RyYS5vcmc%3D'
               >
-                <FaLinkedin className="btn" />
+                <FaInstagram className='btn' />
+              </a>
+              <a
+                target='_blank'
+                href='https://www.linkedin.com/company/shaastra-iit-madras/'
+              >
+                <FaLinkedin className='btn' />
               </a>
             </div>
+          </div>
+          <div className='row'>
+            <p className='sec-row'>Shaastra 2021 © All Rights Reserved</p>
+            <p className='sec-row'>DESIGNED BY SHAASTRA WEBOPS 2022</p>
           </div>
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Home;
+export default Home
