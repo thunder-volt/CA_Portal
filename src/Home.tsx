@@ -162,27 +162,53 @@ function Home() {
           <li>
             <FaHandPointRight />
             <p>
-              CAs will be responsible for promoting events conducted by Shaastra
-              and ensuring maximum participation from their college in Shaastra
-              2021.
+              One of the primary responsibilities of a campus ambassador will be
+              to SHARE and LIKE the social media posts of Shaastra.
             </p>
           </li>
           <li>
             <FaHandPointRight />
-            <p>CAs will be the representative of Shaastra, IIT Madras.</p>
+            <p>Conduct E-MAIL CAMPAIGNS in your respective colleges.</p>
           </li>
           <li>
             <FaHandPointRight />
             <p>
-              CAs will be responsible for conducting workshops conducted by
-              Shaastra in their campus.
+              Find innovative and effective social media strategies to help
+              Shaastra find the required targeted audience.
             </p>
           </li>
           <li>
             <FaHandPointRight />
             <p>
-              Apart from the above mentioned points they should share the social
-              media pages of Shaastra.
+              Responsible for publicizing SAMPARK - a pan India event conducted
+              by Shaastra for colleges across the country and getting news
+              articles for the same.
+            </p>
+          </li>
+          <li>
+            <FaHandPointRight />
+            <p>You will be THE FACE OF SHAASTRA in your campus.</p>
+          </li>
+          <li>
+            <FaHandPointRight />
+            <p>
+              Heading your campus as the CONTINGENT HEAD at Shaastra Grand
+              Championship which will take place during Shaastra.
+            </p>
+          </li>
+          <li>
+            <FaHandPointRight />
+            <p>
+              Complete certain tasks to OBTAIN POINTS and compete with other
+              CA’s to be eligible for the REWARDS of the Campus Ambassador
+              program.
+            </p>
+          </li>
+          <li>
+            <FaHandPointRight />
+            <p>
+              Develop campus-specific marketing and outreach programs/
+              campaigns.
             </p>
           </li>
         </ul>
@@ -192,57 +218,56 @@ function Home() {
         <ul>
           <li>
             <FaHandPointRight />
-            <p>Medals for the top three CA’s</p>
+            <p>SPONSORED INTERNSHIPS for the top 30 CAs.</p>
           </li>
           <li>
             <FaHandPointRight />
-            <p>Internships for the Top 20 CA’s</p>
+            <p>A chance to showcase your MANAGEMENT SKILLS.</p>
           </li>
           <li>
             <FaHandPointRight />
-            <p>Free workshops for the top 50 CA’s</p>
+            <p>Build a strong network among your peers.</p>
           </li>
           <li>
             <FaHandPointRight />
-            <p>Merch and coupons for the CA’s who are placed in 51-100</p>
+            <p>Upskill WORKSHOPS exclusive for CAs.</p>
+          </li>
+          <li>
+            <FaHandPointRight />
+            <p>Shaastra merchandise and exiting goodies for the CAs.</p>
           </li>
           <li>
             <FaHandPointRight />
             <p>
-              Certificates for the CA’s who have sufficient points in the CA
-              program
+              Event and Task-specific rewards such as coupons, vouchers and
+              goodies.
             </p>
           </li>
           <li>
             <FaHandPointRight />
             <p>
-              Task specific rewards for those who get very high points in the
-              form of vouchers.(Can be done for the tasks after CA program
-              result is announced)
+              SHAASTRA CREDITS for top-performing CAs in Shaastra Grand
+              Championship.
             </p>
           </li>
           <li>
             <FaHandPointRight />
             <p>
-              Endorsement in LinkedIn for those who are still active till the
-              end
+              Marketing INTERNSHIP CERTIFICATES to CAs crossing a certain
+              threshold points.
             </p>
           </li>
           <li>
             <FaHandPointRight />
-            <p>Recommendation letter from Shaastra for highly enthu CA’s.</p>
-          </li>
-          <li>
-            <FaHandPointRight />
-            <p>Free trip to some location.</p>
-          </li>
-          <li>
-            <FaHandPointRight />
-            <p>Special Feast for those CA’s who attend Shaastra.</p>
+            <p>
+              Develop expertise in areas like team management, event
+              organization, public speaking, social media, content writing and
+              promotion, and various other technical skills.
+            </p>
           </li>
         </ul>
       </div>
-      <div className='Home_prizes'>
+      {/*<div className='Home_prizes'>
         <h1>Prizes</h1>
         <ul>
           <li>
@@ -297,7 +322,7 @@ function Home() {
             <p>Special Feast for those CA’s who attend Shaastra.</p>
           </li>
         </ul>
-      </div>
+  </div> */}
       <div className='Home_testimonials'>
         <h1>Testimonials</h1>
         <div className='cardBox'>
