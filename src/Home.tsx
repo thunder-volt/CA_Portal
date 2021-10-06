@@ -131,10 +131,7 @@ function Home() {
           <h1>JOIN THE FAMILY</h1>
           <h3>STUDENT AMBASSADOR</h3>
           <p>
-            The CAMPUS AMBASSADOR PROGRAM is a national level marketing
-            internship cum networking program of the tech savvy people. We aim
-            to hone and nurture the MARKETING and LEADERSHIP SKILLS of the
-            student community through this Campus Ambassador program
+          Want to be the face of Shaastra in your campus?
           </p>
           {(role === null || role === "") && <Link to="/login">REGISTER</Link>}
         </div>
