@@ -129,7 +129,7 @@ function Home() {
         </div>
         <div className="contentBox">
           <h1>JOIN THE FAMILY</h1>
-          <h3>STUDENT AMBASSADOR</h3>
+          <h3>CAMPUS AMBASSADOR</h3>
           <p>
           Want to be the face of Shaastra in your campus?
           </p>
@@ -487,7 +487,7 @@ function Home() {
             <div className="contact-info">
               <div className="contact-ctn">
                 <FaPhoneAlt className="contact-btn" />
-                <p>Madhan Kumar - +916303564574</p>
+                <p>Mohan Kumar - +919952729095</p>
               </div>
               <div className="contact-ctn">
                 <FaPhoneAlt className="contact-btn" />
@@ -495,7 +495,7 @@ function Home() {
               </div>
               <div className="contact-ctn">
                 <FaPhoneAlt className="contact-btn" />
-                <p>Mohan Kumar - +919952729095</p>
+                <p>Madhan Kumar - +916303564574</p>
               </div>
             </div>
           </div>
