@@ -6,6 +6,7 @@ import { Dialog, Box } from '@material-ui/core'
 import Header from './Header'
 import './Questionaire.css'
 import { list } from '@chakra-ui/styled-system'
+import { cities } from './cities'
 
 function Questionaire() {
   const history = useHistory()
@@ -19,14 +20,18 @@ function Questionaire() {
 
   const [college, setCollege] = React.useState<string>()
   const [collegeaddress, setCollegeaddress] = React.useState<string>()
-  const [city, setCity] = React.useState<string>()
-  const [state, setState] = React.useState<string>()
+  const [city, setCity] = React.useState<string>('')
+  const [state, setState] = React.useState<string>(
+    'Andaman and Nicobar Islands'
+  )
   const [Degree, setDegree] = React.useState<string>()
   const [branch, setBranch] = React.useState<string>()
   const [year, setYear] = React.useState<string>()
   const [postaladdress, setPostaladdress] = React.useState<string>()
-  const [pcity, setPcity] = React.useState<string>()
-  const [pstate, setPstate] = React.useState<string>()
+  const [pcity, setPcity] = React.useState<string>('')
+  const [pstate, setPstate] = React.useState<string>(
+    'Andaman and Nicobar Islands'
+  )
   const [pincode, setPincode] = React.useState<string>()
   const [contactno, setContactno] = React.useState<string>()
   const [whatsappno, setWhatsappno] = React.useState<string>()
@@ -191,7 +196,43 @@ function Questionaire() {
                 name='coll-add'
                 placeholder='COLLEGE ADDRESS'
               />
-              <input
+              <div className='dropdown-ctn'>
+                <label htmlFor='state'>COLLEGE STATE</label>
+                <select
+                  required
+                  name='state'
+                  id='state'
+                  onChange={(e: any) => setState(e.target.value)}
+                  placeholder='Select State'
+                >
+                  {Object.keys(cities).map((_state: any) => {
+                    return (
+                      <option key={_state} value={_state}>
+                        {_state}
+                      </option>
+                    )
+                  })}
+                </select>
+              </div>
+              <div className='dropdown-ctn'>
+                <label htmlFor='city'>COLLEGE CITY</label>
+                <select
+                  required
+                  name='city'
+                  id='city'
+                  onChange={(e: any) => setCity(e.target.value)}
+                  placeholder='Select City'
+                >
+                  {cities[state].map((_city: any) => {
+                    return (
+                      <option key={_city} value={_city}>
+                        {_city}
+                      </option>
+                    )
+                  })}
+                </select>
+              </div>
+              {/**<input
                 required
                 type='text'
                 value={city}
@@ -206,7 +247,7 @@ function Questionaire() {
                 onChange={(e: any) => setState(e.target.value)}
                 name='coll-state'
                 placeholder='STATE'
-              />
+              />**/}
               <input
                 required
                 type='text'
@@ -240,7 +281,43 @@ function Questionaire() {
                 name='address'
                 placeholder='POSTAL ADDRESS'
               ></textarea>
-              <input
+              <div className='dropdown-ctn'>
+                <label htmlFor='pstate'>POSTAL STATE</label>
+                <select
+                  required
+                  name='state'
+                  id='state'
+                  onChange={(e: any) => setPstate(e.target.value)}
+                  placeholder='Select State'
+                >
+                  {Object.keys(cities).map((_pstate: any) => {
+                    return (
+                      <option key={_pstate} value={_pstate}>
+                        {_pstate}
+                      </option>
+                    )
+                  })}
+                </select>
+              </div>
+              <div className='dropdown-ctn'>
+                <label htmlFor='pcity'>POSTAL CITY</label>
+                <select
+                  required
+                  name='city'
+                  id='city'
+                  onChange={(e: any) => setPcity(e.target.value)}
+                  placeholder='Select City'
+                >
+                  {cities[pstate].map((_pcity: any) => {
+                    return (
+                      <option key={_pcity} value={_pcity}>
+                        {_pcity}
+                      </option>
+                    )
+                  })}
+                </select>
+              </div>
+              {/**<input
                 required
                 type='text'
                 value={pcity}
@@ -255,7 +332,7 @@ function Questionaire() {
                 onChange={(e: any) => setPstate(e.target.value)}
                 name='state'
                 placeholder='STATE'
-              />
+              />**/}
               <input
                 required
                 type='text'

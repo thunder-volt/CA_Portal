@@ -47,13 +47,11 @@
   outline: none;
   background-color: #dfdfdf;
 }
-.Questionaire form textarea{
+.Questionaire form textarea {
   width: 100% !important;
   resize: vertical;
 }
-.Questionaire form select {
-  max-width: 150px;
-}
+
 .Questionaire form .wrapper .right textarea {
   resize: none;
   height: 94px;
@@ -72,7 +70,7 @@
   margin-top: 15px;
 }
 .Questionaire form p::after {
-  content: "*";
+  content: '*';
   color: #f00;
 }
 .Questionaire form .inputBox {
@@ -92,10 +90,10 @@
   margin: 0 5px;
   text-align: left;
 }
-.Questionaire form .inputBox input[type="radio"] {
+.Questionaire form .inputBox input[type='radio'] {
   margin-left: 10px;
 }
-.Questionaire form .inputBox.socialUse input[type="checkbox"] {
+.Questionaire form .inputBox.socialUse input[type='checkbox'] {
   margin-right: 5px;
   width: 15px;
   height: 15px;
@@ -103,14 +101,14 @@
 .Questionaire form .inputBox.socialUse label {
   margin-right: 20px;
 }
-.Questionaire form input[type="radio"] {
+.Questionaire form input[type='radio'] {
   width: 16px;
   height: 16px;
   cursor: pointer;
   padding: 0;
   margin: 0px;
 }
-.Questionaire form input[type="checkbox"] {
+.Questionaire form input[type='checkbox'] {
   width: 22px;
   height: 22px;
   cursor: pointer;
@@ -118,6 +116,25 @@
   margin: 0px;
   margin-right: 10px;
 }
+
+.Questionaire .dropdown-ctn {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Questionaire .dropdown-ctn label {
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.Questionaire .dropdown-ctn select {
+  width: 50%;
+}
+
 .Questionaire form button {
   width: 100px;
   padding: 10px 15px;
@@ -224,7 +241,7 @@
     margin-top: 16px;
     text-align: left;
   }
-  .Questionaire form input[type="checkbox"] {
+  .Questionaire form input[type='checkbox'] {
     width: 15px;
     height: 15px;
     margin: 5px;
@@ -248,5 +265,14 @@
   .Questionaire .termsAndCondition ul li:nth-of-type(4) ul {
     left: 20px;
     width: calc(100% - 20px);
+  }
+
+  .Questionaire .dropdown-ctn {
+    display: flex;
+    flex-direction: column;
+  }
+  .Questionaire .dropdown-ctn select {
+    width: 45%;
+    max-width: 150px;
   }
 }
