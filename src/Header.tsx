@@ -20,24 +20,32 @@ function Header() {
         <FaBars />
       </button>
       <ul className={header ? "active" : ""}>
-        <li>
-          <Link to="/">HOME</Link>
-        </li>
+        {role !== null && (
+          <li>
+            <Link to="/">HOME</Link>
+          </li>
+        )}
         {role === "ADMIN" && (
           <li>
             <Link to="/application">APPLICATIONS</Link>
           </li>
         )}
-        {role !== "ADMIN" && role !== null && role !== "" && data === undefined && (
-          <li>
-            <Link to="/questionaire">QUESTIONAIRE</Link>
-          </li>
-        )}
-        {role !== "ADMIN" && role !== null && role !== "" && data !== undefined && (
-          <li>
-            <Link to="/my-application">MY APPLICATION</Link>
-          </li>
-        )}
+        {role !== "ADMIN" &&
+          role !== null &&
+          role !== "" &&
+          data === undefined && (
+            <li>
+              <Link to="/questionaire">QUESTIONAIRE</Link>
+            </li>
+          )}
+        {role !== "ADMIN" &&
+          role !== null &&
+          role !== "" &&
+          data !== undefined && (
+            <li>
+              <Link to="/my-application">MY APPLICATION</Link>
+            </li>
+          )}
         {/* {role !== null && role !== "" && (
           <li>
             <Link to="/profile">PROFILE</Link>

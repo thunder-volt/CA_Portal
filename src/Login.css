@@ -44,7 +44,7 @@
   border-radius: 16px;
   margin-bottom: 10px;
   padding: 20px;
-  margin:auto;
+  margin: auto;
 }
 .Login_Container .imgBox {
   width: calc(50% - 20px);
@@ -82,6 +82,7 @@
   color: #000;
   font-weight: 500;
   letter-spacing: 1px;
+  border-radius: 4px;
 }
 .Login_Container form input::placeholder {
   color: #5c5c5c;
@@ -99,6 +100,7 @@
   font-weight: 500;
   letter-spacing: 1px;
   cursor: pointer;
+  border-radius: 4px;
 }
 .Login_Container form button:hover {
   background-color: #413a9e;
@@ -115,7 +117,7 @@
 .Login_Container form a {
   text-decoration: none;
   color: #000;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   margin-top: 10px;
 }
