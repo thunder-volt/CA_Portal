@@ -193,6 +193,8 @@ label {
   justify-content: center;
   align-items: center;
   margin-top: 80px;
+  min-height: 500px;
+  position: relative;
   /* height: calc(100vh - 80px); */
 }
 .Home_landing .imgBox {
@@ -200,7 +202,7 @@ label {
   max-height: 800px;
   width: auto;
 }
-@media screen and (min-width: 1800px) {
+@media screen and (min-width: 1600px) {
   .Home_landing .imgBox {
     height: 660px;
     max-height: 800px;
@@ -254,7 +256,7 @@ label {
 .Home_landing .contentBox a:hover {
   background-color: #3f38c2;
 }
-@media screen and (min-width: 1800px) {
+@media screen and (min-width: 1600px) {
   .Home_landing .contentBox h1 {
     font-size: calc(5vw - 1px);
   }
@@ -277,8 +279,8 @@ label {
   .Home_landing .imgBox {
     position: absolute;
     left: 30px;
-    /* bottom: 50px; */
-    max-height: 400px;
+    bottom: 0px;
+    height: 400px;
   }
   .Home_landing .contentBox {
     position: absolute;
@@ -370,7 +372,7 @@ label {
   object-fit: contain;
 }
 
-@media screen and (min-width: 1800px) {
+@media screen and (min-width: 1600px) {
   .Home_roles h1 {
     font-size: 3vw;
   }
@@ -505,7 +507,7 @@ label {
   margin-top: 5px;
   font-size: 20px;
 }
-@media screen and (min-width: 1800px) {
+@media screen and (min-width: 1600px) {
   .Home_whyJoinUS h1,
   .Home_responsiblities h1 {
     font-size: 3vw;
@@ -647,7 +649,7 @@ label {
   margin-left: 0px;
   margin-right: -30px;
 }
-@media screen and (min-width: 1800px) {
+@media screen and (min-width: 1600px) {
   .Home_testimonials {
     padding: 0;
     margin: 30px 0 100px 0;
@@ -750,7 +752,7 @@ label {
   transition: 0.5s;
   overflow: hidden;
 }
-@media screen and (min-width: 1800px) {
+@media screen and (min-width: 1600px) {
   .faq {
     padding: 80px 0;
   }
@@ -808,7 +810,7 @@ label {
   max-width: 700px;
   font-weight: 500;
 }
-@media screen and (min-width: 1800px) {
+@media screen and (min-width: 1600px) {
   .sponsor {
     padding: 80px 0;
   }
@@ -875,7 +877,7 @@ label {
   align-items: center;
   flex-direction: column;
 }
-@media screen and (min-width: 1800px) {
+@media screen and (min-width: 1600px) {
   .contact {
     padding: 80px 0;
   }
@@ -969,7 +971,7 @@ label {
   color: rgb(29, 29, 29);
   margin-right: 10px;
 }
-@media screen and (min-width: 1800px) {
+@media screen and (min-width: 1600px) {
   .contact .row .column form {
     max-width: 700px;
   }
@@ -1064,7 +1066,7 @@ label {
   font-size: 35px;
   margin: 0 10px;
 }
-@media screen and (min-width: 1800px) {
+@media screen and (min-width: 1600px) {
   .footer .row .footer-info h3 {
     font-size: 32px;
   }
