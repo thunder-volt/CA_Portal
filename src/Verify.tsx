@@ -23,7 +23,9 @@ const Verify = () => {
     }
   };
 
-  verifyHandler();
+  React.useEffect(() => {
+    verifyHandler();
+  }, [token])
 
   if (data) {
     if (data.verifyUser) {
