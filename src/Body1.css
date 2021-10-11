@@ -193,6 +193,8 @@
 
   .Body_Item2t {
     font-size: 30px;
+    /* width: calc(100% - 100px); */
+    text-align: center;
     margin-top: 100px;
     margin-bottom: 20px;
   }
