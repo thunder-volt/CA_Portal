@@ -18,6 +18,7 @@ function Questionaire() {
   const [twitterUrl, settwitterUrl] = React.useState<boolean>(false)
   const [instagramUrl, setinstagramUrl] = React.useState<boolean>(false)
 
+  const [name, setName] = React.useState<string>()
   const [college, setCollege] = React.useState<string>()
   const [collegeaddress, setCollegeaddress] = React.useState<string>()
   const [city, setCity] = React.useState<string>('')
@@ -180,6 +181,14 @@ function Questionaire() {
         <form onSubmit={submitQuestionnaire}>
           <div className='wrapper'>
             <div className='left'>
+              <input
+                required
+                type='text'
+                value={name}
+                onChange={(e: any) => setName(e.target.value)}
+                name='name'
+                placeholder='NAME'
+              />
               <input
                 required
                 type='text'
@@ -360,7 +369,7 @@ function Questionaire() {
             </div>
           </div>
           <h3>OTHER GENERAL QUESTIONS</h3>
-          <p>Were you a Shaastra CA previously ? </p>
+          <p className='required'>Were you a Shaastra CA previously ? </p>
           <div className='inputBox'>
             <input
               required
@@ -380,6 +389,7 @@ function Questionaire() {
             <label>NO</label>
           </div>
           <p
+            className='required'
             style={{
               display: pastCAExperiennce ? 'block' : 'none',
             }}
@@ -405,7 +415,7 @@ function Questionaire() {
             <option value='2015'>2015</option>
             <option value='2013'>2013</option>
           </select>
-          <p>Which social media sites do you use ? </p>
+          <p className='required'>Which social media sites do you use ? </p>
           <div className='inputBox socialUse'>
             <input
               type='checkbox'
@@ -510,14 +520,16 @@ function Questionaire() {
             value={Q3d}
           />
 
-          <p>Why do you wish to become a Campus Ambassador ? </p>
+          <p className='required'>
+            Why do you wish to become a Campus Ambassador ?{' '}
+          </p>
           <textarea
             required
             placeholder='(Short answer type)'
             onChange={(e: any) => setQ4(e.target.value)}
             value={Q4}
           />
-          <p>
+          <p className='required'>
             Why do you think you are the right candidate for this position ?{' '}
           </p>
           <textarea
@@ -526,7 +538,7 @@ function Questionaire() {
             onChange={(e: any) => setQ5(e.target.value)}
             value={Q5}
           />
-          <p>
+          <p className='required'>
             Do you have any past experience in handling Positions of
             Responsibility ?{' '}
           </p>

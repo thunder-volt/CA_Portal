@@ -30,6 +30,13 @@
   flex-direction: column;
   align-items: center;
 }
+
+.Questionaire form .center-ctn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
 .Questionaire form input,
 .Questionaire form textarea,
 .Questionaire form select,
@@ -54,7 +61,7 @@
 
 .Questionaire form .wrapper .right textarea {
   resize: none;
-  height: 94px;
+  height: 149px;
 }
 .Questionaire form h3 {
   font-weight: 700;
@@ -69,7 +76,7 @@
   font-size: 15px;
   margin-top: 15px;
 }
-.Questionaire form p::after {
+.Questionaire form .required::after {
   content: '*';
   color: #f00;
 }
