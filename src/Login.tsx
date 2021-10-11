@@ -31,6 +31,7 @@ function Login() {
     onCompleted(data) {
       if (data?.login) {
         console.log(data.login);
+        localStorage.setItem("id", data.login.id);
         localStorage.setItem("name", data?.login.name);
         localStorage.setItem("email", data?.login.email);
         localStorage.setItem("role", data?.login.role);

@@ -107,3 +107,5 @@ mutation fillQuestionnaire($questionnaireInput: QuestionnaireInput!) {
 mutation sendSupportMail($sendSupportMailInput: SendSupportMailInput!) {
   sendSupportMail(data: $sendSupportMailInput)
 }
+
+mutation createTask($data: CreateTaskInput!) {}

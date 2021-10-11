@@ -177,7 +177,7 @@ function Questionaire() {
       <Header />
       <div className='Questionaire'>
         <h1>QUESTIONAIRE</h1>
-        <form onSubmit={submitQuestionnaire}>
+        <form onSubmit={submitQuestionnaire} noValidate>
           <div className='wrapper'>
             <div className='left'>
               <input

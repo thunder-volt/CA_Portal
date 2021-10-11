@@ -320,7 +320,7 @@ export type User = {
   referral: Scalars['String'];
   role: Scalars['String'];
   taskReviews: Array<TaskReview>;
-  totalPoints: Scalars['Float'];
+  totalPoints?: Maybe<Scalars['Float']>;
 };
 
 export enum UserRole {
@@ -353,12 +353,24 @@ export type Questionnaire = {
   year: Scalars['String'];
 };
 
+export type GetQuestionnaireQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetQuestionnaireQuery = { getQuestionnaire: { college: string, collegeaddress: string, city: string, state: string, Degree: string, branch: string, year: string, postaladdress: string, pcity: string, pstate: string, pincode: string, contactno: string, whatsappno: string, Q1: string, Q2: string, Q3: string, Q4: string, Q5: string, Q6: string } };
+
+export type GetUserQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type GetUserQuery = { getUser?: Maybe<{ name: string, email: string, role: string, taskReviews: Array<{ points?: Maybe<number>, review?: Maybe<string> }> }> };
+
 export type LoginMutationVariables = Exact<{
   loginInput: LoginInput;
 }>;
 
 
-export type LoginMutation = { login?: Maybe<{ name: string, email: string, role: string }> };
+export type LoginMutation = { login?: Maybe<{ name: string, email: string, role: string, id: string }> };
 
 export type CreateUserMutationVariables = Exact<{
   createUserInput: CreateUserInput;
@@ -414,12 +426,7 @@ export type GetUsersQueryVariables = Exact<{
 }>;
 
 
-export type GetUsersQuery = { getUsers?: Maybe<{ count: number, users: Array<{ name: string, id: string, caID?: Maybe<string>, email: string, role: string, coord?: Maybe<string> }> }> };
-
-export type GetQuestionnaireQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetQuestionnaireQuery = { getQuestionnaire: { college: string, collegeaddress: string, city: string, state: string, Degree: string, branch: string, year: string, postaladdress: string, pcity: string, pstate: string, pincode: string, contactno: string, whatsappno: string, Q1: string, Q2: string, Q3: string, Q4: string, Q5: string, Q6: string } };
+export type GetUsersQuery = { getUsers?: Maybe<{ count: number, users: Array<{ name: string, id: string, caID?: Maybe<string>, email: string, role: string, coord?: Maybe<string>, totalPoints?: Maybe<number>, taskReviews: Array<{ points?: Maybe<number>, review?: Maybe<string>, reviewID: string }> }> }> };
 
 export type GetQuestionnaireByUserIdQueryVariables = Exact<{
   userid: Scalars['String'];
@@ -427,6 +434,21 @@ export type GetQuestionnaireByUserIdQueryVariables = Exact<{
 
 
 export type GetQuestionnaireByUserIdQuery = { getQuestionnaireByUserId: { college: string, collegeaddress: string, city: string, state: string, Degree: string, branch: string, year: string, postaladdress: string, pcity: string, pstate: string, pincode: string, contactno: string, whatsappno: string, Q1: string, Q2: string, Q3: string, Q4: string, Q5: string, Q6: string } };
+
+export type GetTasksQueryVariables = Exact<{
+  skip?: Maybe<Scalars['Float']>;
+  limit?: Maybe<Scalars['Float']>;
+}>;
+
+
+export type GetTasksQuery = { getTasks: Array<{ id: string, brief: string, details: string, taskReviewsCount: number, status: string, taskReviews: Array<{ review?: Maybe<string> }> }> };
+
+export type GetTaskreviewQueryVariables = Exact<{
+  filter: FilterTaskReview;
+}>;
+
+
+export type GetTaskreviewQuery = { getTaskreview: Array<{ points?: Maybe<number>, review?: Maybe<string> }> };
 
 export type FillQuestionnaireMutationVariables = Exact<{
   questionnaireInput: QuestionnaireInput;
@@ -442,20 +464,120 @@ export type SendSupportMailMutationVariables = Exact<{
 
 export type SendSupportMailMutation = { sendSupportMail: boolean };
 
-export type GetUserQueryVariables = Exact<{
-  userId: Scalars['String'];
+export type CreateTaskMutationVariables = Exact<{
+  data: TaskInput;
 }>;
 
 
-export type GetUserQuery = { getUser?: Maybe<{ name: string, email: string, role: string }> };
+export type CreateTaskMutation = { createTask: boolean };
 
 
+export const GetQuestionnaireDocument = gql`
+    query getQuestionnaire {
+  getQuestionnaire {
+    college
+    collegeaddress
+    city
+    state
+    Degree
+    branch
+    year
+    postaladdress
+    pcity
+    pstate
+    pincode
+    contactno
+    whatsappno
+    Q1
+    Q2
+    Q3
+    Q4
+    Q5
+    Q6
+  }
+}
+    `;
+
+/**
+ * __useGetQuestionnaireQuery__
+ *
+ * To run a query within a React component, call `useGetQuestionnaireQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetQuestionnaireQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetQuestionnaireQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetQuestionnaireQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetQuestionnaireQuery, GetQuestionnaireQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<GetQuestionnaireQuery, GetQuestionnaireQueryVariables>(GetQuestionnaireDocument, options);
+      }
+export function useGetQuestionnaireLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetQuestionnaireQuery, GetQuestionnaireQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<GetQuestionnaireQuery, GetQuestionnaireQueryVariables>(GetQuestionnaireDocument, options);
+        }
+export type GetQuestionnaireQueryHookResult = ReturnType<typeof useGetQuestionnaireQuery>;
+export type GetQuestionnaireLazyQueryHookResult = ReturnType<typeof useGetQuestionnaireLazyQuery>;
+export type GetQuestionnaireQueryResult = ApolloReactCommon.QueryResult<GetQuestionnaireQuery, GetQuestionnaireQueryVariables>;
+export function refetchGetQuestionnaireQuery(variables?: GetQuestionnaireQueryVariables) {
+      return { query: GetQuestionnaireDocument, variables: variables }
+    }
+export const GetUserDocument = gql`
+    query getUser($userId: String!) {
+  getUser(userId: $userId) {
+    name
+    email
+    role
+    taskReviews {
+      points
+      review
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetUserQuery__
+ *
+ * To run a query within a React component, call `useGetUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetUserQuery(baseOptions: ApolloReactHooks.QueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
+      }
+export function useGetUserLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
+        }
+export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
+export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
+export type GetUserQueryResult = ApolloReactCommon.QueryResult<GetUserQuery, GetUserQueryVariables>;
+export function refetchGetUserQuery(variables?: GetUserQueryVariables) {
+      return { query: GetUserDocument, variables: variables }
+    }
 export const LoginDocument = gql`
     mutation login($loginInput: LoginInput!) {
   login(data: $loginInput) {
     name
     email
     role
+    id
   }
 }
     `;
@@ -711,6 +833,12 @@ export const GetUsersDocument = gql`
       email
       role
       coord
+      totalPoints
+      taskReviews {
+        points
+        review
+        reviewID
+      }
     }
     count
   }
@@ -748,61 +876,6 @@ export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery
 export type GetUsersQueryResult = ApolloReactCommon.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
 export function refetchGetUsersQuery(variables?: GetUsersQueryVariables) {
       return { query: GetUsersDocument, variables: variables }
-    }
-export const GetQuestionnaireDocument = gql`
-    query getQuestionnaire {
-  getQuestionnaire {
-    college
-    collegeaddress
-    city
-    state
-    Degree
-    branch
-    year
-    postaladdress
-    pcity
-    pstate
-    pincode
-    contactno
-    whatsappno
-    Q1
-    Q2
-    Q3
-    Q4
-    Q5
-    Q6
-  }
-}
-    `;
-
-/**
- * __useGetQuestionnaireQuery__
- *
- * To run a query within a React component, call `useGetQuestionnaireQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetQuestionnaireQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetQuestionnaireQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetQuestionnaireQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetQuestionnaireQuery, GetQuestionnaireQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return ApolloReactHooks.useQuery<GetQuestionnaireQuery, GetQuestionnaireQueryVariables>(GetQuestionnaireDocument, options);
-      }
-export function useGetQuestionnaireLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetQuestionnaireQuery, GetQuestionnaireQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return ApolloReactHooks.useLazyQuery<GetQuestionnaireQuery, GetQuestionnaireQueryVariables>(GetQuestionnaireDocument, options);
-        }
-export type GetQuestionnaireQueryHookResult = ReturnType<typeof useGetQuestionnaireQuery>;
-export type GetQuestionnaireLazyQueryHookResult = ReturnType<typeof useGetQuestionnaireLazyQuery>;
-export type GetQuestionnaireQueryResult = ApolloReactCommon.QueryResult<GetQuestionnaireQuery, GetQuestionnaireQueryVariables>;
-export function refetchGetQuestionnaireQuery(variables?: GetQuestionnaireQueryVariables) {
-      return { query: GetQuestionnaireDocument, variables: variables }
     }
 export const GetQuestionnaireByUserIdDocument = gql`
     query getQuestionnaireByUserId($userid: String!) {
@@ -859,6 +932,91 @@ export type GetQuestionnaireByUserIdLazyQueryHookResult = ReturnType<typeof useG
 export type GetQuestionnaireByUserIdQueryResult = ApolloReactCommon.QueryResult<GetQuestionnaireByUserIdQuery, GetQuestionnaireByUserIdQueryVariables>;
 export function refetchGetQuestionnaireByUserIdQuery(variables?: GetQuestionnaireByUserIdQueryVariables) {
       return { query: GetQuestionnaireByUserIdDocument, variables: variables }
+    }
+export const GetTasksDocument = gql`
+    query getTasks($skip: Float, $limit: Float) {
+  getTasks(skip: $skip, limit: $limit) {
+    id
+    brief
+    details
+    taskReviewsCount
+    taskReviews {
+      review
+    }
+    status
+  }
+}
+    `;
+
+/**
+ * __useGetTasksQuery__
+ *
+ * To run a query within a React component, call `useGetTasksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTasksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTasksQuery({
+ *   variables: {
+ *      skip: // value for 'skip'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useGetTasksQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetTasksQuery, GetTasksQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<GetTasksQuery, GetTasksQueryVariables>(GetTasksDocument, options);
+      }
+export function useGetTasksLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTasksQuery, GetTasksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<GetTasksQuery, GetTasksQueryVariables>(GetTasksDocument, options);
+        }
+export type GetTasksQueryHookResult = ReturnType<typeof useGetTasksQuery>;
+export type GetTasksLazyQueryHookResult = ReturnType<typeof useGetTasksLazyQuery>;
+export type GetTasksQueryResult = ApolloReactCommon.QueryResult<GetTasksQuery, GetTasksQueryVariables>;
+export function refetchGetTasksQuery(variables?: GetTasksQueryVariables) {
+      return { query: GetTasksDocument, variables: variables }
+    }
+export const GetTaskreviewDocument = gql`
+    query getTaskreview($filter: FilterTaskReview!) {
+  getTaskreview(filter: $filter) {
+    points
+    review
+  }
+}
+    `;
+
+/**
+ * __useGetTaskreviewQuery__
+ *
+ * To run a query within a React component, call `useGetTaskreviewQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTaskreviewQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTaskreviewQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *   },
+ * });
+ */
+export function useGetTaskreviewQuery(baseOptions: ApolloReactHooks.QueryHookOptions<GetTaskreviewQuery, GetTaskreviewQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<GetTaskreviewQuery, GetTaskreviewQueryVariables>(GetTaskreviewDocument, options);
+      }
+export function useGetTaskreviewLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTaskreviewQuery, GetTaskreviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<GetTaskreviewQuery, GetTaskreviewQueryVariables>(GetTaskreviewDocument, options);
+        }
+export type GetTaskreviewQueryHookResult = ReturnType<typeof useGetTaskreviewQuery>;
+export type GetTaskreviewLazyQueryHookResult = ReturnType<typeof useGetTaskreviewLazyQuery>;
+export type GetTaskreviewQueryResult = ApolloReactCommon.QueryResult<GetTaskreviewQuery, GetTaskreviewQueryVariables>;
+export function refetchGetTaskreviewQuery(variables?: GetTaskreviewQueryVariables) {
+      return { query: GetTaskreviewDocument, variables: variables }
     }
 export const FillQuestionnaireDocument = gql`
     mutation fillQuestionnaire($questionnaireInput: QuestionnaireInput!) {
@@ -922,43 +1080,34 @@ export function useSendSupportMailMutation(baseOptions?: ApolloReactHooks.Mutati
 export type SendSupportMailMutationHookResult = ReturnType<typeof useSendSupportMailMutation>;
 export type SendSupportMailMutationResult = ApolloReactCommon.MutationResult<SendSupportMailMutation>;
 export type SendSupportMailMutationOptions = ApolloReactCommon.BaseMutationOptions<SendSupportMailMutation, SendSupportMailMutationVariables>;
-export const GetUserDocument = gql`
-    query getUser($userId: String!) {
-  getUser(userId: $userId) {
-    name
-    email
-    role
-  }
+export const CreateTaskDocument = gql`
+    mutation createTask($data: TaskInput!) {
+  createTask(data: $data)
 }
     `;
+export type CreateTaskMutationFn = ApolloReactCommon.MutationFunction<CreateTaskMutation, CreateTaskMutationVariables>;
 
 /**
- * __useGetUserQuery__
+ * __useCreateTaskMutation__
  *
- * To run a query within a React component, call `useGetUserQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
+ * To run a mutation, you first call `useCreateTaskMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateTaskMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const { data, loading, error } = useGetUserQuery({
+ * const [createTaskMutation, { data, loading, error }] = useCreateTaskMutation({
  *   variables: {
- *      userId: // value for 'userId'
+ *      data: // value for 'data'
  *   },
  * });
  */
-export function useGetUserQuery(baseOptions: ApolloReactHooks.QueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
+export function useCreateTaskMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateTaskMutation, CreateTaskMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return ApolloReactHooks.useQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
+        return ApolloReactHooks.useMutation<CreateTaskMutation, CreateTaskMutationVariables>(CreateTaskDocument, options);
       }
-export function useGetUserLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return ApolloReactHooks.useLazyQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
-        }
-export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
-export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
-export type GetUserQueryResult = ApolloReactCommon.QueryResult<GetUserQuery, GetUserQueryVariables>;
-export function refetchGetUserQuery(variables?: GetUserQueryVariables) {
-      return { query: GetUserDocument, variables: variables }
-    }
+export type CreateTaskMutationHookResult = ReturnType<typeof useCreateTaskMutation>;
+export type CreateTaskMutationResult = ApolloReactCommon.MutationResult<CreateTaskMutation>;
+export type CreateTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateTaskMutation, CreateTaskMutationVariables>;

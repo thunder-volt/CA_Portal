@@ -4,6 +4,9 @@ import { useState } from 'react'
 import * as Showdown from 'showdown'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 import './TaskForm.css'
+import { TaskInput, useCreateTaskMutation } from './generated'
+import {Dialog} from "@material-ui/core"
+import { useHistory } from 'react-router'
 
 interface FuncProps {
   toggleForm: () => void
@@ -17,10 +20,7 @@ const converter = new Showdown.Converter({
 })
 
 function TaskForm(props: FuncProps) {
-  function handleSubmit() {
-    alert('You have submitted the form')
-  }
-
+  const history = useHistory()
   const [name, setname] = useState('name')
   const [description, setdescription] = useState('description')
   const [deadline, setdeadline] = useState('')
@@ -29,9 +29,55 @@ function TaskForm(props: FuncProps) {
     'write'
   )
 
+  const [createTaskMutation, {data, loading, error}] = useCreateTaskMutation()
+  const [taskInput, setTaskInput] = useState<TaskInput>()
+
   function handleChange() {
     props.toggleForm()
   }
+
+ async function handleSubmit(e:any) {
+    // alert('You have submitted the form')
+    e.preventDefault()
+    console.log(deadline)
+    try 
+    {
+      await createTaskMutation({variables:{data: {brief: name!, details: description!, deadline: "2021/10/7", maxPoints: points!}}})
+    }
+    catch(e)
+    {
+      console.log(e)
+    }
+  }
+  if(data?.createTask ==true)
+      {
+        console.log(data)
+        const closeHandler = () => {window.location.reload()}
+        return(
+            <Dialog onClose={closeHandler} open={true}>
+              <p>Task Added</p>
+              <button onClick={handleChange}>Close</button>
+          </Dialog>
+        )
+      }
+  if(loading)
+  {
+    return (
+      <Dialog open={true}>
+        <p>Loading...</p>
+      </Dialog>
+    )
+  }
+if(error)
+{
+  const closeHandler = () => {window.location.reload()}
+  return (
+    <Dialog onClose={closeHandler} open={true}>
+      <p>Some error occurred.</p>
+      <button onClick={closeHandler}>Close</button>
+    </Dialog>
+  )
+}
   return (
     <div className='task-form'>
       <div className='top-ctn'>
@@ -63,8 +109,16 @@ function TaskForm(props: FuncProps) {
           <p>Deadline :</p>
           <input
             type='date'
-            value={deadline}
-            onChange={(e) => setdeadline(e.target.value)}
+            // value={deadline}
+            onChange={(e) => {
+              setdeadline(e.target.value)
+              console.log(deadline)
+              // var date = e.target.value.split('-')
+              // var t = date[0];
+              // date[0] =  date[date.length-1];
+              // date[date.length-1] = t;
+              // setdeadline(date.join('/'))
+            }}
           ></input>
         </div>
         <div className='input-ctn'>

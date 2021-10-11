@@ -6,9 +6,9 @@ import {Link} from "@chakra-ui/react"
 import Header from "./Header";
 
 function App() {
-  const [filter, setFilter] = React.useState<GetUsersFilter>({role: UserRole.Registered })
-  const [opt, setOption] = useState()
-  const [coord, setCoord] = useState()
+  var [filter, setFilter] = React.useState<GetUsersFilter>({role: UserRole.Registered, coord: null })
+  const [opt, setOption] = useState("")
+  const [coord, setCoord] = useState("")
 
   const {data, loading, error} = useGetUsersQuery({
     variables: {
@@ -46,7 +46,7 @@ function App() {
       </select>
       {
         opt==='S' ? 
-        <select name="" id="role" onChange={coordHandler}>
+        <select name="" id="coord" onChange={coordHandler}>
             <option value="Anshid">Anshid</option>
             <option value="Samrudha Lakshmi">Samrudha Lakshmi</option>
             <option value="Poojitha R">Poojitha R</option>
@@ -74,7 +74,6 @@ function App() {
               <td><a href={`/application/${el.id}`}>{el.name}</a></td>
               <td>{el.caID}</td>
               <td>{el.email}</td>
-              {/* <td>{el.questionnaire.college}</td> */}
             </tr>
            )
           })

@@ -21,6 +21,8 @@ import AuthContext from "./utils/context";
 import Body1 from "./Body1";
 import { Rejected, Selected } from "./Body2";
 import ForgotPassword from "./ForgotPassword";
+import AdminTasks from "./AdminTasks";
+import MarkTasks from "./MarkTasks";
 import ResetPassword from "./ResetPassword";
 import ResendVerificationMail from "./ResendVerificationMail";
 import MyApplication from "./MyApplication";
@@ -63,6 +65,10 @@ const App = () => {
               {role === "SELECTED" && (
                 <Route exact path="/me" component={Selected} />
               )}
+              {role === "REGISTERED" && (
+                <Route exact path="/task" component={Task}></Route>
+              )
+              }
               {role === "REJECTED" && (
                 <Route exact path="/me" component={Rejected} />
               )}
@@ -83,6 +89,8 @@ const App = () => {
               <Route exact path="/me">
                 <Redirect to="/" />
               </Route>
+              <Route exact path="/admintask" component={AdminTasks}></Route>
+              <Route exact path="/marktask" component={MarkTasks}></Route>
             </Switch>
           )}
         </Router>

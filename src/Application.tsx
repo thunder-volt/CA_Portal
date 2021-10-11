@@ -33,7 +33,7 @@ function Application() {
     isSelected: false,
   });
   console.log(data);
-  console.log(getUserData?.getUser?.role);
+  // console.log(getUserData?.getUser?.role);
 
   const accept = async () => {
     setCoord(coord);
@@ -46,7 +46,6 @@ function Application() {
         variables: { data: { isSelected: true, id: id, coord: coord } },
       });
       console.log(resp.data?.applicationResult);
-      console.log(getUserData?.getUser?.role);
     } catch (err) {
       window.alert(err);
     }
@@ -174,6 +173,7 @@ function Application() {
                 console.log(coord);
               }}
             >
+              <option value="0">Coordinator</option>
               <option value="Anshid">Anshid</option>
               <option value="Samrudha Lakshmi">Samrudha Lakshmi</option>
               <option value="Poojitha R">Poojitha R</option>

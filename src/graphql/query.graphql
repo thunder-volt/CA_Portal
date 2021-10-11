@@ -28,6 +28,154 @@ query getUser($userId: String!)
   {
     name,
     email,
-    role
+    role,
+    taskReviews{
+      points
+      review
+    }
   }
+}
+
+mutation login($loginInput: LoginInput!) {
+  login(data: $loginInput) {
+    name
+    email
+    role
+    id
+  }
+}
+
+mutation createUser($createUserInput: CreateUserInput!) {
+  createUser(data: $createUserInput)
+}
+
+mutation logoutUser {
+  logoutUser
+}
+
+mutation verifyUser($token: String!) {
+  verifyUser(token: $token)
+}
+
+mutation resendVerificationMail(
+  $requestForgotPassInput: RequestForgotPassInput!
+) {
+  resendVerificationMail(data: $requestForgotPassInput)
+}
+
+mutation reqForgotPassVerification(
+  $requestForgotPassInput: RequestForgotPassInput!
+) {
+  reqForgotPassVerification(data: $requestForgotPassInput)
+}
+
+mutation resetPassword($resetPasswordInput: ResetPasswordInput!) {
+  resetPassword(data: $resetPasswordInput)
+}
+
+mutation applicationResult($data: ApplicationResultInput!)
+{
+  applicationResult(data: $data)
+}
+
+query getUsers($filter: GetUsersFilter, $Skip: Float, $limit: Float){
+    getUsers(filter: $filter, skip: $Skip, limit: $limit){
+        users{
+            name,
+            id,
+            caID,
+            email,
+            role,
+            coord,
+            totalPoints,
+            taskReviews{
+              points,
+              review,
+              reviewID
+            }
+        },
+        count
+    }
+}
+
+query getQuestionnaire{
+  getQuestionnaire{
+    college,
+    collegeaddress,
+    city,
+    state,
+    Degree,
+    branch,
+    year,
+    postaladdress,
+    pcity,
+    pstate,
+    pincode,
+    contactno,
+    whatsappno,
+    Q1,
+    Q2,
+    Q3,
+    Q4,
+    Q5,Q6
+  }
+}
+
+query getQuestionnaireByUserId($userid: String!)
+{
+  getQuestionnaireByUserId(userid: $userid)
+  {
+    college,
+    collegeaddress,
+    city,
+    state,
+    Degree,
+    branch,
+    year,
+    postaladdress,
+    pcity,
+    pstate,
+    pincode,
+    contactno,
+    whatsappno,
+    Q1,
+    Q2,
+    Q3,
+    Q4,
+    Q5,Q6
+  }
+}
+
+query getTasks($skip: Float, $limit: Float){
+  getTasks(skip: $skip, limit: $limit){
+    id,
+    brief,
+    details,
+    taskReviewsCount
+    taskReviews
+    {
+      review
+    }
+    status
+  }
+}
+
+query getTaskreview($filter: FilterTaskReview!) {
+  getTaskreview(filter: $filter) {
+    points
+    review
+  }
+}
+
+mutation fillQuestionnaire($questionnaireInput: QuestionnaireInput!) {
+  fillQuestionnaire(data: $questionnaireInput)
+}
+
+mutation sendSupportMail($sendSupportMailInput: SendSupportMailInput!) {
+  sendSupportMail(data: $sendSupportMailInput)
+}
+
+mutation createTask($data: TaskInput!) 
+{
+  createTask(data: $data)
 }

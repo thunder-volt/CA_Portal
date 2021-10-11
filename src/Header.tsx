@@ -30,6 +30,16 @@ function Header() {
             <Link to="/application">APPLICATIONS</Link>
           </li>
         )}
+         {role === "ADMIN" && (
+          <li>
+            <Link to="/admintask">TASKS</Link>
+          </li>
+        )}
+         {role === "ADMIN" && (
+          <li>
+            <Link to="/marktask">MARK TASK</Link>
+          </li>
+        )}
         {role !== "ADMIN" &&
           role !== null &&
           role !== "" &&

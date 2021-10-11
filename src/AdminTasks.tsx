@@ -4,25 +4,20 @@ import { useState } from 'react'
 import './AdminTasks.css'
 import TaskForm from './TaskForm'
 import Logo from './assests/ShaastraLogo.png'
+import { useGetTasksQuery } from './generated'
+import Header from './Header'
 
 function AdminTasks() {
   const [display, setdisplay] = useState(false)
+  const {data,loading,error} = useGetTasksQuery({variables:{skip:null, limit:100}})
 
   function toggleForm() {
-    setdisplay(!display)
+    setdisplay(!display);
   }
-
+console.log(data?.getTasks)
   return (
     <div className='tasks'>
-      <div className='navbar'>
-        <img src={Logo} alt='logo' className='logo'></img>
-        <div className='navbar-options'>
-          <h3>SELECT CA'S</h3>
-          <h3>TASKS</h3>
-          <h3>MARK TASKS</h3>
-          <h3>LOGOUT</h3>
-        </div>
-      </div>
+      <Header></Header>
       <div className='header'>
         <h1>TASKS</h1>
         <button onClick={toggleForm}>ADD TASKS</button>
@@ -32,7 +27,19 @@ function AdminTasks() {
       </div>
       <div className='task-lists'>
         <ul>
-          <li>
+          {
+            data?.getTasks.map(el => {
+              return(
+                    <li>
+                      <div className='task-items'>
+                        <p>{el.brief}</p>
+                        <p>SUBMISSIONS: {el.taskReviewsCount}</p>
+                      </div>
+                  </li>
+              )
+            })
+          }
+          {/* <li>
             <div className='task-items'>
               <p>TASK TITLE</p>
               <p>SUBMISSIONS: 12</p>
@@ -67,7 +74,7 @@ function AdminTasks() {
               <p>TASK TITLE</p>
               <p>SUBMISSIONS: 12</p>
             </div>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>
