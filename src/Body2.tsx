@@ -185,7 +185,7 @@ const Rejected = () => {
             enable: true,
             outMode: "bounce",
             random: false,
-            speed: 6,
+            speed: 2,
             straight: false,
           },
           number: {
