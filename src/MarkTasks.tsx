@@ -14,6 +14,12 @@ function MarkTasks() {
   const [feedback, setfeedback] = React.useState('')
   const [task, settask] = React.useState('')
 
+  function saveUserData() {
+    alert('Changes Saved')
+    console.log({ points })
+    console.log({ feedback })
+  }
+
   return (
     <div className='mark-tasks'>
       <div className='navbar'>
@@ -64,39 +70,44 @@ function MarkTasks() {
         </div>
       </div>
       <div className='task-lists'>
-        <div className='list-header'>
-          <p>{caName}</p>
-          <p className='green-text'>TOTAL POINTS : {totalPoints}</p>
+        <div className='task-form'>
+          <div className='list-header'>
+            <p>{caName}</p>
+            <p className='green-text'>TOTAL POINTS : {totalPoints}</p>
+          </div>
+          <table className='task-table'>
+            <tr>
+              <th>Tasks</th>
+              <th>Proofs</th>
+              <th>Points</th>
+              <th>Feedback</th>
+            </tr>
+            <tr>
+              <td>{task}</td>
+              <td>{proof}</td>
+              <td>
+                <input
+                  value={points}
+                  name='points'
+                  placeholder='Points'
+                  onChange={(e: any) => setpoints(e.target.value)}
+                ></input>
+              </td>
+              <td>
+                <input
+                  type='text'
+                  value={feedback}
+                  name='feedback'
+                  onChange={(e: any) => setfeedback(e.target.value)}
+                  placeholder='Feedback'
+                ></input>
+              </td>
+            </tr>
+          </table>
+          <button className='save-btn' onClick={saveUserData}>
+            Save Changes
+          </button>
         </div>
-        <table className='task-table'>
-          <tr>
-            <th>Tasks</th>
-            <th>Proofs</th>
-            <th>Points</th>
-            <th>Feedback</th>
-          </tr>
-          <tr>
-            <td>{task}</td>
-            <td>{proof}</td>
-            <td>
-              <input
-                value={points}
-                name='points'
-                placeholder='Points'
-                onChange={(e: any) => setpoints(e.target.value)}
-              ></input>
-            </td>
-            <td>
-              <input
-                type='text'
-                value={feedback}
-                name='feedback'
-                onChange={(e: any) => setfeedback(e.target.value)}
-                placeholder='Feedback'
-              ></input>
-            </td>
-          </tr>
-        </table>
       </div>
     </div>
   )
