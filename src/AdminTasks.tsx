@@ -53,42 +53,6 @@ console.log(data?.getTasks)
               )
             })
           }
-          {/* <li>
-            <div className='task-items'>
-              <p>TASK TITLE</p>
-              <p>SUBMISSIONS: 12</p>
-            </div>
-          </li>
-          <li>
-            <div className='task-items'>
-              <p>TASK TITLE</p>
-              <p>SUBMISSIONS: 12</p>
-            </div>
-          </li>
-          <li>
-            <div className='task-items'>
-              <p>TASK TITLE</p>
-              <p>SUBMISSIONS: 12</p>
-            </div>
-          </li>
-          <li>
-            <div className='task-items'>
-              <p>TASK TITLE</p>
-              <p>SUBMISSIONS: 12</p>
-            </div>
-          </li>
-          <li>
-            <div className='task-items'>
-              <p>TASK TITLE</p>
-              <p>SUBMISSIONS: 12</p>
-            </div>
-          </li>
-          <li>
-            <div className='task-items'>
-              <p>TASK TITLE</p>
-              <p>SUBMISSIONS: 12</p>
-            </div>
-          </li> */}
         </ul>
       </div>
     </div>

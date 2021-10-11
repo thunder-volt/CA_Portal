@@ -39,12 +39,10 @@ const Verify = () => {
             
         </Dialog>
       )
-      // history.replace("/login");
     } else return <p></p>;
   }
 
   if (loading) {
-    // const closeHandler= () => {history.push('/login')}
     return(
       <Dialog open={true} >
           <p>Loading...</p>
