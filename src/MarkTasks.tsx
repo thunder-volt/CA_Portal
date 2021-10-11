@@ -1,19 +1,39 @@
 import React from 'react'
-import Logo from './assests/ShaastraLogo.png'
-import { FaSearch } from 'react-icons/fa'
+import shaastraLogo from './assets/Shaastra_logo.png'
+import { FaSearch, FaBars } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 import './MarkTasks.css'
 
 function MarkTasks() {
+  const [header, setHeader] = React.useState(false)
+  const [caName, setcaName] = React.useState('Campus Ambassaodar Name')
+  const [coordName, setcoordName] = React.useState('')
+  const [totalPoints, settotalPoints] = React.useState(0)
+  const [points, setpoints] = React.useState(0)
+  const [proof, setproof] = React.useState('')
+  const [feedback, setfeedback] = React.useState('')
+  const [task, settask] = React.useState('')
+
   return (
     <div className='mark-tasks'>
       <div className='navbar'>
-        <img src={Logo} alt='logo' className='logo'></img>
-        <div className='navbar-options'>
-          <h3>SELECT CA'S</h3>
-          <h3>TASKS</h3>
-          <h3>MARK TASKS</h3>
-          <h3>LOGOUT</h3>
-        </div>
+        <Link to='/'>
+          <img src={shaastraLogo} alt='' />
+        </Link>
+        <button onClick={() => setHeader(!header)}>
+          <FaBars />
+        </button>
+        <ul className={header ? 'active' : ''}>
+          <li>
+            <Link to='/'>HOME</Link>
+          </li>
+          <li>
+            <Link to='/tasks'>TASKS</Link>
+          </li>
+          <li>
+            <Link to='/logout'>LOGOUT</Link>
+          </li>
+        </ul>
       </div>
       <div className='header'>
         <h1>MARK TASKS</h1>
@@ -21,12 +41,22 @@ function MarkTasks() {
           <input className='search-bar' placeholder='Search for CA'></input>
         </div>
         <div className='menu-ctn'>
-          <select>
+          <select
+            name='coordName'
+            id='coordName'
+            onChange={(e: any) => setcoordName(e.target.value)}
+            placeholder='Coordinator Name'
+          >
             <option value='0'>COORD NAME</option>
             <option value='1'>Option 1</option>
             <option value='2'>Option 2</option>
           </select>
-          <select>
+          <select
+            name='caName'
+            id='caName'
+            onChange={(e: any) => setcaName(e.target.value)}
+            placeholder='Campus Ambassador'
+          >
             <option value='0'>CAMPUS AMBASSADOR</option>
             <option value='1'>Option 1</option>
             <option value='2'>Option 2</option>
@@ -34,44 +64,39 @@ function MarkTasks() {
         </div>
       </div>
       <div className='task-lists'>
-        <ul>
-          <li>
-            <div className='list-header'>
-              <p>CAMPUS AMBASSADOR NAME</p>
-              <p className='green-text'>TOTAL POINTS : 60</p>
-            </div>
-          </li>
-          <li>
-            <div className='task-item'>
-              <p>TASK TITLE</p>
-              <p className='yellow-text'>NOT REVIEWED</p>
-            </div>
-          </li>
-          <li>
-            <div className='task-item'>
-              <p>TASK TITLE</p>
-              <p className='green-text'>POINTS: 20</p>
-            </div>
-          </li>
-          <li>
-            <div className='task-item'>
-              <p>TASK TITLE</p>
-              <p className='green-text'>POINTS: 20</p>
-            </div>
-          </li>
-          <li>
-            <div className='task-item'>
-              <p>TASK TITLE</p>
-              <p className='green-text'>POINTS: 20</p>
-            </div>
-          </li>
-          <li>
-            <div className='task-item'>
-              <p>TASK TITLE</p>
-              <p className='green-text'>POINTS: 20</p>
-            </div>
-          </li>
-        </ul>
+        <div className='list-header'>
+          <p>{caName}</p>
+          <p className='green-text'>TOTAL POINTS : {totalPoints}</p>
+        </div>
+        <table className='task-table'>
+          <tr>
+            <th>Tasks</th>
+            <th>Proofs</th>
+            <th>Points</th>
+            <th>Feedback</th>
+          </tr>
+          <tr>
+            <td>{task}</td>
+            <td>{proof}</td>
+            <td>
+              <input
+                value={points}
+                name='points'
+                placeholder='Points'
+                onChange={(e: any) => setpoints(e.target.value)}
+              ></input>
+            </td>
+            <td>
+              <input
+                type='text'
+                value={feedback}
+                name='feedback'
+                onChange={(e: any) => setfeedback(e.target.value)}
+                placeholder='Feedback'
+              ></input>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
   )
