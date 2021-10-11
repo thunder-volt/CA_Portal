@@ -176,8 +176,8 @@ function Questionaire() {
     <>
       <Header />
       <div className='Questionaire'>
-        <h1>QUESTIONAIRE</h1>
-        <form onSubmit={submitQuestionnaire} noValidate>
+        <h1>APPLICATION</h1>
+        <form onSubmit={submitQuestionnaire}>
           <div className='wrapper'>
             <div className='left'>
               <input
@@ -456,7 +456,6 @@ function Questionaire() {
             style={{
               display: facebookUrl ? 'block' : 'none',
             }}
-            required
             type='url'
             placeholder='URL'
             onChange={(e: any) => setQ3a(e.target.value)}
@@ -473,7 +472,6 @@ function Questionaire() {
             style={{
               display: linkedinUrl ? 'block' : 'none',
             }}
-            required
             type='url'
             placeholder='URL'
             onChange={(e: any) => setQ3b(e.target.value)}
@@ -490,7 +488,6 @@ function Questionaire() {
             style={{
               display: twitterUrl ? 'block' : 'none',
             }}
-            required
             type='url'
             placeholder='URL'
             onChange={(e: any) => setQ3c(e.target.value)}
@@ -507,7 +504,6 @@ function Questionaire() {
             style={{
               display: instagramUrl ? 'block' : 'none',
             }}
-            required
             type='url'
             placeholder='URL'
             onChange={(e: any) => setQ3d(e.target.value)}

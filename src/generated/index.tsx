@@ -426,7 +426,7 @@ export type GetUsersQueryVariables = Exact<{
 }>;
 
 
-export type GetUsersQuery = { getUsers?: Maybe<{ count: number, users: Array<{ name: string, id: string, caID?: Maybe<string>, email: string, role: string, coord?: Maybe<string>, totalPoints?: Maybe<number>, taskReviews: Array<{ points?: Maybe<number>, review?: Maybe<string>, reviewID: string }> }> }> };
+export type GetUsersQuery = { getUsers?: Maybe<{ count: number, users: Array<{ name: string, id: string, caID?: Maybe<string>, email: string, role: string, coord?: Maybe<string>, totalPoints?: Maybe<number>, taskReviews: Array<{ points?: Maybe<number>, review?: Maybe<string>, reviewID: string, taskurl: string }> }> }> };
 
 export type GetQuestionnaireByUserIdQueryVariables = Exact<{
   userid: Scalars['String'];
@@ -441,7 +441,7 @@ export type GetTasksQueryVariables = Exact<{
 }>;
 
 
-export type GetTasksQuery = { getTasks: Array<{ id: string, brief: string, details: string, taskReviewsCount: number, status: string, taskReviews: Array<{ review?: Maybe<string> }> }> };
+export type GetTasksQuery = { getTasks: Array<{ id: string, brief: string, details: string, maxPoints: number, taskReviewsCount: number, status: string, taskReviews: Array<{ review?: Maybe<string> }> }> };
 
 export type GetTaskreviewQueryVariables = Exact<{
   filter: FilterTaskReview;
@@ -470,6 +470,13 @@ export type CreateTaskMutationVariables = Exact<{
 
 
 export type CreateTaskMutation = { createTask: boolean };
+
+export type ReviewTaskMutationVariables = Exact<{
+  data: ReviewTaskInput;
+}>;
+
+
+export type ReviewTaskMutation = { reviewTask: boolean };
 
 
 export const GetQuestionnaireDocument = gql`
@@ -838,6 +845,7 @@ export const GetUsersDocument = gql`
         points
         review
         reviewID
+        taskurl
       }
     }
     count
@@ -939,6 +947,7 @@ export const GetTasksDocument = gql`
     id
     brief
     details
+    maxPoints
     taskReviewsCount
     taskReviews {
       review
@@ -1111,3 +1120,34 @@ export function useCreateTaskMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type CreateTaskMutationHookResult = ReturnType<typeof useCreateTaskMutation>;
 export type CreateTaskMutationResult = ApolloReactCommon.MutationResult<CreateTaskMutation>;
 export type CreateTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateTaskMutation, CreateTaskMutationVariables>;
+export const ReviewTaskDocument = gql`
+    mutation reviewTask($data: ReviewTaskInput!) {
+  reviewTask(data: $data)
+}
+    `;
+export type ReviewTaskMutationFn = ApolloReactCommon.MutationFunction<ReviewTaskMutation, ReviewTaskMutationVariables>;
+
+/**
+ * __useReviewTaskMutation__
+ *
+ * To run a mutation, you first call `useReviewTaskMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useReviewTaskMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [reviewTaskMutation, { data, loading, error }] = useReviewTaskMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useReviewTaskMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<ReviewTaskMutation, ReviewTaskMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<ReviewTaskMutation, ReviewTaskMutationVariables>(ReviewTaskDocument, options);
+      }
+export type ReviewTaskMutationHookResult = ReturnType<typeof useReviewTaskMutation>;
+export type ReviewTaskMutationResult = ApolloReactCommon.MutationResult<ReviewTaskMutation>;
+export type ReviewTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<ReviewTaskMutation, ReviewTaskMutationVariables>;

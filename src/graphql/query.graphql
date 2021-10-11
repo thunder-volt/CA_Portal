@@ -91,7 +91,8 @@ query getUsers($filter: GetUsersFilter, $Skip: Float, $limit: Float){
             taskReviews{
               points,
               review,
-              reviewID
+              reviewID,
+              taskurl
             }
         },
         count
@@ -151,6 +152,7 @@ query getTasks($skip: Float, $limit: Float){
     id,
     brief,
     details,
+    maxPoints,
     taskReviewsCount
     taskReviews
     {
@@ -178,4 +180,8 @@ mutation sendSupportMail($sendSupportMailInput: SendSupportMailInput!) {
 mutation createTask($data: TaskInput!) 
 {
   createTask(data: $data)
+}
+
+mutation reviewTask($data: ReviewTaskInput!) {
+  reviewTask(data: $data)
 }

@@ -1,14 +1,22 @@
 import React from 'react'
-import Logo from './assests/ShaastraLogo.png'
-import { FaSearch } from 'react-icons/fa'
+import shaastraLogo from './assets/Shaastra_logo.png'
+import { FaSearch, FaBars } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 import './MarkTasks.css'
 import { useState } from 'react'
 import Header from "./Header"
-import { GetUsersFilter, useGetTaskreviewQuery, useGetTasksQuery, useGetUsersQuery, UserRole} from "./generated";
+import { GetUsersFilter, useGetTaskreviewQuery, useGetTasksQuery, useGetUsersQuery, useReviewTaskMutation, UserRole} from "./generated";
 
 
 function MarkTasks() {
-
+  const [header, setHeader] = React.useState(false)
+  const [caName, setcaName] = React.useState('Campus Ambassaodar Name')
+  const [coordName, setcoordName] = React.useState('')
+  const [totalPoints, settotalPoints] = React.useState(0)
+  const [points, setpoints] = React.useState(0)
+  const [proof, setproof] = React.useState('')
+  const [feedback, setfeedback] = React.useState('')
+  const [task, settask] = React.useState('')
   const [filter, setFilter] = React.useState<GetUsersFilter>({role: UserRole.Selected });
   const {data: tasks, loading: taskLoad, error: taskError} = useGetTasksQuery({variables:{skip:null, limit:10000}})
   const {data, loading, error} = useGetUsersQuery({
@@ -17,6 +25,8 @@ function MarkTasks() {
     }
   })
   const taskCount = tasks?.getTasks.length
+
+  const [reviewTaskMutation, {data:review, loading:reviewLoad, error:reviewError}] = useReviewTaskMutation()
 
   return (
     <div className='mark-tasks'>
@@ -46,7 +56,12 @@ function MarkTasks() {
               <option value="Umesh">Umesh</option>
               <option value="Reethika">Reethika</option>
           </select>
-          <select>
+          <select
+            name='caName'
+            id='caName'
+            onChange={(e: any) => setcaName(e.target.value)}
+            placeholder='Campus Ambassador'
+          >
             <option value='0'>CAMPUS AMBASSADOR</option>
             { 
               data?.getUsers?.users.map(el => { console.log(el.name)
@@ -62,42 +77,167 @@ function MarkTasks() {
         {
           data?.getUsers?.users.map(el => {
             return(
-              <ul>
-              <li>
-                <div className='list-header'>
-                  <p>{el.name}</p>
-                  <p className='green-text'>TOTAL POINTS : {el.totalPoints}</p>
-                </div>
-              </li>
-              {
-                tasks?.getTasks.map(t => {
-                  if(el.taskReviews.map(r => {
-                    if(r.reviewID === t.id)
-                    {
-                      return(
-                        <li>
-                          <div className='task-item'>
-                            <p>{t.brief}</p>
-                            <p className='green-text'>POINTS: {r.points}</p>
-                          </div>
-                        </li>
-                      )
-                    }
-                  }))
+              <div className='task-lists'>
+        <div className='list-header'>
+          <p>{el.name}</p>
+          <p className='green-text'>TOTAL POINTS : {el.totalPoints}</p>
+        </div>
+        <table className='task-table'>
+          <tr>
+            <th>Tasks</th>
+            <th>Proofs</th>
+            <th>Points</th>
+            <th>Feedback</th>
+          </tr>
+          {
+            tasks?.getTasks.map(t => {
+              if(el.taskReviews.map(r => {
+                if(r.reviewID === t.id)
+                {
+                  setpoints(r.points!)
+                  setfeedback(r.review!)
                   return(
-                    <li>
-                      <div className='task-item'>
-                        <p>{t.brief}</p>
-                        <p className='yellow-text'>NOT REVIEWED</p>
-                      </div>
-                    </li>
+                    <tr>
+                <td>{t.brief}</td>
+                <td>{r.taskurl}</td>
+                <td>
+                  <input
+                    value={points}
+                    name='points'
+                    placeholder='Points'
+                    onChange={(e: any) => setpoints(e.target.value)}
+                  ></input>
+                </td>
+                <td>
+                  <input
+                    type='text'
+                    value={feedback}
+                    name='feedback'
+                    onChange={(e: any) => setfeedback(e.target.value)}
+                    placeholder='Feedback'
+                  ></input>
+                </td>
+              </tr>
                   )
-                })
-              }
-            </ul>
+                }
+              }))
+              return(
+                <tr>
+            <td>{t.brief}</td>
+            <td></td>
+            <td>
+              <input
+                value={points}
+                name='points'
+                placeholder='Points'
+                onChange={(e: any) => setpoints(e.target.value)}
+              ></input>
+            </td>
+            <td>
+              <input
+                type='text'
+                value={feedback}
+                name='feedback'
+                onChange={(e: any) => setfeedback(e.target.value)}
+                placeholder='Feedback'
+              ></input>
+            </td>
+          </tr>
+              )
+            })
+          }
+          {/* <tr>
+            <td>{task}</td>
+            <td>{proof}</td>
+            <td>
+              <input
+                value={points}
+                name='points'
+                placeholder='Points'
+                onChange={(e: any) => setpoints(e.target.value)}
+              ></input>
+            </td>
+            <td>
+              <input
+                type='text'
+                value={feedback}
+                name='feedback'
+                onChange={(e: any) => setfeedback(e.target.value)}
+                placeholder='Feedback'
+              ></input>
+            </td>
+          </tr> */}
+        </table>
+      </div>
+            //   <ul>
+            //   <li>
+            //     <div className='list-header'>
+            //       <p>{el.name}</p>
+            //       <p className='green-text'>TOTAL POINTS : {el.totalPoints}</p>
+            //     </div>
+            //   </li>
+            //   {
+            //     tasks?.getTasks.map(t => {
+            //       if(el.taskReviews.map(r => {
+            //         if(r.reviewID === t.id)
+            //         {
+            //           return(
+            //             <li>
+            //               <div className='task-item'>
+            //                 <p>{t.brief}</p>
+            //                 <p className='green-text'>POINTS: {r.points}</p>
+            //               </div>
+            //             </li>
+            //           )
+            //         }
+            //       }))
+            //       return(
+            //         <li>
+            //           <div className='task-item'>
+            //             <p>{t.brief}</p>
+            //             <p className='yellow-text'>NOT REVIEWED</p>
+            //           </div>
+            //         </li>
+            //       )
+            //     })
+            //   }
+            // </ul>
             )
           })
         }
+        {/* <div className='list-header'>
+          <p>{caName}</p>
+          <p className='green-text'>TOTAL POINTS : {totalPoints}</p>
+        </div>
+        <table className='task-table'>
+          <tr>
+            <th>Tasks</th>
+            <th>Proofs</th>
+            <th>Points</th>
+            <th>Feedback</th>
+          </tr>
+          <tr>
+            <td>{task}</td>
+            <td>{proof}</td>
+            <td>
+              <input
+                value={points}
+                name='points'
+                placeholder='Points'
+                onChange={(e: any) => setpoints(e.target.value)}
+              ></input>
+            </td>
+            <td>
+              <input
+                type='text'
+                value={feedback}
+                name='feedback'
+                onChange={(e: any) => setfeedback(e.target.value)}
+                placeholder='Feedback'
+              ></input>
+            </td>
+          </tr>
+        </table> */}
       </div>
     </div>
   )
