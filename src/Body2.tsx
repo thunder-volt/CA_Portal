@@ -213,7 +213,7 @@ const Rejected = () => {
                  <b>SORRY!!</b>
             </div>
             <div className='Style2t1'>
-            We regret to inform that your application for being a Shaastra Campus Ambassador couldn't be accomodated. Nevertheless, don't lose hope because you can still try again next year which will undoubtedly see a bigger CA Program. Get a feel of Shaastra by experiencing the largest student-run technical extravaganza. With a host of workshops,international competitions,lectures,exhibitions and shows, shaastra is bound to amaze you. <a href="./"><span className='redt'>CLICK HERE</span></a> TO GO TO THE CA PORTAL.
+            We regret to inform that your application for being a Shaastra Campus Ambassador couldn't be accomodated. Nevertheless, don't lose hope because you can still try again next year which will undoubtedly see a bigger CA Program. Get a feel of Shaastra by experiencing the largest student-run technical extravaganza. With a host of workshops, international competitions, lectures, exhibitions and shows, shaastra is bound to amaze you. <a href="./"><span className='redt'>CLICK HERE</span></a> TO GO TO THE CA PORTAL.
             </div>
         </div>
         </div>

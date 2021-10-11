@@ -37,8 +37,8 @@
 .Style2t {
   font-size: 30px;
   font-weight: 500;
-  margin-right: 18%;
-  margin-left: 18%;
+  margin-right: 10%;
+  margin-left: 10%;
   margin-bottom: 10%;
   background-color: yellowgreen;
   border-radius: 10px;
@@ -46,8 +46,8 @@
 .Style2t1 {
   font-size: 30px;
   font-weight: 500;
-  margin-right: 18%;
-  margin-left: 18%;
+  margin-right: 10%;
+  margin-left: 10%;
   margin-bottom: 10%;
   background-color: #ff8484;
   border-radius: 10px;
@@ -78,14 +78,14 @@
 
   .Style1t {
     font-size: 25px;
-    font-weight: 300;
+    font-weight: 500;
   }
 
   .Style2t {
     font-size: 25px;
     font-weight: 500;
-    margin-right: 18%;
-    margin-left: 18%;
+    margin-right: 10%;
+    margin-left: 10%;
     margin-bottom: 10%;
     background-color: yellowgreen;
     border-radius: 10px;
@@ -93,8 +93,8 @@
   .Style2t1 {
     font-size: 25px;
     font-weight: 500;
-    margin-right: 18%;
-    margin-left: 18%;
+    margin-right: 10%;
+    margin-left: 10%;
     margin-bottom: 10%;
     background-color: #ff8484;
     border-radius: 10px;
@@ -120,16 +120,16 @@
 
   .Style1t {
     font-size: 20px;
-    font-weight: 300;
+    font-weight: 500;
   }
 
   .Style2t {
     font-size: 20px;
-    font-weight: 300;
+    font-weight: 500;
   }
   .Style2t1 {
     font-size: 20px;
-    font-weight: 300;
+    font-weight: 500;
   }
 }
 
@@ -152,7 +152,7 @@
 
   .Style1t {
     font-size: 20px;
-    font-weight: 300;
+    font-weight: 500;
   }
 }
 
@@ -170,13 +170,13 @@
   .Body_Item2t {
     font-size: 40px;
     line-height: 40px;
-    margin-top: 160px;
+    margin-top: 100px;
     margin-bottom: 20px;
   }
 
   .Style1t {
     font-size: 20px;
-    font-weight: 300;
+    font-weight: 500;
   }
 }
 
@@ -193,23 +193,23 @@
 
   .Body_Item2t {
     font-size: 30px;
-    margin-top: 160px;
+    margin-top: 100px;
     margin-bottom: 20px;
   }
 
   .Style1t {
     font-size: 18px;
-    font-weight: 300;
+    font-weight: 500;
     margin-left: 3%;
     margin-right: 3%;
   }
 
   .Style2t {
     font-size: 15px;
-    font-weight: 300;
+    font-weight: 500;
   }
   .Style2t1 {
     font-size: 15px;
-    font-weight: 300;
+    font-weight: 500;
   }
 }
