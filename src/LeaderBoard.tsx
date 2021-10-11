@@ -2,77 +2,32 @@ import React from "react";
 import Header from "./Header";
 import "./LeaderBoard.css";
 import profile from "./assets/demopic.jpg";
+import { useLeaderBoardQuery } from "./generated";
+import Gold from "./gold.png"
+import Silver from "./silver.png"
+import Bronze from "./bronze.png"
 
 function LeaderBoard() {
-  const [users, setUsers] = React.useState([
-    {
-      name: "USER NAME",
-      points: 41,
-      imageURL: "./assets/demopic.jpg",
-    },
-    {
-      name: "USER NAME",
-      points: 40,
-      imageURL: "./assets/demopic.jpg",
-    },
-    {
-      name: "USER NAME",
-      points: 35,
-      imageURL: "./assets/demopic.jpg",
-    },
-    {
-      name: "USER NAME",
-      points: 32,
-      imageURL: "./assets/demopic.jpg",
-    },
-    {
-      name: "USER NAME",
-      points: 31,
-      imageURL: "./assets/demopic.jpg",
-    },
-    {
-      name: "USER NAME",
-      points: 26,
-      imageURL: "./assets/demopic.jpg",
-    },
-    {
-      name: "USER NAME",
-      points: 22,
-      imageURL: "./assets/demopic.jpg",
-    },
-    {
-      name: "USER NAME",
-      points: 48,
-      imageURL: "./assets/demopic.jpg",
-    },
-    {
-      name: "USER NAME",
-      points: 51,
-      imageURL: "./assets/demopic.jpg",
-    },
-    {
-      name: "USER NAME",
-      points: 28,
-      imageURL: "./assets/demopic.jpg",
-    },
-  ]);
+  const {data, loading, error} = useLeaderBoardQuery({variables: {limit:10, skip:null}})
+  
 
-  const [sortUsers, setSortUsers] = React.useState<
-    { id: number; user: { name: string; points: number; imageURL: string } }[]
-  >([]);
+  // const [sortUsers, setSortUsers] = React.useState<
+  //   { id: number; user: { name: string; points: number; imageURL: string } }[]
+  // >([]);
 
-  React.useEffect(() => {
-    let index = 4;
-    setSortUsers(
-      users
-        .sort((a, b) => b.points - a.points)
-        .slice(3, users.length)
-        .map((user) => {
-          return { id: index++, user: user };
-        })
-    );
-  }, []);
-
+  // React.useEffect(() => {
+  //   let index = 4;
+  //   setSortUsers(
+  //     users
+  //       .sort((a, b) => b.points - a.points)
+  //       .slice(3, users.length)
+  //       .map((user) => {
+  //         return { id: index++, user: user };
+  //       })
+  //   );
+  // }, []);
+  var i =0;
+  console.log(data?.leaderBoard?.users)
   return (
     <>
       <Header />
@@ -81,47 +36,55 @@ function LeaderBoard() {
         <div className="Leaderboard_toppers">
           <div className="card">
             <div className="imgBox">
-              <img src={profile} alt="" />
+              <img src={Silver} alt="" />
               <span className="silver">2</span>
             </div>
-            <h3>{users.sort((a, b) => b.points - a.points)[1].name}</h3>
+            <h3>{data?.leaderBoard?.users[1].name}</h3>
             <p className="points">
-              {users.sort((a, b) => b.points - a.points)[1].points} Points
+              {data?.leaderBoard?.users[1].totalPoints} Points
             </p>
           </div>
           <div className="card">
             <div className="imgBox">
-              <img src={profile} alt="" />
+              <img src={Gold} alt="" />
               <span className="gold">1</span>
             </div>
-            <h3>{users.sort((a, b) => b.points - a.points)[0].name}</h3>
+            <h3>{data?.leaderBoard?.users[0].name}</h3>
             <p className="points">
-              {users.sort((a, b) => b.points - a.points)[0].points} Points
+              {data?.leaderBoard?.users[0].totalPoints} Points
             </p>
           </div>
           <div className="card">
             <div className="imgBox">
-              <img src={profile} alt="" />
+              <img src={Bronze} alt="" />
               <span className="bronze">3</span>
             </div>
-            <h3>{users.sort((a, b) => b.points - a.points)[2].name}</h3>
-            <p className="points">
-              {users.sort((a, b) => b.points - a.points)[2].points} Points
-            </p>
+            {
+              data?.leaderBoard?.users[2] && <div>
+                <h3>{data?.leaderBoard?.users[2].name}</h3>
+              <p className="points">
+                {data?.leaderBoard?.users[2].totalPoints} Points
+              </p>
+              </div> 
+            }
           </div>
         </div>
         <ul className="Leaderboard_container">
-          {sortUsers.map((user) => {
+          {
+          data?.leaderBoard?.users.map((user) => {
+          i++;
+            if(i>2 && user)
             return (
               <li>
                 <div className="left">
-                  <p>{user.id}</p>
+                  <p>{i}</p>
                   <img src={profile} alt="" />
-                  <h4>{user.user.name}</h4>
+                  <h4>{user.name}</h4>
                 </div>
-                <p className="points">{user.user.points} Points</p>
+                <p className="points">{user.totalPoints} Points</p>
               </li>
             );
+            else return null
           })}
         </ul>
       </div>

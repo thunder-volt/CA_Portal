@@ -204,3 +204,12 @@ mutation reviewTask($data: ReviewTaskInput!) {
 mutation submitTask($data: SubmitTaskInput!) {
   submitTask(data: $data) 
 }
+
+query leaderBoard($limit: Float, $skip: Float) {
+  leaderBoard(limit: $limit, skip: $skip){
+    users{
+      name,
+      totalPoints
+    }
+  }
+}

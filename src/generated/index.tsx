@@ -493,6 +493,14 @@ export type SubmitTaskMutationVariables = Exact<{
 
 export type SubmitTaskMutation = { submitTask: boolean };
 
+export type LeaderBoardQueryVariables = Exact<{
+  limit?: Maybe<Scalars['Float']>;
+  skip?: Maybe<Scalars['Float']>;
+}>;
+
+
+export type LeaderBoardQuery = { leaderBoard?: Maybe<{ users: Array<{ name: string, totalPoints?: Maybe<number> }> }> };
+
 
 export const GetQuestionnaireDocument = gql`
     query getQuestionnaire {
@@ -1244,3 +1252,45 @@ export function useSubmitTaskMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type SubmitTaskMutationHookResult = ReturnType<typeof useSubmitTaskMutation>;
 export type SubmitTaskMutationResult = ApolloReactCommon.MutationResult<SubmitTaskMutation>;
 export type SubmitTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<SubmitTaskMutation, SubmitTaskMutationVariables>;
+export const LeaderBoardDocument = gql`
+    query leaderBoard($limit: Float, $skip: Float) {
+  leaderBoard(limit: $limit, skip: $skip) {
+    users {
+      name
+      totalPoints
+    }
+  }
+}
+    `;
+
+/**
+ * __useLeaderBoardQuery__
+ *
+ * To run a query within a React component, call `useLeaderBoardQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLeaderBoardQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLeaderBoardQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      skip: // value for 'skip'
+ *   },
+ * });
+ */
+export function useLeaderBoardQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<LeaderBoardQuery, LeaderBoardQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<LeaderBoardQuery, LeaderBoardQueryVariables>(LeaderBoardDocument, options);
+      }
+export function useLeaderBoardLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<LeaderBoardQuery, LeaderBoardQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<LeaderBoardQuery, LeaderBoardQueryVariables>(LeaderBoardDocument, options);
+        }
+export type LeaderBoardQueryHookResult = ReturnType<typeof useLeaderBoardQuery>;
+export type LeaderBoardLazyQueryHookResult = ReturnType<typeof useLeaderBoardLazyQuery>;
+export type LeaderBoardQueryResult = ApolloReactCommon.QueryResult<LeaderBoardQuery, LeaderBoardQueryVariables>;
+export function refetchLeaderBoardQuery(variables?: LeaderBoardQueryVariables) {
+      return { query: LeaderBoardDocument, variables: variables }
+    }

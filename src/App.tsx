@@ -73,8 +73,8 @@ const App = () => {
                 <Route exact path="/me" component={Rejected} />
               )}
               <Route exact path="/questionaire" component={Questionaire} />
-              {/* <Route exact path="/leaderboards" component={LeaderBoard} />
-          <Route exact path="/tasks" component={Task} /> */}
+              <Route exact path="/leaderboard" component={LeaderBoard} />
+              <Route exact path="/tasks" component={Task} />
               <Route exact path="/logout" component={Logout} />
               <Route exact path="/my-application" component={MyApplication} />
             </Switch>
