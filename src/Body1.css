@@ -10,14 +10,18 @@
   margin-top: 10%;
   line-height: 90px;
   margin-right: 10%;
+  color: chartreuse;
+  border-radius: 10px;
   margin-left: 10%;
   transition: 0.3s all;
   margin-bottom: 50px;
+  background-color: #6c63ff;
   /* text-transform: uppercase; */
 }
 
 .Style1t {
   font-size: 35px;
+  padding-bottom: 5%;
 
   font-weight: 500;
   text-transform: uppercase;
