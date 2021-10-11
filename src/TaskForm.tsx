@@ -23,7 +23,7 @@ function TaskForm(props: FuncProps) {
   const history = useHistory()
   const [name, setname] = useState('name')
   const [description, setdescription] = useState('description')
-  const [deadline, setdeadline] = useState('')
+  const [date, setdeadline] = useState('2021/10/21')
   const [points, setpoints] = useState(40)
   const [selectedTab, setSelectedTab] = React.useState<'write' | 'preview'>(
     'write'
@@ -39,15 +39,16 @@ function TaskForm(props: FuncProps) {
  async function handleSubmit(e:any) {
     // alert('You have submitted the form')
     e.preventDefault()
-    console.log(deadline)
     try 
     {
-      await createTaskMutation({variables:{data: {brief: name!, details: description!, deadline: "2021/10/7", maxPoints: points!}}})
+      await createTaskMutation({variables:{data: {brief: name!, details: description!, deadline: date!, maxPoints: points!}}})
+      console.log(date)
     }
     catch(e)
     {
       console.log(e)
     }
+    console.log(date)
   }
   if(data?.createTask ==true)
       {
@@ -109,15 +110,12 @@ if(error)
           <p>Deadline :</p>
           <input
             type='date'
-            // value={deadline}
+            value={date}
             onChange={(e) => {
-              setdeadline(e.target.value)
-              console.log(deadline)
-              // var date = e.target.value.split('-')
-              // var t = date[0];
-              // date[0] =  date[date.length-1];
-              // date[date.length-1] = t;
-              // setdeadline(date.join('/'))
+              var d = e.target.value.split('-');
+              var newD = d[2] + '-' + d[1] + '-' + d[0]
+              console.log(newD)
+              setdeadline(newD)
             }}
           ></input>
         </div>

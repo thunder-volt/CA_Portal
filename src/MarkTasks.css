@@ -136,8 +136,14 @@
   text-align: center;
 }
 
-.task-table {
+.task-form {
   width: 50%;
+}
+
+.task-table {
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .task-table input {
@@ -150,4 +156,12 @@
 
 .yellow-text {
   color: #ff8a00;
+}
+
+.task-form .save-btn {
+  margin-top: 10px;
+  width: 15%;
+  border-radius: 3px;
+  border: 1px solid black;
+  padding: 8px;
 }

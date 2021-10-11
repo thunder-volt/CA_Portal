@@ -4,11 +4,18 @@ import { FaSearch, FaBars } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import './MarkTasks.css'
 import { useState } from 'react'
+import { useHistory } from 'react-router'
+import { Dialog } from '@material-ui/core';
 import Header from "./Header"
 import { GetUsersFilter, useGetTaskreviewQuery, useGetTasksQuery, useGetUsersQuery, useReviewTaskMutation, UserRole} from "./generated";
 
 
 function MarkTasks() {
+
+  
+  
+  const [reviewTaskMutation, {data:review, loading:reviewLoad, error:reviewError}] = useReviewTaskMutation()
+
   const [header, setHeader] = React.useState(false)
   const [caName, setcaName] = React.useState('Campus Ambassaodar Name')
   const [coordName, setcoordName] = React.useState('')
@@ -18,16 +25,61 @@ function MarkTasks() {
   const [feedback, setfeedback] = React.useState('')
   const [task, settask] = React.useState('')
   const [filter, setFilter] = React.useState<GetUsersFilter>({role: UserRole.Selected });
+  const [id, setId] = useState("")
+
   const {data: tasks, loading: taskLoad, error: taskError} = useGetTasksQuery({variables:{skip:null, limit:10000}})
+  const taskCount = tasks?.getTasks.length
   const {data, loading, error} = useGetUsersQuery({
     variables: {
       filter: filter,
     }
   })
-  const taskCount = tasks?.getTasks.length
+  const history = useHistory()
+  if(error?.message.includes("Access denied!")|| taskError?.message.includes("Access denied!"))
+  {
+    const closeHandler= () => {history.push('/login')}
+        return(
+          <Dialog onClose={closeHandler} open={true} >
+              <p>Please login to continue.</p>
+              <button onClick={closeHandler}>Close</button>
+          </Dialog>
+      );
+  }
 
-  const [reviewTaskMutation, {data:review, loading:reviewLoad, error:reviewError}] = useReviewTaskMutation()
-
+  if(review?.reviewTask)
+  {
+    const closeHandler = () => {window.location.reload()}
+    return(
+        <Dialog onClose={closeHandler} open={true}>
+          <p>Review added</p>
+          <button onClick={closeHandler}>Close</button>
+      </Dialog>
+    )
+  }
+  if(reviewLoad || loading || taskError)
+  {
+    return(
+      <Dialog open={true}>
+        <p>Loading...</p>
+    </Dialog>)
+  }
+  if(reviewError)
+  {
+    const closeHandler = () => {window.location.reload()}
+    return(
+        <Dialog onClose={closeHandler} open={true}>
+          <p>Error occured</p>
+          <button onClick={closeHandler}>Close</button>
+      </Dialog>
+    ) 
+  }
+  const save = async (n:any) => {
+      await reviewTaskMutation({variables: {data: {
+        reviewid: n,
+        review: feedback,
+        points: points
+      }}})
+  }
   return (
     <div className='mark-tasks'>
       <Header></Header>
@@ -91,6 +143,7 @@ function MarkTasks() {
           </tr>
           {
             tasks?.getTasks.map(t => {
+              console.log(el.taskReviews)
               if(el.taskReviews.map(r => {
                 if(r.reviewID === t.id)
                 {
@@ -127,117 +180,52 @@ function MarkTasks() {
             <td></td>
             <td>
               <input
-                value={points}
                 name='points'
+                type="number"
                 placeholder='Points'
-                onChange={(e: any) => setpoints(e.target.value)}
+                onChange={(e: any) => 
+                  {
+                    setpoints(parseInt(e.target.value))
+                  }}
               ></input>
             </td>
             <td>
               <input
                 type='text'
-                value={feedback}
+                // value={feedback}
                 name='feedback'
                 onChange={(e: any) => setfeedback(e.target.value)}
                 placeholder='Feedback'
               ></input>
             </td>
+            <button className='save-btn' onClick={async (e) => {
+              e.preventDefault();
+              console.log(typeof(t.id))
+              try 
+              {
+
+                await reviewTaskMutation({variables: {data: {
+                  reviewid: t.id,
+                  review: feedback,
+                  points: points
+                }}})
+              }
+              catch(e){console.log(e)}
+              console.log(review?.reviewTask)
+            }}>
+            Save Changes
+          </button>
           </tr>
               )
             })
           }
-          {/* <tr>
-            <td>{task}</td>
-            <td>{proof}</td>
-            <td>
-              <input
-                value={points}
-                name='points'
-                placeholder='Points'
-                onChange={(e: any) => setpoints(e.target.value)}
-              ></input>
-            </td>
-            <td>
-              <input
-                type='text'
-                value={feedback}
-                name='feedback'
-                onChange={(e: any) => setfeedback(e.target.value)}
-                placeholder='Feedback'
-              ></input>
-            </td>
-          </tr> */}
+          
         </table>
       </div>
-            //   <ul>
-            //   <li>
-            //     <div className='list-header'>
-            //       <p>{el.name}</p>
-            //       <p className='green-text'>TOTAL POINTS : {el.totalPoints}</p>
-            //     </div>
-            //   </li>
-            //   {
-            //     tasks?.getTasks.map(t => {
-            //       if(el.taskReviews.map(r => {
-            //         if(r.reviewID === t.id)
-            //         {
-            //           return(
-            //             <li>
-            //               <div className='task-item'>
-            //                 <p>{t.brief}</p>
-            //                 <p className='green-text'>POINTS: {r.points}</p>
-            //               </div>
-            //             </li>
-            //           )
-            //         }
-            //       }))
-            //       return(
-            //         <li>
-            //           <div className='task-item'>
-            //             <p>{t.brief}</p>
-            //             <p className='yellow-text'>NOT REVIEWED</p>
-            //           </div>
-            //         </li>
-            //       )
-            //     })
-            //   }
-            // </ul>
+          
             )
           })
         }
-        {/* <div className='list-header'>
-          <p>{caName}</p>
-          <p className='green-text'>TOTAL POINTS : {totalPoints}</p>
-        </div>
-        <table className='task-table'>
-          <tr>
-            <th>Tasks</th>
-            <th>Proofs</th>
-            <th>Points</th>
-            <th>Feedback</th>
-          </tr>
-          <tr>
-            <td>{task}</td>
-            <td>{proof}</td>
-            <td>
-              <input
-                value={points}
-                name='points'
-                placeholder='Points'
-                onChange={(e: any) => setpoints(e.target.value)}
-              ></input>
-            </td>
-            <td>
-              <input
-                type='text'
-                value={feedback}
-                name='feedback'
-                onChange={(e: any) => setfeedback(e.target.value)}
-                placeholder='Feedback'
-              ></input>
-            </td>
-          </tr>
-        </table> */}
       </div>
     </div>
   )

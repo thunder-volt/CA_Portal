@@ -441,14 +441,22 @@ export type GetTasksQueryVariables = Exact<{
 }>;
 
 
-export type GetTasksQuery = { getTasks: Array<{ id: string, brief: string, details: string, maxPoints: number, taskReviewsCount: number, status: string, taskReviews: Array<{ review?: Maybe<string> }> }> };
+export type GetTasksQuery = { getTasks: Array<{ id: string, brief: string, details: string, maxPoints: number, status: string, taskReviews: Array<{ review?: Maybe<string> }> }> };
+
+export type GetTasksAdminQueryVariables = Exact<{
+  skip?: Maybe<Scalars['Float']>;
+  limit?: Maybe<Scalars['Float']>;
+}>;
+
+
+export type GetTasksAdminQuery = { getTasks: Array<{ id: string, brief: string, details: string, maxPoints: number, taskReviewsCount: number, status: string, taskReviews: Array<{ review?: Maybe<string> }> }> };
 
 export type GetTaskreviewQueryVariables = Exact<{
   filter: FilterTaskReview;
 }>;
 
 
-export type GetTaskreviewQuery = { getTaskreview: Array<{ points?: Maybe<number>, review?: Maybe<string> }> };
+export type GetTaskreviewQuery = { getTaskreview: Array<{ points?: Maybe<number>, review?: Maybe<string>, reviewID: string }> };
 
 export type FillQuestionnaireMutationVariables = Exact<{
   questionnaireInput: QuestionnaireInput;
@@ -477,6 +485,13 @@ export type ReviewTaskMutationVariables = Exact<{
 
 
 export type ReviewTaskMutation = { reviewTask: boolean };
+
+export type SubmitTaskMutationVariables = Exact<{
+  data: SubmitTaskInput;
+}>;
+
+
+export type SubmitTaskMutation = { submitTask: boolean };
 
 
 export const GetQuestionnaireDocument = gql`
@@ -948,7 +963,6 @@ export const GetTasksDocument = gql`
     brief
     details
     maxPoints
-    taskReviewsCount
     taskReviews {
       review
     }
@@ -988,11 +1002,59 @@ export type GetTasksQueryResult = ApolloReactCommon.QueryResult<GetTasksQuery, G
 export function refetchGetTasksQuery(variables?: GetTasksQueryVariables) {
       return { query: GetTasksDocument, variables: variables }
     }
+export const GetTasksAdminDocument = gql`
+    query getTasksAdmin($skip: Float, $limit: Float) {
+  getTasks(skip: $skip, limit: $limit) {
+    id
+    brief
+    details
+    maxPoints
+    taskReviewsCount
+    taskReviews {
+      review
+    }
+    status
+  }
+}
+    `;
+
+/**
+ * __useGetTasksAdminQuery__
+ *
+ * To run a query within a React component, call `useGetTasksAdminQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTasksAdminQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTasksAdminQuery({
+ *   variables: {
+ *      skip: // value for 'skip'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useGetTasksAdminQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetTasksAdminQuery, GetTasksAdminQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<GetTasksAdminQuery, GetTasksAdminQueryVariables>(GetTasksAdminDocument, options);
+      }
+export function useGetTasksAdminLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTasksAdminQuery, GetTasksAdminQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<GetTasksAdminQuery, GetTasksAdminQueryVariables>(GetTasksAdminDocument, options);
+        }
+export type GetTasksAdminQueryHookResult = ReturnType<typeof useGetTasksAdminQuery>;
+export type GetTasksAdminLazyQueryHookResult = ReturnType<typeof useGetTasksAdminLazyQuery>;
+export type GetTasksAdminQueryResult = ApolloReactCommon.QueryResult<GetTasksAdminQuery, GetTasksAdminQueryVariables>;
+export function refetchGetTasksAdminQuery(variables?: GetTasksAdminQueryVariables) {
+      return { query: GetTasksAdminDocument, variables: variables }
+    }
 export const GetTaskreviewDocument = gql`
     query getTaskreview($filter: FilterTaskReview!) {
   getTaskreview(filter: $filter) {
     points
     review
+    reviewID
   }
 }
     `;
@@ -1151,3 +1213,34 @@ export function useReviewTaskMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type ReviewTaskMutationHookResult = ReturnType<typeof useReviewTaskMutation>;
 export type ReviewTaskMutationResult = ApolloReactCommon.MutationResult<ReviewTaskMutation>;
 export type ReviewTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<ReviewTaskMutation, ReviewTaskMutationVariables>;
+export const SubmitTaskDocument = gql`
+    mutation submitTask($data: SubmitTaskInput!) {
+  submitTask(data: $data)
+}
+    `;
+export type SubmitTaskMutationFn = ApolloReactCommon.MutationFunction<SubmitTaskMutation, SubmitTaskMutationVariables>;
+
+/**
+ * __useSubmitTaskMutation__
+ *
+ * To run a mutation, you first call `useSubmitTaskMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSubmitTaskMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [submitTaskMutation, { data, loading, error }] = useSubmitTaskMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useSubmitTaskMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SubmitTaskMutation, SubmitTaskMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<SubmitTaskMutation, SubmitTaskMutationVariables>(SubmitTaskDocument, options);
+      }
+export type SubmitTaskMutationHookResult = ReturnType<typeof useSubmitTaskMutation>;
+export type SubmitTaskMutationResult = ApolloReactCommon.MutationResult<SubmitTaskMutation>;
+export type SubmitTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<SubmitTaskMutation, SubmitTaskMutationVariables>;

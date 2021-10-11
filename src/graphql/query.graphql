@@ -153,7 +153,21 @@ query getTasks($skip: Float, $limit: Float){
     brief,
     details,
     maxPoints,
-    taskReviewsCount
+    taskReviews
+    {
+      review
+    }
+    status
+  }
+}
+
+query getTasksAdmin($skip: Float, $limit: Float){
+  getTasks(skip: $skip, limit: $limit){
+    id,
+    brief,
+    details,
+    maxPoints,
+    taskReviewsCount,
     taskReviews
     {
       review
@@ -164,8 +178,9 @@ query getTasks($skip: Float, $limit: Float){
 
 query getTaskreview($filter: FilterTaskReview!) {
   getTaskreview(filter: $filter) {
-    points
-    review
+    points,
+    review,
+    reviewID
   }
 }
 
@@ -184,4 +199,8 @@ mutation createTask($data: TaskInput!)
 
 mutation reviewTask($data: ReviewTaskInput!) {
   reviewTask(data: $data)
+}
+
+mutation submitTask($data: SubmitTaskInput!) {
+  submitTask(data: $data) 
 }

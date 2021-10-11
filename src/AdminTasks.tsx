@@ -4,12 +4,26 @@ import { useState } from 'react'
 import './AdminTasks.css'
 import TaskForm from './TaskForm'
 import Logo from './assests/ShaastraLogo.png'
-import { useGetTasksQuery } from './generated'
+import { Dialog } from '@material-ui/core'
+import { useGetTasksAdminQuery } from './generated'
 import Header from './Header'
+import { useHistory } from 'react-router'
 
 function AdminTasks() {
+  const history = useHistory()
   const [display, setdisplay] = useState(false)
-  const {data,loading,error} = useGetTasksQuery({variables:{skip:null, limit:100}})
+  const {data,loading,error} = useGetTasksAdminQuery({variables:{skip:null, limit:100}})
+
+  if(error?.message.includes("Access denied!"))
+  {
+    const closeHandler= () => {history.push('/login')}
+        return(
+          <Dialog onClose={closeHandler} open={true} >
+              <p>Please login to continue.</p>
+              <button onClick={closeHandler}>Close</button>
+          </Dialog>
+      );
+  }
 
   function toggleForm() {
     setdisplay(!display);

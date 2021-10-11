@@ -65,7 +65,7 @@ const App = () => {
               {role === "SELECTED" && (
                 <Route exact path="/me" component={Selected} />
               )}
-              {role === "REGISTERED" && (
+              {role === "SELECTED" && (
                 <Route exact path="/task" component={Task}></Route>
               )
               }
