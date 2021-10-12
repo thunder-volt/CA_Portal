@@ -56,13 +56,13 @@ function Header() {
               <Link to='/my-application'>MY APPLICATION</Link>
             </li>
           )}
-        {role === 'SELECTED' ||
+        {(role === 'SELECTED' ||
           role === 'REGISTERED' ||
-          (role === 'REJECTED' && (
-            <li>
-              <Link to='/profile'>PROFILE</Link>
-            </li>
-          ))}
+          role === 'REJECTED') && (
+          <li>
+            <Link to='/profile'>PROFILE</Link>
+          </li>
+        )}
         {role === 'SELECTED' && (
           <li>
             <Link to='/leaderboard'>LEADERBOARD</Link>
