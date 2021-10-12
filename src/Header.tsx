@@ -56,14 +56,26 @@ function Header() {
               <Link to='/my-application'>MY APPLICATION</Link>
             </li>
           )}
-        {/* {role !== null && role !== "" && (
+        {role === 'SELECTED' ||
+          role === 'REGISTERED' ||
+          (role === 'REJECTED' && (
+            <li>
+              <Link to='/profile'>PROFILE</Link>
+            </li>
+          ))}
+        {role === 'SELECTED' && (
           <li>
-            <Link to="/profile">PROFILE</Link>
+            <Link to='/leaderboard'>LEADERBOARD</Link>
           </li>
-        )} */}
+        )}
+        {role === 'SELECTED' && (
+          <li>
+            <Link to='/tasks'>TASKS</Link>
+          </li>
+        )}
         {role === null || role === '' ? (
           <li>
-            <Link to='/login'>LOGIN</Link>
+            <Link to={`/login/${true}`}>LOGIN</Link>
           </li>
         ) : (
           <li>
