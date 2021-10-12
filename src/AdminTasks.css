@@ -47,7 +47,7 @@
 
 .form-ctn {
   z-index: 1;
-  position: fixed;
+  position: relative;
 }
 
 .task-lists ul {

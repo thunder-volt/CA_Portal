@@ -5,7 +5,7 @@ import * as Showdown from 'showdown'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 import './TaskForm.css'
 import { TaskInput, useCreateTaskMutation } from './generated'
-import {Dialog} from "@material-ui/core"
+import { Dialog } from '@material-ui/core'
 import { useHistory } from 'react-router'
 
 interface FuncProps {
@@ -29,56 +29,63 @@ function TaskForm(props: FuncProps) {
     'write'
   )
 
-  const [createTaskMutation, {data, loading, error}] = useCreateTaskMutation()
+  const [createTaskMutation, { data, loading, error }] = useCreateTaskMutation()
   const [taskInput, setTaskInput] = useState<TaskInput>()
 
   function handleChange() {
     props.toggleForm()
   }
 
- async function handleSubmit(e:any) {
+  async function handleSubmit(e: any) {
     // alert('You have submitted the form')
     e.preventDefault()
-    try 
-    {
-      await createTaskMutation({variables:{data: {brief: name!, details: description!, deadline: date!, maxPoints: points!}}})
+    try {
+      await createTaskMutation({
+        variables: {
+          data: {
+            brief: name!,
+            details: description!,
+            deadline: date!,
+            maxPoints: points!,
+          },
+        },
+      })
       console.log(date)
-    }
-    catch(e)
-    {
+    } catch (e) {
       console.log(e)
     }
     console.log(date)
   }
-  if(data?.createTask ==true)
-      {
-        console.log(data)
-        const closeHandler = () => {window.location.reload()}
-        return(
-            <Dialog onClose={closeHandler} open={true}>
-              <p>Task Added</p>
-              <button onClick={handleChange}>Close</button>
-          </Dialog>
-        )
-      }
-  if(loading)
-  {
+  if (data?.createTask == true) {
+    console.log(data)
+    const closeHandler = () => {
+      window.location.reload()
+    }
+    return (
+      <Dialog onClose={closeHandler} open={true}>
+        <p>Task Added</p>
+        <button onClick={handleChange}>Close</button>
+      </Dialog>
+    )
+  }
+  if (loading) {
     return (
       <Dialog open={true}>
         <p>Loading...</p>
       </Dialog>
     )
   }
-if(error)
-{
-  const closeHandler = () => {window.location.reload()}
-  return (
-    <Dialog onClose={closeHandler} open={true}>
-      <p>Some error occurred.</p>
-      <button onClick={closeHandler}>Close</button>
-    </Dialog>
-  )
-}
+  if (error) {
+    const closeHandler = () => {
+      window.location.reload()
+    }
+    return (
+      <Dialog onClose={closeHandler} open={true}>
+        <p>Some error occurred.</p>
+        <button onClick={closeHandler}>Close</button>
+      </Dialog>
+    )
+  }
   return (
     <div className='task-form'>
       <div className='top-ctn'>
@@ -112,8 +119,8 @@ if(error)
             type='date'
             value={date}
             onChange={(e) => {
-              var d = e.target.value.split('-');
-              var newD = d[2] + '-' + d[1] + '-' + d[0]
+              var d = e.target.value.split('-')
+              var newD = d[0] + '-' + d[1] + '-' + d[2]
               console.log(newD)
               setdeadline(newD)
             }}
