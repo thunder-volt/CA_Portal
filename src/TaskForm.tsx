@@ -23,7 +23,8 @@ function TaskForm(props: FuncProps) {
   const history = useHistory()
   const [name, setname] = useState('name')
   const [description, setdescription] = useState('description')
-  const [date, setdeadline] = useState('2021/10/21')
+  const [date, setdeadline] = useState('12/10/2021')
+  const [inputdate, Setinputdate] = useState('2021/10/12')
   const [points, setpoints] = useState(40)
   const [selectedTab, setSelectedTab] = React.useState<'write' | 'preview'>(
     'write'
@@ -117,10 +118,12 @@ function TaskForm(props: FuncProps) {
           <p>Deadline :</p>
           <input
             type='date'
-            value={date}
+            value={inputdate}
             onChange={(e) => {
               var d = e.target.value.split('-')
-              var newD = d[0] + '-' + d[1] + '-' + d[2]
+              var newD = d[2] + '-' + d[1] + '-' + d[0]
+              var newInput = d[0] + '-' + d[1] + '-' + d[2]
+              Setinputdate(newInput)
               console.log(newD)
               setdeadline(newD)
             }}
