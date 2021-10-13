@@ -29,6 +29,7 @@ query getUser($userId: String!)
     name,
     email,
     role,
+    totalPoints,
     taskReviews{
       points
       review
@@ -153,6 +154,7 @@ query getTasks($skip: Float, $limit: Float){
     brief,
     details,
     maxPoints,
+    deadline,
     taskReviews
     {
       review
@@ -180,6 +182,7 @@ query getTaskreview($filter: FilterTaskReview!) {
   getTaskreview(filter: $filter) {
     points,
     review,
+    taskurl
     reviewID
   }
 }
