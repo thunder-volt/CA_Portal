@@ -43,9 +43,9 @@ function Profile() {
       <Header />
       <div className='Profile'>
         <div className='Profile_details'>
-          <div className='imgBox'>
+          {/**<div className='imgBox'>
             <img src={user} alt='' />
-          </div>
+  </div>**/}
           <div className='contentBox'>
             <h1>{localStorage.getItem('name')?.toLocaleUpperCase()}</h1>
             <p>{localStorage.getItem('email')?.toLocaleUpperCase()}</p>
