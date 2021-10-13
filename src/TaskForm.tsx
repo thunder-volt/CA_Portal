@@ -46,7 +46,7 @@ function TaskForm(props: FuncProps) {
           data: {
             brief: name!,
             details: description!,
-            deadline: date!,
+            deadline: new Date(inputdate).toISOString()!,
             maxPoints: points!,
           },
         },
@@ -65,7 +65,7 @@ function TaskForm(props: FuncProps) {
     return (
       <Dialog onClose={closeHandler} open={true}>
         <p>Task Added</p>
-        <button onClick={handleChange}>Close</button>
+        <button onClick={closeHandler}>Close</button>
       </Dialog>
     )
   }
@@ -120,12 +120,12 @@ function TaskForm(props: FuncProps) {
             type='date'
             value={inputdate}
             onChange={(e) => {
-              var d = e.target.value.split('-')
-              var newD = d[2] + '-' + d[1] + '-' + d[0]
-              var newInput = d[0] + '-' + d[1] + '-' + d[2]
-              Setinputdate(newInput)
-              console.log(newD)
-              setdeadline(newD)
+              // var d = e.target.value.split('-')
+              // var newD = d[2] + '/' + d[1] + '/' + d[0]
+              // var newInput = d[0] + '-' + d[1] + '-' + d[2]
+              Setinputdate(e.target.value)
+              // console.log(newD)
+              // setdeadline(newD)
             }}
           ></input>
         </div>

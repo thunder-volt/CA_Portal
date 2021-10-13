@@ -363,7 +363,7 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { getUser?: Maybe<{ name: string, email: string, role: string, taskReviews: Array<{ points?: Maybe<number>, review?: Maybe<string> }> }> };
+export type GetUserQuery = { getUser?: Maybe<{ name: string, email: string, role: string, totalPoints?: Maybe<number>, taskReviews: Array<{ points?: Maybe<number>, review?: Maybe<string> }> }> };
 
 export type LoginMutationVariables = Exact<{
   loginInput: LoginInput;
@@ -441,7 +441,7 @@ export type GetTasksQueryVariables = Exact<{
 }>;
 
 
-export type GetTasksQuery = { getTasks: Array<{ id: string, brief: string, details: string, maxPoints: number, status: string, taskReviews: Array<{ review?: Maybe<string> }> }> };
+export type GetTasksQuery = { getTasks: Array<{ id: string, brief: string, details: string, maxPoints: number, deadline: string, status: string, taskReviews: Array<{ review?: Maybe<string> }> }> };
 
 export type GetTasksAdminQueryVariables = Exact<{
   skip?: Maybe<Scalars['Float']>;
@@ -456,7 +456,7 @@ export type GetTaskreviewQueryVariables = Exact<{
 }>;
 
 
-export type GetTaskreviewQuery = { getTaskreview: Array<{ points?: Maybe<number>, review?: Maybe<string>, reviewID: string }> };
+export type GetTaskreviewQuery = { getTaskreview: Array<{ points?: Maybe<number>, review?: Maybe<string>, taskurl: string, reviewID: string }> };
 
 export type FillQuestionnaireMutationVariables = Exact<{
   questionnaireInput: QuestionnaireInput;
@@ -563,6 +563,7 @@ export const GetUserDocument = gql`
     name
     email
     role
+    totalPoints
     taskReviews {
       points
       review
@@ -971,6 +972,7 @@ export const GetTasksDocument = gql`
     brief
     details
     maxPoints
+    deadline
     taskReviews {
       review
     }
@@ -1062,6 +1064,7 @@ export const GetTaskreviewDocument = gql`
   getTaskreview(filter: $filter) {
     points
     review
+    taskurl
     reviewID
   }
 }

@@ -23,9 +23,8 @@ function Task() {
     left: "30px",
     width: window.innerWidth > 500 ? "176px" : "102.73px",
   });
-  const [file, setFile] = useState("")
-  const [taskId, setTaskId] = useState("")
-  const [user, setUser] = useState("")
+  const [file, setFile] = useState<string[]>([])
+  const [newFile, setNewFile] = useState<string[]>([])
   const {data: reviews, loading: reviewLoad, error: reviewError} = useGetTaskreviewQuery({variables: {filter: 
     { 
       reviewID: null,
@@ -33,24 +32,23 @@ function Task() {
       task: curr_task
     }}
   })
-
-  const fileHandler = (fileUpload : any) => {
+  const newFileUrl = (fileUpload : string) => {
     const config = {
 
-      bucketName: "sampark21",
+      bucketName: "ca21",
 
-      region: "Asia Pacific (Mumbai) ap-south-1",
+      region: "ap-south-1",
 
-      accessKeyId: "AKIA4VXHNASLHOCKWFPF",
+      accessKeyId: "AKIA4VXHNASLCGXPQAHM",
 
-      secretAccessKey: "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"
+      secretAccessKey: "kKdrBX+h5qQHJWeHEUE9QM6jUXJxT+Byd2KSbfA7"
 
   }
   S3FileUpload.uploadFile(fileUpload, config)
 
             .then((data: any)=>{
 
-                  console.log(data.location);// it return the file url
+                 setNewFile((old) => [...old, data.location])
 
              })
 
@@ -82,6 +80,7 @@ function Task() {
   }
   if(submitError)
   {
+    console.log(submitError.message)
     if(submitError.message.includes("Task submission deadline over"))
     {
       const closeHandler = () => {window.location.reload()}
@@ -133,7 +132,7 @@ function Task() {
         <div className="Task_taskCount">
           <h3>TASKS COMPLETED : {Com_tasks}</h3>
           <h3>TASKS REMAINING : {tasks?.getTasks.length! - Com_tasks}</h3>
-          <h3>POINTS EARNED : {points_earned}</h3>
+          <h3>POINTS EARNED : {data?.getUser?.totalPoints}</h3>
         </div>
         <div className="Task_List">
           <div className="navbar">
@@ -171,11 +170,13 @@ function Task() {
           <ul>
             {tasks?.getTasks.map((task) => {
               if (pending) {
-                console.log(task.status)
                 if (task.status === 'PENDING' || task.status === 'CLOSED') {
+                  var date = new Date(parseInt(task.deadline))
+                  console.log(task.deadline)
                   return (
                     <li onClick={() => {setCurr_task(task.id)}}>
                       <p>{task.brief}</p>
+                      <p>{date.toLocaleDateString()}</p>
                       {curr_task === task.id ? (
                         <div className="fullTaskView">
                           <button
@@ -189,16 +190,24 @@ function Task() {
                           </button>
                           <div className="header">
                             <p>{task.brief}</p>
+                            <p>{date.toLocaleDateString()}</p>
                           </div>
                           <p className="taskDesc">{task.details}</p>
                           <div className="formGroup">
                             <p>Upload proof for above task</p>
-                            <input type="file" onChange={fileHandler} />
+                            <input multiple type="file" onChange={async (e) => {
+                              await setFile((old) => [...old, e.target.value])
+                              console.log(file)
+                            }} />
                             <button onClick={
                               async (e) => {
+                                console.log(file)
+                                file.map(f => {
+                                  newFileUrl(f)
+                                })
                                 e.preventDefault()
                                 try{
-                                  await submitTaskMutation({variables:{data: {taskid:task.id, taskurl: [file]}}})
+                                  await submitTaskMutation({variables:{data: {taskid:task.id, taskurl: newFile }}})
                                 }catch(e){
                                   console.log(e)
                                 }
@@ -233,16 +242,14 @@ function Task() {
                           </div>
                           <p className="taskDesc">{task.details}</p>
                           <div className="formGroup">
-                            <p>Upload proof for above task</p>
-                            <input type="file" onChange={(e) => {setFile(e.target.value)}} />
-                            <button onClick={
-                              (e) => {
-                                e.preventDefault()
-                                try{
-                                  submitTaskMutation({variables:{data: {taskid:task.id, taskurl: [file]}}})
-                                }catch(e){console.log(e)}
-                              }
-                            }>SUBMIT</button>
+                            <p>Uploaded proof</p>
+                            {
+                              reviews?.getTaskreview.map(r => {
+                                return(
+                                  <a href={r.taskurl}>{r.taskurl}</a>
+                                )
+                                })
+                            }
                           </div>
                             {
                               data?.getUser?.taskReviews.map((r) => {

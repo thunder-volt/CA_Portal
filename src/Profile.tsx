@@ -25,17 +25,21 @@ function Profile() {
         </Dialog>
       )
     }
-    {
-      const closeHandler = () => {
-        history.push('/')
-      }
-      return (
-        <Dialog onClose={closeHandler} open={true}>
-          <p>Some error occurred.</p>
-          <button onClick={closeHandler}>Close</button>
-        </Dialog>
-      )
-    }
+    //   if(!data)
+    // {
+    //   return(<p>fill form</p>)
+    // }
+    //   {
+    //     const closeHandler = () => {
+    //       history.push('/')
+    //     }
+    //     return (
+    //       <Dialog onClose={closeHandler} open={true}>
+    //         <p>Some error occurred.</p>
+    //         <button onClick={closeHandler}>Close</button>
+    //       </Dialog>
+    //     )
+    //   }
   }
 
   return (
@@ -43,21 +47,26 @@ function Profile() {
       <Header />
       <div className='Profile'>
         <div className='Profile_details'>
-          {/**<div className='imgBox'>
-            <img src={user} alt='' />
-  </div>**/}
           <div className='contentBox'>
             <h1>{localStorage.getItem('name')?.toLocaleUpperCase()}</h1>
             <p>{localStorage.getItem('email')?.toLocaleUpperCase()}</p>
-            <p>
-              {data?.getQuestionnaire.college.toLocaleUpperCase()},{' '}
-              {data?.getQuestionnaire.state.toLocaleUpperCase()}
-            </p>
-            <p>
-              {data?.getQuestionnaire.pcity.toLocaleUpperCase()},{' '}
-              {data?.getQuestionnaire.pstate.toLocaleUpperCase()} -{' '}
-              {data?.getQuestionnaire.pincode.toLocaleUpperCase()}
-            </p>
+            {data?.getQuestionnaire ? (
+              <p>
+                {data?.getQuestionnaire.college.toLocaleUpperCase()},{' '}
+                {data?.getQuestionnaire.state.toLocaleUpperCase()}
+              </p>
+            ) : (
+              <></>
+            )}
+            {data?.getQuestionnaire ? (
+              <p>
+                {data?.getQuestionnaire.pcity.toLocaleUpperCase()},{' '}
+                {data?.getQuestionnaire.pstate.toLocaleUpperCase()} -{' '}
+                {data?.getQuestionnaire.pincode.toLocaleUpperCase()}
+              </p>
+            ) : (
+              <a href='/questionaire'>Fill the Questionnaire</a>
+            )}
           </div>
         </div>
         <p className='Profile_status'>
