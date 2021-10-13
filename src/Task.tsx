@@ -176,6 +176,7 @@ function Task() {
                   return (
                     <li onClick={() => {setCurr_task(task.id)}}>
                       <p>{task.brief}</p>
+                      <p>{date.toLocaleDateString()}</p>
                       {curr_task === task.id ? (
                         <div className="fullTaskView">
                           <button
