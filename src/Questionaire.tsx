@@ -214,6 +214,9 @@ function Questionaire() {
                   onChange={(e: any) => setState(e.target.value)}
                   placeholder='Select State'
                 >
+                  <option key='default' value='' selected>
+                    Select College State
+                  </option>
                   {Object.keys(cities).map((_state: any) => {
                     return (
                       <option key={_state} value={_state}>
@@ -232,9 +235,12 @@ function Questionaire() {
                   onChange={(e: any) => setCity(e.target.value)}
                   placeholder='Select City'
                 >
+                  <option key='default' value='' selected>
+                    Select College City
+                  </option>
                   {cities[state].map((_city: any) => {
                     return (
-                      <option key={_city} value='' selected>
+                      <option key={_city} value={_city}>
                         {_city}
                       </option>
                     )
@@ -299,6 +305,9 @@ function Questionaire() {
                   onChange={(e: any) => setPstate(e.target.value)}
                   placeholder='Select State'
                 >
+                  <option key='default' value='' selected>
+                    Select Postal State
+                  </option>
                   {Object.keys(cities).map((_pstate: any) => {
                     return (
                       <option key={_pstate} value={_pstate}>
@@ -317,9 +326,12 @@ function Questionaire() {
                   onChange={(e: any) => setPcity(e.target.value)}
                   placeholder='Select City'
                 >
+                  <option key='default' value='' selected>
+                    Select Postal City
+                  </option>
                   {cities[pstate].map((_pcity: any) => {
                     return (
-                      <option key={_pcity} value='' selected>
+                      <option key={_pcity} value={_pcity}>
                         {_pcity}
                       </option>
                     )
