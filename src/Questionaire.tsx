@@ -234,7 +234,7 @@ function Questionaire() {
                 >
                   {cities[state].map((_city: any) => {
                     return (
-                      <option key={_city} value={_city}>
+                      <option key={_city} value='' selected>
                         {_city}
                       </option>
                     )
@@ -319,7 +319,7 @@ function Questionaire() {
                 >
                   {cities[pstate].map((_pcity: any) => {
                     return (
-                      <option key={_pcity} value={_pcity}>
+                      <option key={_pcity} value='' selected>
                         {_pcity}
                       </option>
                     )
