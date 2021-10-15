@@ -418,7 +418,7 @@ function Home() {
           );
         })}
       </div>
-      <div className="sponsor">
+      {/* <div className="sponsor">
         <div className="imgContainer">
           <h1>Sponsors</h1>
           <p>
@@ -436,7 +436,7 @@ function Home() {
           </p>
         </div>
         <img src={sponsor1} alt="" />
-      </div>
+      </div> */}
       <div className="contact">
         <div>
           <h1>Contact Us</h1>
