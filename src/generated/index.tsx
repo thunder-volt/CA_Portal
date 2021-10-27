@@ -432,7 +432,7 @@ export type GetUsersQueryVariables = Exact<{
 }>;
 
 
-export type GetUsersQuery = { getUsers?: Maybe<{ count: number, users: Array<{ name: string, id: string, caID?: Maybe<string>, email: string, role: string, coord?: Maybe<string>, totalPoints?: Maybe<number>, questionnaire: { id: string }, taskReviews: Array<{ points?: Maybe<number>, review?: Maybe<string>, reviewID: string, taskurl: string }> }> }> };
+export type GetUsersQuery = { getUsers?: Maybe<{ count: number, users: Array<{ name: string, id: string, caID?: Maybe<string>, email: string, role: string, coord?: Maybe<string>, totalPoints?: Maybe<number>, taskReviews: Array<{ points?: Maybe<number>, review?: Maybe<string>, reviewID: string, taskurl: string }> }> }> };
 
 export type GetQuestionnaireByUserIdQueryVariables = Exact<{
   userid: Scalars['String'];
@@ -885,9 +885,6 @@ export const GetUsersDocument = gql`
       email
       role
       coord
-      questionnaire {
-        id
-      }
       totalPoints
       taskReviews {
         points

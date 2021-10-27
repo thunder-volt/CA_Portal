@@ -69,32 +69,6 @@ function App() {
       }
       <table id="myTable">
         {
-          // filter === 'R' ? data?.getUsers?.users.map(
-          //   el => {
-          //     var i = 1;
-          //     return(
-          //      <tr>
-          //        <td>{i++}</td>
-          //        <td><a href={`/application/${el.id}`}>{el.name}</a></td>
-          //        <td>{el.caID}</td>
-          //        <td>{el.email}</td>
-          //      </tr>
-          //     )
-          //    }
-          // ) : 
-          // data?.getUsers?.users.map(el => {
-          //  var i = 1;
-          //  return(
-          //   <tr>
-          //     <td>{i++}</td>
-          //     <td><a href={`/application/${el.id}`}>{el.name}</a></td>
-          //     <td>{el.caID}</td>
-          //     <td>{el.email}</td>
-          //   </tr>
-          //  )
-          // })
-        }
-        {
           data?.getUsers?.users.map(el => {
             console.log(el)
            return(
