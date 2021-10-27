@@ -25,6 +25,52 @@
 .Task .Task_taskCount h3:nth-of-type(3) {
   color: #6c63ff;
 }
+.Task_List .navbar button
+{
+  display: block;
+  color: black;
+}
+.submitted-proofs b
+{
+  font-size: 1vw;
+}
+.submit-heading
+{
+  margin-bottom: 2vh;
+}
+.submitted-proofs > div 
+{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 2vh;
+}
+.submitted-proofs #edit
+{
+  background-color: rgb(177, 177, 8);
+}
+.submitted-proofs .button-group #delete
+{
+  background-color: red;
+  display: none;
+}
+#edit-submit
+{
+  display: none;
+}
+.submitted-proofs > button 
+{
+  margin-bottom: 2vh;
+}
+.submitted-proofs
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
 @media screen and (max-width: 800px) {
   .Task .Task_taskCount {
     flex-direction: column;

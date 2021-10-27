@@ -57,6 +57,7 @@ export type Mutation = {
   applicationResult: Scalars['Boolean'];
   createTask: Scalars['Boolean'];
   createUser: Scalars['Boolean'];
+  deleteTask: Scalars['Boolean'];
   deleteUser: Scalars['Boolean'];
   editCoordAllocation: Scalars['Boolean'];
   editProfile?: Maybe<Scalars['Boolean']>;
@@ -88,6 +89,11 @@ export type MutationCreateTaskArgs = {
 
 export type MutationCreateUserArgs = {
   data: CreateUserInput;
+};
+
+
+export type MutationDeleteTaskArgs = {
+  taskid: Scalars['String'];
 };
 
 
@@ -363,7 +369,7 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { getUser?: Maybe<{ name: string, email: string, role: string, totalPoints?: Maybe<number>, taskReviews: Array<{ points?: Maybe<number>, review?: Maybe<string> }> }> };
+export type GetUserQuery = { getUser?: Maybe<{ name: string, email: string, role: string, coord?: Maybe<string>, totalPoints?: Maybe<number>, taskReviews: Array<{ points?: Maybe<number>, review?: Maybe<string> }> }> };
 
 export type LoginMutationVariables = Exact<{
   loginInput: LoginInput;
@@ -426,7 +432,7 @@ export type GetUsersQueryVariables = Exact<{
 }>;
 
 
-export type GetUsersQuery = { getUsers?: Maybe<{ count: number, users: Array<{ name: string, id: string, caID?: Maybe<string>, email: string, role: string, coord?: Maybe<string>, totalPoints?: Maybe<number>, taskReviews: Array<{ points?: Maybe<number>, review?: Maybe<string>, reviewID: string, taskurl: string }> }> }> };
+export type GetUsersQuery = { getUsers?: Maybe<{ count: number, users: Array<{ name: string, id: string, caID?: Maybe<string>, email: string, role: string, coord?: Maybe<string>, totalPoints?: Maybe<number>, questionnaire: { id: string }, taskReviews: Array<{ points?: Maybe<number>, review?: Maybe<string>, reviewID: string, taskurl: string }> }> }> };
 
 export type GetQuestionnaireByUserIdQueryVariables = Exact<{
   userid: Scalars['String'];
@@ -501,6 +507,20 @@ export type LeaderBoardQueryVariables = Exact<{
 
 export type LeaderBoardQuery = { leaderBoard?: Maybe<{ users: Array<{ name: string, totalPoints?: Maybe<number> }> }> };
 
+export type DeleteTaskMutationVariables = Exact<{
+  taskid: Scalars['String'];
+}>;
+
+
+export type DeleteTaskMutation = { deleteTask: boolean };
+
+export type EditTaskSubmissionMutationVariables = Exact<{
+  data: SubmitTaskInput;
+}>;
+
+
+export type EditTaskSubmissionMutation = { editTaskSubmission: boolean };
+
 
 export const GetQuestionnaireDocument = gql`
     query getQuestionnaire {
@@ -563,6 +583,7 @@ export const GetUserDocument = gql`
     name
     email
     role
+    coord
     totalPoints
     taskReviews {
       points
@@ -864,6 +885,9 @@ export const GetUsersDocument = gql`
       email
       role
       coord
+      questionnaire {
+        id
+      }
       totalPoints
       taskReviews {
         points
@@ -1297,3 +1321,65 @@ export type LeaderBoardQueryResult = ApolloReactCommon.QueryResult<LeaderBoardQu
 export function refetchLeaderBoardQuery(variables?: LeaderBoardQueryVariables) {
       return { query: LeaderBoardDocument, variables: variables }
     }
+export const DeleteTaskDocument = gql`
+    mutation deleteTask($taskid: String!) {
+  deleteTask(taskid: $taskid)
+}
+    `;
+export type DeleteTaskMutationFn = ApolloReactCommon.MutationFunction<DeleteTaskMutation, DeleteTaskMutationVariables>;
+
+/**
+ * __useDeleteTaskMutation__
+ *
+ * To run a mutation, you first call `useDeleteTaskMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteTaskMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteTaskMutation, { data, loading, error }] = useDeleteTaskMutation({
+ *   variables: {
+ *      taskid: // value for 'taskid'
+ *   },
+ * });
+ */
+export function useDeleteTaskMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteTaskMutation, DeleteTaskMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<DeleteTaskMutation, DeleteTaskMutationVariables>(DeleteTaskDocument, options);
+      }
+export type DeleteTaskMutationHookResult = ReturnType<typeof useDeleteTaskMutation>;
+export type DeleteTaskMutationResult = ApolloReactCommon.MutationResult<DeleteTaskMutation>;
+export type DeleteTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteTaskMutation, DeleteTaskMutationVariables>;
+export const EditTaskSubmissionDocument = gql`
+    mutation editTaskSubmission($data: SubmitTaskInput!) {
+  editTaskSubmission(data: $data)
+}
+    `;
+export type EditTaskSubmissionMutationFn = ApolloReactCommon.MutationFunction<EditTaskSubmissionMutation, EditTaskSubmissionMutationVariables>;
+
+/**
+ * __useEditTaskSubmissionMutation__
+ *
+ * To run a mutation, you first call `useEditTaskSubmissionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditTaskSubmissionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editTaskSubmissionMutation, { data, loading, error }] = useEditTaskSubmissionMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useEditTaskSubmissionMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<EditTaskSubmissionMutation, EditTaskSubmissionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<EditTaskSubmissionMutation, EditTaskSubmissionMutationVariables>(EditTaskSubmissionDocument, options);
+      }
+export type EditTaskSubmissionMutationHookResult = ReturnType<typeof useEditTaskSubmissionMutation>;
+export type EditTaskSubmissionMutationResult = ApolloReactCommon.MutationResult<EditTaskSubmissionMutation>;
+export type EditTaskSubmissionMutationOptions = ApolloReactCommon.BaseMutationOptions<EditTaskSubmissionMutation, EditTaskSubmissionMutationVariables>;

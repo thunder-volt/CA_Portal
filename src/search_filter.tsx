@@ -6,7 +6,7 @@ import {Link} from "@chakra-ui/react"
 import Header from "./Header";
 
 function App() {
-  var [filter, setFilter] = React.useState<GetUsersFilter>({role: UserRole.Registered, coord: null })
+  var [filter, setFilter] = React.useState<GetUsersFilter>({role: UserRole.Registered, coord: null})
   const [opt, setOption] = useState("")
   const [coord, setCoord] = useState("")
 
@@ -27,11 +27,12 @@ function App() {
   const coordHandler = (e:any) => {
     setCoord(e.target.value)
     setFilter({coord: e.target.value, role: UserRole.Selected})
-    console.log(data)
   }
+  var i = 1;
   console.log(data)
   return (
     <div className="Search-Filter-Body">
+      {i=1}
       <Header/>
       <input
         type="text"
@@ -47,6 +48,7 @@ function App() {
       {
         opt==='S' ? 
         <select name="" id="coord" onChange={coordHandler}>
+            <option value="0">Choose coord</option>
             <option value="Anshid">Anshid</option>
             <option value="Samrudha Lakshmi">Samrudha Lakshmi</option>
             <option value="Poojitha R">Poojitha R</option>
@@ -67,10 +69,37 @@ function App() {
       }
       <table id="myTable">
         {
+          // filter === 'R' ? data?.getUsers?.users.map(
+          //   el => {
+          //     var i = 1;
+          //     return(
+          //      <tr>
+          //        <td>{i++}</td>
+          //        <td><a href={`/application/${el.id}`}>{el.name}</a></td>
+          //        <td>{el.caID}</td>
+          //        <td>{el.email}</td>
+          //      </tr>
+          //     )
+          //    }
+          // ) : 
+          // data?.getUsers?.users.map(el => {
+          //  var i = 1;
+          //  return(
+          //   <tr>
+          //     <td>{i++}</td>
+          //     <td><a href={`/application/${el.id}`}>{el.name}</a></td>
+          //     <td>{el.caID}</td>
+          //     <td>{el.email}</td>
+          //   </tr>
+          //  )
+          // })
+        }
+        {
           data?.getUsers?.users.map(el => {
             console.log(el)
            return(
             <tr>
+              <td>{i++}</td>
               <td><a href={`/application/${el.id}`}>{el.name}</a></td>
               <td>{el.caID}</td>
               <td>{el.email}</td>

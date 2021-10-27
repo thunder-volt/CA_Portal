@@ -10,6 +10,10 @@
   letter-spacing: 4px;
   margin: 50px 0;
 }
+.LeaderBoard h3
+{
+  text-align: center;
+}
 .LeaderBoard .Leaderboard_toppers {
   width: 100%;
   max-width: 1000px;

@@ -45,22 +45,37 @@
   margin-bottom: 8px;
 }
 
+.task-lists li button  {
+  background:rgb(209, 70, 70);
+  border: none;
+  padding: 10px;
+  padding-left: 18px;
+  padding-right: 18px;
+  border-radius: 5px;
+  color: white;
+  margin-bottom: 8px;
+}
+
 .form-ctn {
   z-index: 1;
   position: relative;
 }
+
 
 .task-lists ul {
   list-style: none;
   display: flex;
   align-items: center;
   flex-direction: column;
+  width: 60vw;
 }
 
 .task-lists li {
   width: 100%;
   margin-top: 4px;
   margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .task-items {

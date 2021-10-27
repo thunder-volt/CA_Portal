@@ -173,7 +173,6 @@ function Application() {
                 console.log(coord);
               }}
             >
-              <option value="0">Coordinator</option>
               <option value="Anshid">Anshid</option>
               <option value="Samrudha Lakshmi">Samrudha Lakshmi</option>
               <option value="Poojitha R">Poojitha R</option>
@@ -193,12 +192,18 @@ function Application() {
             </select>
           </div>
         </div>
-        <button className="submit" onClick={accept}>
+        {getUserData.getUser?.coord ? <button className="submit" onClick={accept} disabled>
           ACCEPT
-        </button>
-        <button className="decline" onClick={reject}>
+        </button> : <button className="submit" onClick={accept}>
+        ACCEPT
+      </button>}
+      {
+        getUserData.getUser?.coord ?  <button className="decline" onClick={reject} disabled>
+        DECLINE
+      </button> :  <button className="decline" onClick={reject}>
           DECLINE
         </button>
+      }
       </div>
     );
   else return null;

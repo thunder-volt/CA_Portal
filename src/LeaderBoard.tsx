@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import "./LeaderBoard.css";
-import profile from "./assets/demopic.jpg";
+import profile from "./assets/profile.png";
 import { useLeaderBoardQuery } from "./generated";
 import Gold from "./gold.png"
 import Silver from "./silver.png"
@@ -11,21 +11,6 @@ function LeaderBoard() {
   const {data, loading, error} = useLeaderBoardQuery({variables: {limit:10, skip:null}})
   
 
-  // const [sortUsers, setSortUsers] = React.useState<
-  //   { id: number; user: { name: string; points: number; imageURL: string } }[]
-  // >([]);
-
-  // React.useEffect(() => {
-  //   let index = 4;
-  //   setSortUsers(
-  //     users
-  //       .sort((a, b) => b.points - a.points)
-  //       .slice(3, users.length)
-  //       .map((user) => {
-  //         return { id: index++, user: user };
-  //       })
-  //   );
-  // }, []);
   var i =0;
   console.log(data?.leaderBoard?.users)
   return (
@@ -39,20 +24,28 @@ function LeaderBoard() {
               <img src={Silver} alt="" />
               <span className="silver">2</span>
             </div>
-            <h3>{data?.leaderBoard?.users[1].name}</h3>
-            <p className="points">
-              {data?.leaderBoard?.users[1].totalPoints} Points
-            </p>
+            {
+              data?.leaderBoard?.users[1] && <div>
+                <h3>{data?.leaderBoard?.users[1].name}</h3>
+              <p className="points">
+                {data?.leaderBoard?.users[1].totalPoints} Points
+              </p>
+              </div> 
+            }
           </div>
           <div className="card">
             <div className="imgBox">
               <img src={Gold} alt="" />
               <span className="gold">1</span>
             </div>
-            <h3>{data?.leaderBoard?.users[0].name}</h3>
-            <p className="points">
-              {data?.leaderBoard?.users[0].totalPoints} Points
-            </p>
+            {
+              data?.leaderBoard?.users[0] && <div>
+                <h3>{data?.leaderBoard?.users[0].name}</h3>
+              <p className="points">
+                {data?.leaderBoard?.users[0].totalPoints} Points
+              </p>
+              </div> 
+            }
           </div>
           <div className="card">
             <div className="imgBox">
@@ -78,7 +71,7 @@ function LeaderBoard() {
               <li>
                 <div className="left">
                   <p>{i}</p>
-                  <img src={profile} alt="" />
+                  {/* <img src={profile} alt="" /> */}
                   <h4>{user.name}</h4>
                 </div>
                 <p className="points">{user.totalPoints} Points</p>

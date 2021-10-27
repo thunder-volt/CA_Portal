@@ -600,7 +600,7 @@ function Questionaire() {
         </form>
         <div className={`termsAndCondition ${TermsCondition ? 'active' : ''}`}>
           <h2>
-            TERMS AND CONDITIONS FOR CA PROGRAM, SHAASTRA 2021, IIT MADRAS
+            TERMS AND CONDITIONS FOR CA PROGRAM, SHAASTRA 2022, IIT MADRAS
           </h2>
           <button onClick={() => setTermsCondition(false)}>
             <FaTimes />
@@ -609,7 +609,7 @@ function Questionaire() {
             <li>
               <FaHandPointRight />
               <p>
-                The CA will be a part of the organizing team of Shaastra 2021
+                The CA will be a part of the organizing team of Shaastra 2022
                 and he/she must ensure that his/her college has no objection to
                 this. Shaastra will not be responsible for any issues arising
                 due to objection of college authorities in the later stage

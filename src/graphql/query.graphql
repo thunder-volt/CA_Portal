@@ -29,6 +29,7 @@ query getUser($userId: String!)
     name,
     email,
     role,
+    coord,
     totalPoints,
     taskReviews{
       points
@@ -182,7 +183,7 @@ query getTaskreview($filter: FilterTaskReview!) {
   getTaskreview(filter: $filter) {
     points,
     review,
-    taskurl
+    taskurl,
     reviewID
   }
 }
@@ -215,4 +216,13 @@ query leaderBoard($limit: Float, $skip: Float) {
       totalPoints
     }
   }
+}
+
+mutation deleteTask($taskid: String!) {
+  deleteTask(taskid: $taskid)
+}
+
+mutation editTaskSubmission($data: SubmitTaskInput!)
+{
+  editTaskSubmission(data: $data)
 }
