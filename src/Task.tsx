@@ -307,25 +307,46 @@ function Task() {
                           <div className="formGroup">
                           <div className="submitted-proofs">
                             <button id="edit" onClick={() => {
-                              document.getElementById("delete")!.style.display = "block"
-                              document.getElementById('edit-submit')!.style.display = "block"
+                              if(reviews?.getTaskreview[0] != null)
+                              {   
+                                document.getElementById("delete")!.style.display = "block"
+                              }
                               document.getElementById('edit')!.style.display = "none"
+                              document.getElementById('edit-submit')!.style.display = "block"
                               setFile([])
                               reviews?.getTaskreview.map(t => {
                                 setFile((old) => [...old, t.taskurl])
                               })
                             }}>Edit Proofs</button>
-                            <p className="submit-heading"><b>Submitted Proofs</b></p>
+                            {/* <p className="submit-heading"><b>Submitted Proofs</b></p>
+                            <div className="proof-group">
+                                  <p>txrcvybuikol;</p>
+                                  <div className="button-group">
+                                    <button id="delete">Delete</button>
+                                  </div>
+                               </div> */}
                           {
                             reviews?.getTaskreview.map(el => {
-                              return(
-                                <div className="proof-group">
-                                  <p>{el.taskurl}</p>
-                                  <div className="button-group">
-                                    <button id="delete" onClick={() => {file = file.filter(f => f === el.taskurl)}}>Delete</button>
-                                  </div>
+                              if(reviews?.getTaskreview[0] != null)
+                                {   
+                                  document.getElementById("delete")!.style.display = "none"
+                                }
+                                document.getElementById('edit')!.style.display = "block"
+                                document.getElementById('edit-submit')!.style.display = "none"
+                              el.taskurl && <div className="proof-group">
+                              <p>{el.taskurl}</p>
+                              <div className="button-group">
+                                <button id="delete" onClick={() => {file = file.filter(f => f === el.taskurl)}}>Delete</button>
+                              </div>
                             </div>
-                              )
+                              // return(
+                              //   <div className="proof-group">
+                              //     <p>{el.taskurl}</p>
+                              //     <div className="button-group">
+                              //       <button id="delete" onClick={() => {file = file.filter(f => f === el.taskurl)}}>Delete</button>
+                              //     </div>
+                              //   </div>
+                              // )
                             })
                           }
                           </div>
@@ -345,9 +366,12 @@ function Task() {
                                 }catch(e){
                                   console.log(e)
                                 }
-                                document.getElementById("delete")!.style.display = "none"
-                              document.getElementById('edit-submit')!.style.display = "none"
-                              document.getElementById('edit')!.style.display = "block"
+                                // if(reviews?.getTaskreview[0] != null)
+                                // {   
+                                //   document.getElementById("delete")!.style.display = "none"
+                                // }
+                                // document.getElementById('edit')!.style.display = "block"
+                                // document.getElementById('edit-submit')!.style.display = "none"
                               }
                             }>Submit changes</button>
                            </div>

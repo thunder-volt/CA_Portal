@@ -8,31 +8,38 @@ import { useHistory } from 'react-router'
 import { Dialog } from '@material-ui/core';
 import Header from "./Header"
 import { GetUsersFilter, useGetTaskreviewQuery, useGetTasksQuery, useGetUsersQuery, useReviewTaskMutation, UserRole} from "./generated";
-
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Button
+} from "@chakra-ui/react"
 
 function MarkTasks() {
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
     
   const [reviewTaskMutation, {data:review, loading:reviewLoad, error:reviewError}] = useReviewTaskMutation()
-
-  const [header, setHeader] = React.useState(false)
-  const [caName, setcaName] = React.useState('Campus Ambassaodar Name')
-  const [coordName, setcoordName] = React.useState('')
-  const [totalPoints, settotalPoints] = React.useState(0)
+  const [caName, setcaName] = React.useState('')
   const [points, setpoints] = React.useState(0)
-  const [proof, setproof] = React.useState('')
   const [feedback, setfeedback] = React.useState('')
-  const [task, settask] = React.useState('')
   const [filter, setFilter] = React.useState<GetUsersFilter>({role: UserRole.Selected });
-  const [id, setId] = useState("")
 
   const {data: tasks, loading: taskLoad, error: taskError} = useGetTasksQuery({variables:{skip:null, limit:10000}})
-  const taskCount = tasks?.getTasks.length
+ 
   const {data, loading, error} = useGetUsersQuery({
     variables: {
       filter: filter,
     }
   })
+
   const history = useHistory()
+
   if(error?.message.includes("Access denied!")|| taskError?.message.includes("Access denied!"))
   {
     const closeHandler= () => {history.push('/login')}
@@ -84,7 +91,7 @@ function MarkTasks() {
       <div className='header'>
         <h1>MARK TASKS</h1>
         <div className='search-container'>
-          <input className='search-bar' placeholder='Search for CA'></input>
+          <input className='search-bar' placeholder='Search for CA' onChange={(e: any) => {setcaName(e.target.value); console.log(e.target.value)}}></input>
         </div>
         <div className='menu-ctn'>
           <select name="coord" onChange={(e:any) => {setFilter({role: UserRole.Selected, coord: e.target.value})}}>
@@ -109,23 +116,25 @@ function MarkTasks() {
           <select
             name='caName'
             id='caName'
-            onChange={(e: any) => setcaName(e.target.value)}
+            onChange={(e: any) => {setcaName(e.target.value); console.log(e.target.value)}}
             placeholder='Campus Ambassador'
           >
             <option value='0'>CAMPUS AMBASSADOR</option>
             { 
-              data?.getUsers?.users.map(el => { console.log(el.name)
+              data?.getUsers?.users.map(el => { console.log(el)
                 return(<option value={el.id}>{el.name}</option>)})  
             }
           </select>
         </div>
       </div>
-      {/* {
-        tasks?.getTasks.map(el => {console.log(el.status)})
-      } */}
       <div className='task-lists'>
         {
-          data?.getUsers?.users.map(el => {
+          data?.getUsers?.users.filter(u => {
+            if(caName === "") return u;
+            else if(u.name?.toLocaleLowerCase().includes(caName)) return u;
+                 else if(!u.name?.toLocaleLowerCase().includes(caName)) {}
+          })
+          .map(el => {
             return(
               <div className='task-lists'>
         <div className='list-header'>
@@ -140,34 +149,84 @@ function MarkTasks() {
             <th>Feedback</th>
           </tr>
           {
-            tasks?.getTasks.map(t => {
-              console.log(el.taskReviews)
+            tasks?.getTasks
+            .map(t => {
               if(el.taskReviews.map(r => {
                 if(r.reviewID === t.id)
                 {
-                  setpoints(r.points!)
-                  setfeedback(r.review!)
+                  
                   return(
                     <tr>
                 <td>{t.brief}</td>
                 <td>{r.taskurl}</td>
                 <td>
                   <input
-                    value={points}
+                    value={r.points!}
                     name='points'
                     placeholder='Points'
-                    onChange={(e: any) => setpoints(e.target.value)}
                   ></input>
                 </td>
                 <td>
                   <input
                     type='text'
+                    value={r.review!}
+                    name='feedback'
+                    placeholder='Feedback'
+                  ></input>
+                </td>
+                <Button onClick={onOpen}>Edit</Button>
+
+                <Modal isOpen={isOpen} onClose={onClose}>
+                  <ModalOverlay />
+                  <ModalContent width="50vw" margin="auto" marginTop="10vh" backgroundColor="#574ed3b2" padding="1vw" borderRadius="24px" boxShadow="5px 10px 20px rgba(0, 0, 0, 0.486)">
+                    
+                    <ModalBody>
+                    <input
+                    name='points'
+                    type="number"
+                    value={points}
+                    placeholder='Points'
+                    onChange={(e: any) => 
+                      {
+                        setpoints(parseInt(e.target.value))
+                      }}
+                    ></input>
+                    <br />
+                    <input
+                    type='text'
                     value={feedback}
                     name='feedback'
                     onChange={(e: any) => setfeedback(e.target.value)}
                     placeholder='Feedback'
-                  ></input>
-                </td>
+                    ></input>
+                    <br />
+                    <button className='save-btn' onClick={async (e) => {
+                        e.preventDefault();
+                        console.log(typeof(t.id))
+                        try 
+                        {
+
+                          await reviewTaskMutation({variables: {data: {
+                            reviewid: t.id,
+                            review: feedback,
+                            points: points
+                          }}})
+                        }
+                        catch(e){console.log(e)}
+                        console.log(review?.reviewTask)
+                      }}>
+                      Save Changes
+                    </button>
+                    </ModalBody>
+
+                    <ModalFooter>
+                      <Button borderRadius="12px"
+                      colorScheme="blue" mr={3} onClick={onClose} backgroundColor="white" border="none" padding="0.5vw">
+                        Close
+                      </Button>
+                    </ModalFooter>
+                  </ModalContent>
+                </Modal>
               </tr>
                   )
                 }
@@ -181,38 +240,68 @@ function MarkTasks() {
                 name='points'
                 type="number"
                 placeholder='Points'
-                onChange={(e: any) => 
-                  {
-                    setpoints(parseInt(e.target.value))
-                  }}
               ></input>
             </td>
             <td>
               <input
                 type='text'
-                // value={feedback}
                 name='feedback'
-                onChange={(e: any) => setfeedback(e.target.value)}
                 placeholder='Feedback'
               ></input>
             </td>
-            <button className='save-btn' onClick={async (e) => {
-              e.preventDefault();
-              console.log(typeof(t.id))
-              try 
-              {
+            {/* <Button onClick={onOpen}>Edit</Button>
 
-                await reviewTaskMutation({variables: {data: {
-                  reviewid: t.id,
-                  review: feedback,
-                  points: points
-                }}})
-              }
-              catch(e){console.log(e)}
-              console.log(review?.reviewTask)
-            }}>
-            Save Changes
-          </button>
+            <Modal isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay />
+              <ModalContent width="50vw" margin="auto" marginTop="10vh" backgroundColor="#574ed3b2" padding="1vw" borderRadius="24px" boxShadow="5px 10px 20px rgba(0, 0, 0, 0.486)">
+                
+                <ModalBody>
+                <input
+                name='points'
+                type="number"
+                value={points}
+                placeholder='Points'
+                onChange={(e: any) => 
+                  {
+                    setpoints(parseInt(e.target.value))
+                  }}
+                ></input>
+                <br />
+                <input
+                type='text'
+                value={feedback}
+                name='feedback'
+                onChange={(e: any) => setfeedback(e.target.value)}
+                placeholder='Feedback'
+                ></input>
+                <br />
+                <button className='save-btn' onClick={async (e) => {
+                    e.preventDefault();
+                    console.log(typeof(t.id))
+                    try 
+                    {
+
+                      await reviewTaskMutation({variables: {data: {
+                        reviewid: t.id,
+                        review: feedback,
+                        points: points
+                      }}})
+                    }
+                    catch(e){console.log(e)}
+                    console.log(review?.reviewTask)
+                  }}>
+                  Save Changes
+                </button>
+                </ModalBody>
+
+                <ModalFooter>
+                  <Button borderRadius="12px"
+                  colorScheme="blue" mr={3} onClick={onClose} backgroundColor="white" border="none" padding="0.5vw">
+                    Close
+                  </Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal> */}
           </tr>
               )
             })

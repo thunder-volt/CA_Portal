@@ -35,6 +35,19 @@
 .navbar a:hover {
   color: #564ed3;
 }
+.chakra-modal__body input
+{
+  width: 40vw !important;
+  margin-bottom: 2vh !important;
+  padding: 0.25vw;
+}
+.chakra-modal__body button 
+{
+  border: none;
+  padding: 0.5vw;
+  background-color: white;
+  border-radius: 12px !important;
+}
 @media screen and (max-width: 700px) {
   .navbar {
     padding: 0 30px 0 10px;
