@@ -3,6 +3,7 @@ import "./Body.css"
 // import Landing from "/assets/illustration1.png"
 // import Role from "/assets/illustrations2.png"
 // import infoicon from "/assets/ic1.png"
+
 const Body = () => {
     return (
         <>
