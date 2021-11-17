@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {useGetQuestionnaireByUserIdQuery} from "./generated"
 import "./search_filter.css";
 import myFunction from "./search";
 import { GetUsersFilter, useGetUsersQuery, UserRole } from "./generated";
@@ -9,12 +10,18 @@ function App() {
   var [filter, setFilter] = React.useState<GetUsersFilter>({role: UserRole.Registered, coord: null})
   const [opt, setOption] = useState("")
   const [coord, setCoord] = useState("")
+  const [id, setId] = useState("")
 
   const {data, loading, error} = useGetUsersQuery({
     variables: {
       filter: filter,
     }
   })
+
+  const { data: questionnaire, loading: questionnaireLoad, error: questionnaireErr } = useGetQuestionnaireByUserIdQuery({
+    variables: { userid: id },
+  });
+
   const roleHandler = (e:any) => {
     setOption(e.target.value)
     switch(e.target.value)
@@ -70,13 +77,29 @@ function App() {
       <table id="myTable">
         {
           data?.getUsers?.users.map(el => {
-            console.log(el)
+            // setId(el.id)
+          //   questionnaire?.getQuestionnaireByUserId ? <tr>
+          //   <td>{i++}</td>
+          //   <td><a href={`/application/${el.id}`}>{el.name}</a></td>
+          //   <td>{el.caID}</td>
+          //   <td>{questionnaire.getQuestionnaireByUserId.city}</td>
+          //   <td>{el.email}</td>
+          // </tr>
+          // :
+          // <tr>
+          //     <td>{i++}</td>
+          //     <td><a href={`/application/${el.id}`}>{el.name}</a></td>
+          //     <td>{el.caID}</td>
+          //     <td>{el.email}</td>
+          //   </tr>
            return(
             <tr>
               <td>{i++}</td>
               <td><a href={`/application/${el.id}`}>{el.name}</a></td>
               <td>{el.caID}</td>
               <td>{el.email}</td>
+              { setId(el.id)}
+              {questionnaire?.getQuestionnaireByUserId && <td>{questionnaire.getQuestionnaireByUserId.city}</td>}
             </tr>
            )
           })

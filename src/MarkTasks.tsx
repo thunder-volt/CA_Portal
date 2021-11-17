@@ -151,7 +151,8 @@ function MarkTasks() {
           {
             tasks?.getTasks
             .map(t => {
-              if(el.taskReviews.map(r => {
+              if(el.taskReviews)
+               el.taskReviews.map(r => {
                 if(r.reviewID === t.id)
                 {
                   
@@ -230,7 +231,8 @@ function MarkTasks() {
               </tr>
                   )
                 }
-              }))
+              })
+            else
               return(
                 <tr>
             <td>{t.brief}</td>
