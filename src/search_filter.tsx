@@ -98,8 +98,8 @@ function App() {
               <td><a href={`/application/${el.id}`}>{el.name}</a></td>
               <td>{el.caID}</td>
               <td>{el.email}</td>
-              { setId(el.id)}
-              {questionnaire?.getQuestionnaireByUserId && <td>{questionnaire.getQuestionnaireByUserId.city}</td>}
+              {/* { setId(el.id)}
+              {questionnaire?.getQuestionnaireByUserId && <td>{questionnaire.getQuestionnaireByUserId.city}</td>} */}
             </tr>
            )
           })
