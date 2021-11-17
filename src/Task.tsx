@@ -7,7 +7,11 @@ import TaskPopup from "./TaskPopup";
 import {useState} from "react"
 import {Dialog} from "@material-ui/core"
 import { useHistory } from "react-router";
+
+import AWS from 'aws-sdk'
+
 // import S3FileUpload from 'react-s3';
+const uploadFile = require('react-s3')
 const S3FileUpload = require('react-s3')
 
 function Task() {
@@ -39,33 +43,66 @@ function Task() {
   })
   const [editTaskSubmissionMutation, {data: edit, loading: editLoad, error: editError}] = useEditTaskSubmissionMutation()
  
-  const newFileUrl = (fileUpload : string) => {
-    const config = {
 
-      bucketName: "ca21",
+  AWS.config.update({
+    accessKeyId: "AKIA4VXHNASLCGXPQAHM",
+    secretAccessKey: "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"
+  })
+  const myBucket = new AWS.S3({
+    params: { Bucket: "ca21"},
+    region: "ap-south-1",
+  })
+  const UploadImageToS3WithNativeSdk = (file:any) => {
 
-      region: "ap-south-1",
+    const [progress , setProgress] = useState(0);
 
-      accessKeyId: "AKIA4VXHNASLCGXPQAHM",
 
-      secretAccessKey: "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"
+        const params = {
+            ACL: 'public-read',
+            Body: file,
+            Bucket: "ca21",
+            Key: file.name
+        };
 
+        myBucket.putObject(params)
+            .on('httpUploadProgress', (evt) => {
+                setProgress(Math.round((evt.loaded / evt.total) * 100))
+            })
+            .send((err) => {
+                if (err) console.log(err)
+            })
+           setNewFile((old) => [...old,`https://ca21.s3-ap-south-1.amazonaws.com/{file.name}`])
+    
   }
-  S3FileUpload.uploadFile(fileUpload, config)
 
-            .then((data: any)=>{
+  // const config = {
 
-                 setNewFile((old) => [...old, data.location])
+  //   bucketName: "ca21",
 
-             })
+  //   region: "ap-south-1",
 
-             .catch((err: any) =>{
+  //   accessKeyId: "AKIA4VXHNASLCGXPQAHM",
 
-                   alert(err);
+  //   secretAccessKey: "kKdrBX+h5qQHJWeHEUE9QM6jUXJxT+Byd2KSbfA7"
 
-              });
+  // }
+  // const newFileUrl = (fileUpload : string) => {
+  //   // S3FileUpload.
+  //   uploadFile(fileUpload, config)
 
-  }
+  //             .then((data: any)=>{
+
+  //                 setNewFile((old) => [...old, data.location])
+
+  //             })
+
+  //             .catch((err: any) =>{
+
+  //                   alert(err);
+
+  //               });
+
+  // }
 
   if(submit?.submitTask || edit?.editTaskSubmission)
   {
@@ -260,7 +297,7 @@ function Task() {
                               async (e) => {
                                 console.log(file)
                                 file.map(f => {
-                                  newFileUrl(f)
+                                  UploadImageToS3WithNativeSdk(f)
                                 })
                                 e.preventDefault()
                                 try{
@@ -359,7 +396,7 @@ function Task() {
                               async (e) => {
                                 e.preventDefault()
                                 file.map(f => {
-                                  newFileUrl(f)
+                                  UploadImageToS3WithNativeSdk(f)
                                 })
                                 try{
                                   await editTaskSubmissionMutation({variables:{data: {taskid:task.id, taskurl: newFile }}})
