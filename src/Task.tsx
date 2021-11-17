@@ -54,9 +54,6 @@ function Task() {
   })
   const UploadImageToS3WithNativeSdk = (file:any) => {
 
-    const [progress , setProgress] = useState(0);
-
-
         const params = {
             ACL: 'public-read',
             Body: file,
@@ -66,12 +63,11 @@ function Task() {
 
         myBucket.putObject(params)
             .on('httpUploadProgress', (evt) => {
-                setProgress(Math.round((evt.loaded / evt.total) * 100))
             })
             .send((err) => {
                 if (err) console.log(err)
             })
-           setNewFile((old) => [...old,`https://ca21.s3-ap-south-1.amazonaws.com/{file.name}`])
+        setNewFile((old) => [...old,`https://ca21.s3-ap-south-1.amazonaws.com/{file.name}`])
     
   }
 
