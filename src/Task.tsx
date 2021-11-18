@@ -28,8 +28,8 @@ function Task() {
     left: "30px",
     width: window.innerWidth > 500 ? "176px" : "102.73px",
   });
-  var [file, setFile] = useState<string[]>([])
-  const [newFile, setNewFile] = useState<string[]>([])
+  var [file, setFile] = useState<File[]>([])
+  var [newFile, setNewFile] = useState<string[]>([])
 
   const {data: tasks, loading: askLoad, error: taskError} = useGetTasksQuery({variables:{skip:null, limit:10000}})
   const [submitTaskMutation, {data: submit,loading: submitLoad,error: submitError}] = useSubmitTaskMutation()
@@ -286,7 +286,8 @@ function Task() {
                           <div className="formGroup">
                             <p>Upload proof for above task</p>
                             <input multiple type="file" onChange={async (e) => {
-                              await setFile((old) => [...old, e.target.value])
+                              if(e.target != null)
+                              await setFile((old) => [...old, e.target.files![0]])
                               console.log(file)
                             }} />
                             <button onClick={
@@ -301,6 +302,8 @@ function Task() {
                                 }catch(e){
                                   console.log(e)
                                 }
+                                setFile([])
+                                setNewFile([])
                               }
                             }>SUBMIT</button>
                           </div>
@@ -348,7 +351,7 @@ function Task() {
                               document.getElementById('edit-submit')!.style.display = "block"
                               setFile([])
                               reviews?.getTaskreview.map(t => {
-                                setFile((old) => [...old, t.taskurl])
+                                setNewFile((old) => [...old, t.taskurl])
                               })
                             }}>Edit Proofs</button>
                             {/* <p className="submit-heading"><b>Submitted Proofs</b></p>
@@ -366,10 +369,11 @@ function Task() {
                                 }
                                 document.getElementById('edit')!.style.display = "block"
                                 document.getElementById('edit-submit')!.style.display = "none"
+                                setNewFile(old => [...old, el.taskurl])
                               el.taskurl && <div className="proof-group">
                               <p>{el.taskurl}</p>
                               <div className="button-group">
-                                <button id="delete" onClick={() => {file = file.filter(f => f === el.taskurl)}}>Delete</button>
+                                <button id="delete" onClick={() => {newFile = newFile.filter(f => f === el.taskurl)}}>Delete</button>
                               </div>
                             </div>
                               // return(
@@ -386,7 +390,7 @@ function Task() {
                            <div id="edit-submit">
                            <p>Upload proof for above task</p>
                            <input multiple type="file" onChange={async (e) => {
-                              await setFile((old) => [...old, e.target.value])
+                              await setFile((old) => [...old, e.target.files![0]])
                             }} />
                             <button onClick={
                               async (e) => {
@@ -399,12 +403,8 @@ function Task() {
                                 }catch(e){
                                   console.log(e)
                                 }
-                                // if(reviews?.getTaskreview[0] != null)
-                                // {   
-                                //   document.getElementById("delete")!.style.display = "none"
-                                // }
-                                // document.getElementById('edit')!.style.display = "block"
-                                // document.getElementById('edit-submit')!.style.display = "none"
+                                setFile([])
+                                setNewFile([])
                               }
                             }>Submit changes</button>
                            </div>

@@ -135,6 +135,8 @@ function MarkTasks() {
                  else if(!u.name?.toLocaleLowerCase().includes(caName)) {}
           })
           .map(el => {
+            {console.log(el)}
+            console.log(tasks?.getTasks)
             return(
               <div className='task-lists'>
         <div className='list-header'>
@@ -149,13 +151,101 @@ function MarkTasks() {
             <th>Feedback</th>
           </tr>
           {
+            tasks?.getTasks.map(t => {
+              
+               var review = el.taskReviews.find(r => r.reviewID === t.id)
+               if(review)
+               {
+                return(
+                  <tr>
+              <td>{t.brief}</td>
+              <td>{review.taskurl}</td>
+              <td>
+                <input
+                  value={review.points!}
+                  name='points'
+                  placeholder='Points'
+                ></input>
+              </td>
+              <td>
+                <input
+                  type='text'
+                  value={review.review!}
+                  name='feedback'
+                  placeholder='Feedback'
+                ></input>
+              </td>
+              <Button onClick={onOpen}>Edit</Button>
+
+              <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent width="50vw" margin="auto" marginTop="10vh" backgroundColor="#574ed3b2" padding="1vw" borderRadius="24px" boxShadow="5px 10px 20px rgba(0, 0, 0, 0.486)">
+                  
+                  <ModalBody>
+                  <input
+                  name='points'
+                  type="number"
+                  value={points}
+                  placeholder='Points'
+                  onChange={(e: any) => 
+                    {
+                      setpoints(parseInt(e.target.value))
+                    }}
+                  ></input>
+                  <br />
+                  <input
+                  type='text'
+                  value={feedback}
+                  name='feedback'
+                  onChange={(e: any) => setfeedback(e.target.value)}
+                  placeholder='Feedback'
+                  ></input>
+                  <br />
+                  <button className='save-btn' onClick={async (e) => {
+                      e.preventDefault();
+                      console.log(typeof(t.id))
+                      try 
+                      {
+
+                        await reviewTaskMutation({variables: {data: {
+                          reviewid: t.id,
+                          review: feedback,
+                          points: points
+                        }}})
+                      }
+                      catch(e){console.log(e)}
+                    }}>
+                    Save Changes
+                  </button>
+                  </ModalBody>
+
+                  <ModalFooter>
+                    <Button borderRadius="12px"
+                    colorScheme="blue" mr={3} onClick={onClose} backgroundColor="white" border="none" padding="0.5vw">
+                      Close
+                    </Button>
+                  </ModalFooter>
+                </ModalContent>
+              </Modal>
+            </tr>
+                )
+              }
+              else 
+              return(
+                <tr>
+                  <td>{t.brief}</td>
+                  <td>proof not submitted</td>
+                </tr>
+              )
+            })
+          }
+          {/* {
             tasks?.getTasks
             .map(t => {
               if(el.taskReviews)
                el.taskReviews.map(r => {
                 if(r.reviewID === t.id)
-                {
-                  
+                { 
                   return(
                     <tr>
                 <td>{t.brief}</td>
@@ -236,7 +326,7 @@ function MarkTasks() {
               return(
                 <tr>
             <td>{t.brief}</td>
-            <td></td>
+            <td>elo</td>
             <td>
               <input
                 name='points'
@@ -251,63 +341,10 @@ function MarkTasks() {
                 placeholder='Feedback'
               ></input>
             </td>
-            {/* <Button onClick={onOpen}>Edit</Button>
-
-            <Modal isOpen={isOpen} onClose={onClose}>
-              <ModalOverlay />
-              <ModalContent width="50vw" margin="auto" marginTop="10vh" backgroundColor="#574ed3b2" padding="1vw" borderRadius="24px" boxShadow="5px 10px 20px rgba(0, 0, 0, 0.486)">
-                
-                <ModalBody>
-                <input
-                name='points'
-                type="number"
-                value={points}
-                placeholder='Points'
-                onChange={(e: any) => 
-                  {
-                    setpoints(parseInt(e.target.value))
-                  }}
-                ></input>
-                <br />
-                <input
-                type='text'
-                value={feedback}
-                name='feedback'
-                onChange={(e: any) => setfeedback(e.target.value)}
-                placeholder='Feedback'
-                ></input>
-                <br />
-                <button className='save-btn' onClick={async (e) => {
-                    e.preventDefault();
-                    console.log(typeof(t.id))
-                    try 
-                    {
-
-                      await reviewTaskMutation({variables: {data: {
-                        reviewid: t.id,
-                        review: feedback,
-                        points: points
-                      }}})
-                    }
-                    catch(e){console.log(e)}
-                    console.log(review?.reviewTask)
-                  }}>
-                  Save Changes
-                </button>
-                </ModalBody>
-
-                <ModalFooter>
-                  <Button borderRadius="12px"
-                  colorScheme="blue" mr={3} onClick={onClose} backgroundColor="white" border="none" padding="0.5vw">
-                    Close
-                  </Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal> */}
           </tr>
               )
             })
-          }
+          } */}
           
         </table>
       </div>
