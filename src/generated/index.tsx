@@ -447,7 +447,7 @@ export type GetTasksQueryVariables = Exact<{
 }>;
 
 
-export type GetTasksQuery = { getTasks: Array<{ id: string, brief: string, details: string, maxPoints: number, deadline: string, status: string, taskReviews: Array<{ review?: Maybe<string> }> }> };
+export type GetTasksQuery = { getTasks: Array<{ id: string, brief: string, details: string, maxPoints: number, deadline: string, status: string, taskReviews: Array<{ reviewID: string, points?: Maybe<number>, review?: Maybe<string>, taskurl: string }> }> };
 
 export type GetTasksAdminQueryVariables = Exact<{
   skip?: Maybe<Scalars['Float']>;
@@ -995,7 +995,10 @@ export const GetTasksDocument = gql`
     maxPoints
     deadline
     taskReviews {
+      reviewID
+      points
       review
+      taskurl
     }
     status
   }

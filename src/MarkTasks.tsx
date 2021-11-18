@@ -39,7 +39,7 @@ function MarkTasks() {
   })
 
   const history = useHistory()
-
+  var id = ''
   if(error?.message.includes("Access denied!")|| taskError?.message.includes("Access denied!"))
   {
     const closeHandler= () => {history.push('/login')}
@@ -135,8 +135,7 @@ function MarkTasks() {
                  else if(!u.name?.toLocaleLowerCase().includes(caName)) {}
           })
           .map(el => {
-            {console.log(el)}
-            console.log(tasks?.getTasks)
+            console.log(el.taskReviews)
             return(
               <div className='task-lists'>
         <div className='list-header'>
@@ -152,17 +151,22 @@ function MarkTasks() {
           </tr>
           {
             tasks?.getTasks.map(t => {
-              
-               var review = el.taskReviews.find(r => r.reviewID === t.id)
-               if(review)
+              var R:any = {}
+              el.taskReviews.map(r => {
+                t.taskReviews.find(tr => {
+                  if(tr.reviewID === r.reviewID) R = tr
+                })
+              })
+               if(R != null && el.taskReviews.length != 0)
                {
+                 id = R.reviewID
                 return(
                   <tr>
               <td>{t.brief}</td>
-              <td>{review.taskurl}</td>
+              <td><a href={R.taskurl}>{R.taskurl}</a></td>
               <td>
                 <input
-                  value={review.points!}
+                  value={R.points!}
                   name='points'
                   placeholder='Points'
                 ></input>
@@ -170,7 +174,7 @@ function MarkTasks() {
               <td>
                 <input
                   type='text'
-                  value={review.review!}
+                  value={R.review!}
                   name='feedback'
                   placeholder='Feedback'
                 ></input>
@@ -206,9 +210,8 @@ function MarkTasks() {
                       console.log(typeof(t.id))
                       try 
                       {
-
                         await reviewTaskMutation({variables: {data: {
-                          reviewid: t.id,
+                          reviewid: id,
                           review: feedback,
                           points: points
                         }}})

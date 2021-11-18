@@ -52,7 +52,7 @@ function Task() {
     params: { Bucket: "ca21"},
     region: "ap-south-1",
   })
-  const UploadImageToS3WithNativeSdk = (file:any) => {
+  const UploadImageToS3WithNativeSdk = async (file:any) => {
 
         const params = {
             ACL: 'public-read',
@@ -61,13 +61,13 @@ function Task() {
             Key: file.name
         };
 
-        myBucket.putObject(params)
+        await myBucket.putObject(params)
             .on('httpUploadProgress', (evt) => {
             })
             .send((err) => {
                 if (err) console.log(err)
             })
-        setNewFile((old) => [...old,`https://ca21.s3-ap-south-1.amazonaws.com/{file.name}`])
+        // setNewFile((old) => [...old,`https://ca21.s3-ap-south-1.amazonaws.com/${file.name}`])
     
   }
 
@@ -292,16 +292,19 @@ function Task() {
                             }} />
                             <button onClick={
                               async (e) => {
-                                console.log(file)
-                                file.map(f => {
-                                  UploadImageToS3WithNativeSdk(f)
-                                })
                                 e.preventDefault()
+                                file.map(async (f) => {
+                                 await UploadImageToS3WithNativeSdk(f)
+                                //  setNewFile((old) => [...old,`https://ca21.s3-ap-south-1.amazonaws.com/${f.name}`])
+                                setNewFile([`https://ca21.s3-ap-south-1.amazonaws.com/${f.name}`])
+                                })
                                 try{
-                                  await submitTaskMutation({variables:{data: {taskid:task.id, taskurl: newFile }}})
+                                  await submitTaskMutation({variables:{data: {taskid:task.id, taskurl: [`https://ca21.s3-ap-south-1.amazonaws.com/${file[0].name}`] }}})
+                                  console.log(newFile)
                                 }catch(e){
                                   console.log(e)
                                 }
+                                console.log(submit?.submitTask.valueOf)
                                 setFile([])
                                 setNewFile([])
                               }

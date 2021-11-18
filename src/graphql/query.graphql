@@ -158,7 +158,10 @@ query getTasks($skip: Float, $limit: Float){
     deadline,
     taskReviews
     {
-      review
+      reviewID,
+      points,
+      review,
+      taskurl
     }
     status
   }
