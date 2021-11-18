@@ -12,7 +12,8 @@ function LeaderBoard() {
   
 
   var i =0;
-  console.log(data?.leaderBoard?.users)
+  var arr = data?.leaderBoard?.users.filter(el => el?.totalPoints !== null)
+  console.log(arr)
   return (
     <>
       <Header />
@@ -25,10 +26,11 @@ function LeaderBoard() {
               <span className="silver">2</span>
             </div>
             {
-              data?.leaderBoard?.users[1] && <div>
-                <h3>{data?.leaderBoard?.users[1].name}</h3>
+              arr !== undefined &&
+              arr[1] && <div>
+                <h3>{arr[1].name}</h3>
               <p className="points">
-                {data?.leaderBoard?.users[1].totalPoints} Points
+                {arr[1].totalPoints} Points
               </p>
               </div> 
             }
@@ -39,10 +41,11 @@ function LeaderBoard() {
               <span className="gold">1</span>
             </div>
             {
-              data?.leaderBoard?.users[0] && <div>
-                <h3>{data?.leaderBoard?.users[0].name}</h3>
+               arr !== undefined &&
+              arr[0] && <div>
+                <h3>{arr[0].name}</h3>
               <p className="points">
-                {data?.leaderBoard?.users[0].totalPoints} Points
+                {arr[0].totalPoints} Points
               </p>
               </div> 
             }
@@ -53,10 +56,11 @@ function LeaderBoard() {
               <span className="bronze">3</span>
             </div>
             {
-              data?.leaderBoard?.users[2] && <div>
-                <h3>{data?.leaderBoard?.users[2].name}</h3>
+               arr !== undefined &&
+              arr[2] && <div>
+                <h3>{arr[2].name}</h3>
               <p className="points">
-                {data?.leaderBoard?.users[2].totalPoints} Points
+                {arr[2].totalPoints} Points
               </p>
               </div> 
             }
@@ -64,7 +68,8 @@ function LeaderBoard() {
         </div>
         <ul className="Leaderboard_container">
           {
-          data?.leaderBoard?.users.map((user) => {
+             arr !== undefined &&
+          arr.map((user) => {
           i++;
             if(i>2 && user)
             return (

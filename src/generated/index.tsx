@@ -369,14 +369,14 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { getUser?: Maybe<{ name: string, email: string, role: string, coord?: Maybe<string>, totalPoints?: Maybe<number>, taskReviews: Array<{ points?: Maybe<number>, review?: Maybe<string> }> }> };
+export type GetUserQuery = { getUser?: Maybe<{ name: string, email: string, role: string, coord?: Maybe<string>, totalPoints?: Maybe<number>, taskReviews: Array<{ points?: Maybe<number>, review?: Maybe<string>, reviewID: string }> }> };
 
 export type LoginMutationVariables = Exact<{
   loginInput: LoginInput;
 }>;
 
 
-export type LoginMutation = { login?: Maybe<{ name: string, email: string, role: string, id: string }> };
+export type LoginMutation = { login?: Maybe<{ name: string, email: string, role: string, id: string, totalPoints?: Maybe<number> }> };
 
 export type CreateUserMutationVariables = Exact<{
   createUserInput: CreateUserInput;
@@ -588,6 +588,7 @@ export const GetUserDocument = gql`
     taskReviews {
       points
       review
+      reviewID
     }
   }
 }
@@ -630,6 +631,7 @@ export const LoginDocument = gql`
     email
     role
     id
+    totalPoints
   }
 }
     `;

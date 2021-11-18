@@ -1,6 +1,6 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
-import { useGetTasksQuery, useGetUserQuery, useGetTaskreviewQuery, useSubmitTaskMutation, useEditTaskSubmissionMutation } from "./generated";
+import { useGetTasksQuery, useGetTaskreviewQuery, useSubmitTaskMutation, useEditTaskSubmissionMutation } from "./generated";
 import Header from "./Header";
 import "./Task.css";
 import TaskPopup from "./TaskPopup";
@@ -18,9 +18,6 @@ function Task() {
 
   const history = useHistory()
   var i = 1;
-
-  const [Com_tasks, setCom_tasks] = React.useState(0);
-  const [points_earned, setPoints_earned] = React.useState(0);
   const [curr_task, setCurr_task] = React.useState('');
   const [pending, setPending] = React.useState(false);
   const [incomplete, setIncomplete] = React.useState(true)
@@ -32,8 +29,33 @@ function Task() {
   var [newFile, setNewFile] = useState<string[]>([])
 
   const {data: tasks, loading: askLoad, error: taskError} = useGetTasksQuery({variables:{skip:null, limit:10000}})
+ 
+  var pts = 0;
+  var comp = 0;
+  if(tasks)
+  {
+    tasks.getTasks.map(t => {
+      if(t.taskReviews[0]?.points !== null && t.taskReviews[0]?.points !== undefined) 
+      {
+        pts += t.taskReviews[0]?.points;
+        comp++;
+      }
+    })
+  }
+  // var pts = 0;
+  // var comp = 0;
+  // tasks?.getTasks.map(t => {
+  //   if(t.taskReviews[0]?.points)
+  //   {
+  //     pts += t.taskReviews[0]?.points;
+  //     comp++;
+  //   }
+  // })
+  // setCom_tasks(comp);
+  // setPoints_earned(pts);
+  
   const [submitTaskMutation, {data: submit,loading: submitLoad,error: submitError}] = useSubmitTaskMutation()
-  const {data, loading, error} = useGetUserQuery({variables:{userId: localStorage.getItem('id')!}})
+ 
   const {data: reviews, loading: reviewLoad, error: reviewError} = useGetTaskreviewQuery({variables: {filter: 
     { 
       reviewID: null,
@@ -67,38 +89,8 @@ function Task() {
             .send((err) => {
                 if (err) console.log(err)
             })
-        // setNewFile((old) => [...old,`https://ca21.s3-ap-south-1.amazonaws.com/${file.name}`])
     
   }
-
-  // const config = {
-
-  //   bucketName: "ca21",
-
-  //   region: "ap-south-1",
-
-  //   accessKeyId: "AKIA4VXHNASLCGXPQAHM",
-
-  //   secretAccessKey: "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"
-
-  // }
-  // const newFileUrl = (fileUpload : string) => {
-  //   // S3FileUpload.
-  //   uploadFile(fileUpload, config)
-
-  //             .then((data: any)=>{
-
-  //                 setNewFile((old) => [...old, data.location])
-
-  //             })
-
-  //             .catch((err: any) =>{
-
-  //                   alert(err);
-
-  //               });
-
-  // }
 
   if(submit?.submitTask || edit?.editTaskSubmission)
   {
@@ -110,7 +102,7 @@ function Task() {
       </Dialog>
     )
   }
-  if(submitLoad || loading || reviewLoad || editLoad)
+  if(submitLoad || reviewLoad || editLoad)
   {
     return(
       <Dialog open={true}>
@@ -186,15 +178,6 @@ function Task() {
       )
     }
   }
-  if(data?.getUser?.taskReviews.length)
-  {
-    var pts = 0;
-    setCom_tasks(data.getUser.taskReviews.length)
-    data.getUser.taskReviews.map(el => {
-      if(el.points) pts += el.points
-    })
-    setPoints_earned(pts)
-  } 
 
   return (
     <>
@@ -203,9 +186,9 @@ function Task() {
       <div className="Task">
         <h1>Tasks</h1>
         <div className="Task_taskCount">
-          <h3>TASKS COMPLETED : {Com_tasks}</h3>
-          <h3>TASKS REMAINING : {tasks?.getTasks.length! - Com_tasks}</h3>
-          <h3>POINTS EARNED : {data?.getUser?.totalPoints ? data.getUser.totalPoints : 0}</h3>
+          <h3>TASKS COMPLETED : {comp}</h3>
+          <h3>TASKS REMAINING : {tasks?.getTasks.length! - comp}</h3>
+          <h3>POINTS EARNED : {pts}</h3>
         </div>
         <div className="Task_List">
           <div className="navbar">
@@ -320,7 +303,7 @@ function Task() {
               }
               else
               if (pending) {
-                if (task.status === 'SUBMITTED') {
+                if (task.status === 'SUBMITTED' && task.taskReviews[0].review == null) {
                   var date = new Date(parseInt(task.deadline))
                   return (
                     <li onClick={() => {setCurr_task(task.id)}}>
@@ -357,13 +340,6 @@ function Task() {
                                 setNewFile((old) => [...old, t.taskurl])
                               })
                             }}>Edit Proofs</button>
-                            {/* <p className="submit-heading"><b>Submitted Proofs</b></p>
-                            <div className="proof-group">
-                                  <p>txrcvybuikol;</p>
-                                  <div className="button-group">
-                                    <button id="delete">Delete</button>
-                                  </div>
-                               </div> */}
                           {
                             reviews?.getTaskreview.map(el => {
                               if(reviews?.getTaskreview[0] != null)
@@ -372,21 +348,13 @@ function Task() {
                                 }
                                 document.getElementById('edit')!.style.display = "block"
                                 document.getElementById('edit-submit')!.style.display = "none"
-                                setNewFile(old => [...old, el.taskurl])
+                                setNewFile([el.taskurl])
                               el.taskurl && <div className="proof-group">
                               <p>{el.taskurl}</p>
                               <div className="button-group">
                                 <button id="delete" onClick={() => {newFile = newFile.filter(f => f === el.taskurl)}}>Delete</button>
                               </div>
                             </div>
-                              // return(
-                              //   <div className="proof-group">
-                              //     <p>{el.taskurl}</p>
-                              //     <div className="button-group">
-                              //       <button id="delete" onClick={() => {file = file.filter(f => f === el.taskurl)}}>Delete</button>
-                              //     </div>
-                              //   </div>
-                              // )
                             })
                           }
                           </div>
@@ -419,14 +387,15 @@ function Task() {
                     </li>
                   );
                 }
-              } else {
-                if(task.status === 'SUBMITTED' && !task.taskReviews)
+              } else{
+                if(task.status === 'SUBMITTED' && task?.taskReviews[0]?.review != null)
                 {var date = new Date(parseInt(task.deadline))
                 return (
                   <li onClick={() => {setCurr_task(task.id)}}>
                     <p>{i++}</p>
                     <p>{task.brief}</p>
                     <p>{date.toLocaleDateString()}</p>
+                    <p>{task.taskReviews[0].points} pts</p>
                     {curr_task === task.id ? (
                       <div className="fullTaskView">
                         <button
@@ -446,13 +415,7 @@ function Task() {
                         <div className="formGroup">
                          <div className="submitted-proofs">
                            <p><b>Submitted Proofs</b></p>
-                         {
-                           reviews?.getTaskreview.map(el => {
-                             return(
-                               <p>{el.review}</p>
-                             )
-                           })
-                         }
+                           <p>{task.taskReviews[0].taskurl}</p>
                          </div>
                         </div>
                       </div>

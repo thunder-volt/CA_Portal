@@ -34,6 +34,7 @@ query getUser($userId: String!)
     taskReviews{
       points
       review
+      reviewID
     }
   }
 }
@@ -44,6 +45,7 @@ mutation login($loginInput: LoginInput!) {
     email
     role
     id
+    totalPoints
   }
 }
 
