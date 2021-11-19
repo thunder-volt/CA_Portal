@@ -329,7 +329,7 @@ function Task() {
                           <div className="formGroup">
                           <div className="submitted-proofs">
                             <button id="edit" onClick={() => {
-                              if(reviews?.getTaskreview[0] != null)
+                              if(task.taskReviews[0] !== null)
                               {   
                                 document.getElementById("delete")!.style.display = "block"
                               }
@@ -340,7 +340,22 @@ function Task() {
                                 setNewFile((old) => [...old, t.taskurl])
                               })
                             }}>Edit Proofs</button>
-                          {
+                            <div className="proof-group">
+                              <p>{task.taskReviews[0].taskurl}</p>
+                              <div className="button-group">
+                                <button id="delete" onClick={async (e) => {
+                                e.preventDefault()
+                                try{
+                                  await editTaskSubmissionMutation({variables:{data: {taskid:task.id, taskurl: [``] }}})
+                                }catch(e){
+                                  console.log(e)
+                                }
+                                setFile([])
+                                setNewFile([])
+                              }}>Delete</button>
+                              </div>
+                            </div>
+                          {/* {
                             reviews?.getTaskreview.map(el => {
                               if(reviews?.getTaskreview[0] != null)
                                 {   
@@ -350,13 +365,13 @@ function Task() {
                                 document.getElementById('edit-submit')!.style.display = "none"
                                 setNewFile([el.taskurl])
                               el.taskurl && <div className="proof-group">
-                              <p>{el.taskurl}</p>
+                              <p>{task.taskReviews[0].taskurl}</p>
                               <div className="button-group">
                                 <button id="delete" onClick={() => {newFile = newFile.filter(f => f === el.taskurl)}}>Delete</button>
                               </div>
                             </div>
                             })
-                          }
+                          } */}
                           </div>
                            <div id="edit-submit">
                            <p>Upload proof for above task</p>
@@ -368,9 +383,10 @@ function Task() {
                                 e.preventDefault()
                                 file.map(f => {
                                   UploadImageToS3WithNativeSdk(f)
+                                  setNewFile(old => [...old, `https://ca21.s3-ap-south-1.amazonaws.com/${f.name}`])
                                 })
                                 try{
-                                  await editTaskSubmissionMutation({variables:{data: {taskid:task.id, taskurl: newFile }}})
+                                  await editTaskSubmissionMutation({variables:{data: {taskid:task.id, taskurl: [`https://ca21.s3-ap-south-1.amazonaws.com/${file[0].name}`] }}})
                                 }catch(e){
                                   console.log(e)
                                 }

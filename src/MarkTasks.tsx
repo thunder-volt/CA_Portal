@@ -19,6 +19,7 @@ import {
   useDisclosure,
   Button
 } from "@chakra-ui/react"
+import { stringify } from 'querystring'
 
 function MarkTasks() {
 
@@ -39,7 +40,7 @@ function MarkTasks() {
   })
 
   const history = useHistory()
-  var id = ''
+  const [id, setId] = useState('')
   if(error?.message.includes("Access denied!")|| taskError?.message.includes("Access denied!"))
   {
     const closeHandler= () => {history.push('/login')}
@@ -71,6 +72,7 @@ function MarkTasks() {
   if(reviewError)
   {
     const closeHandler = () => {window.location.reload()}
+    console.log(reviewError)
     return(
         <Dialog onClose={closeHandler} open={true}>
           <p>Error occured</p>
@@ -144,26 +146,26 @@ function MarkTasks() {
         </div>
         <table className='task-table'>
           <tr>
+            <th>Task id</th>
             <th>Tasks</th>
             <th>Proofs</th>
             <th>Points</th>
             <th>Feedback</th>
           </tr>
-          {
+          {/* {
             tasks?.getTasks.map(t => {
-              var R:any = {}
-              el.taskReviews.map(r => {
-                t.taskReviews.find(tr => {
-                  if(tr.reviewID === r.reviewID) R = tr
+              if(t.taskReviews[0])
+              {
+                var R :any = {}
+                t.taskReviews.map(r => {
+                  R = el.taskReviews.find(i => i.taskurl === r.taskurl)
                 })
-              })
-               if(R != null && el.taskReviews.length != 0)
-               {
-                 id = R.reviewID
+                if(R?.reviewID !== undefined) id = R.reviewID
+                if(R)
                 return(
                   <tr>
               <td>{t.brief}</td>
-              <td><a href={R.taskurl}>{R.taskurl}</a></td>
+              <td><a href={R.taskurl}>{t.taskReviews[0].taskurl}</a></td>
               <td>
                 <input
                   value={R.points!}
@@ -207,9 +209,10 @@ function MarkTasks() {
                   <br />
                   <button className='save-btn' onClick={async (e) => {
                       e.preventDefault();
-                      console.log(typeof(t.id))
+                      console.log(typeof(id))
                       try 
                       {
+                        var temp : string = id
                         await reviewTaskMutation({variables: {data: {
                           reviewid: id,
                           review: feedback,
@@ -217,6 +220,7 @@ function MarkTasks() {
                         }}})
                       }
                       catch(e){console.log(e)}
+                      id = ''
                     }}>
                     Save Changes
                   </button>
@@ -231,6 +235,112 @@ function MarkTasks() {
                 </ModalContent>
               </Modal>
             </tr>
+                )
+                else 
+                { console.log(t.taskReviews, el)
+              return(
+                <tr>
+                  <td>{t.brief}</td>
+                  <td>proof not submitted</td>
+                </tr>
+              )
+                }
+              }
+            })
+          } */}
+          {
+            tasks?.getTasks.map(t => {
+              var R:any = {}
+              console.log(t.taskReviews)
+              el.taskReviews.map(r => {
+                t.taskReviews.map(tr => {
+                  if(tr.reviewID  === r.reviewID) R = tr
+                })
+              })
+               if(R )
+               {
+                // if(R.reviewID !== undefined) id = R.reviewID
+                // console.log(R, id)
+                return(
+                  <tr>
+                    <td>{R.reviewID}</td>
+                    <td>{t.brief}</td>
+                    <td><a href={R.taskurl}>{R.taskurl}</a></td>
+                    <td>
+                      <input
+                        value={R.points!}
+                        name='points'
+                        placeholder='Points'
+                      ></input>
+                    </td>
+                    <td>
+                      <input
+                        type='text'
+                        value={R.review!}
+                        name='feedback'
+                        placeholder='Feedback'
+                      ></input>
+                    </td>
+                    <Button onClick={onOpen}>Edit</Button>
+
+                    <Modal isOpen={isOpen} onClose={onClose}>
+                      <ModalOverlay />
+                      <ModalContent width="50vw" margin="auto" marginTop="10vh" backgroundColor="#574ed3b2" padding="1vw" borderRadius="24px" boxShadow="5px 10px 20px rgba(0, 0, 0, 0.486)">
+                        <ModalBody>
+                          <input 
+                            name='id'
+                            type='text'
+                            value={id}
+                            placeholder='Task Id'
+                            onChange={(e:any) => {
+                              setId(e.target.value)
+                            }}
+                          /> 
+                        <input
+                        name='points'
+                        type="number"
+                        value={points}
+                        placeholder='Points'
+                        onChange={(e: any) => 
+                          {
+                            setpoints(parseInt(e.target.value))
+                          }}
+                        ></input>
+                        <br />
+                        <input
+                        type='text'
+                        value={feedback}
+                        name='feedback'
+                        onChange={(e: any) => setfeedback(e.target.value)}
+                        placeholder='Feedback'
+                        ></input>
+                        <br />
+                        <button className='save-btn' onClick={async (e) => {
+                          console.log(R, id)
+                            try 
+                            {
+                              await reviewTaskMutation({variables: {data: {
+                                reviewid: id,
+                                review: feedback,
+                                points: points
+                              }}})
+                            }
+                            catch(e){console.log(e)}
+                            setId('')
+                          }}>
+                          Save Changes
+                        </button>
+                        </ModalBody>
+
+                        <ModalFooter>
+                          <Button borderRadius="12px"
+                          colorScheme="blue" mr={3} onClick={onClose} backgroundColor="white" border="none" padding="0.5vw">
+                            Close
+                          </Button>
+                        </ModalFooter>
+                      </ModalContent>
+                    </Modal>
+                </tr>
                 )
               }
               else 

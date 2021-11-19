@@ -11,12 +11,18 @@ function LeaderBoard() {
   const {data, loading, error} = useLeaderBoardQuery({variables: {limit:10, skip:null}})
   
 
-  var i =0;
+  var i = 0;
+  var j=0;
   var arr = data?.leaderBoard?.users.filter(el => el?.totalPoints !== null)
   console.log(arr)
+
+  data?.leaderBoard?.users.map(u => {
+    if(u.totalPoints === null) i++;
+  })
+
   return (
     <>
-      <Header />
+      {/* <Header />
       <div className="LeaderBoard">
         <h1>LEADER BOARD</h1>
         <div className="Leaderboard_toppers">
@@ -71,12 +77,80 @@ function LeaderBoard() {
              arr !== undefined &&
           arr.map((user) => {
           i++;
-            if(i>2 && user)
+            if(i>3 && user)
             return (
               <li>
                 <div className="left">
                   <p>{i}</p>
-                  {/* <img src={profile} alt="" /> */}
+                  <h4>{user.name}</h4>
+                </div>
+                <p className="points">{user.totalPoints} Points</p>
+              </li>
+            );
+            else return null
+          })}
+        </ul>
+      </div> */}
+       <Header />
+      <div className="LeaderBoard">
+        <h1>LEADER BOARD</h1>
+        <div className="Leaderboard_toppers">
+          <div className="card">
+            <div className="imgBox">
+              <img src={Silver} alt="" />
+              <span className="silver">2</span>
+            </div>
+            {
+              arr !== undefined &&
+              arr[i] && <div>
+                <h3>{arr[i].name}</h3>
+              <p className="points">
+                {arr[i].totalPoints} Points
+              </p>
+              </div> 
+            }
+          </div>
+          <div className="card">
+            <div className="imgBox">
+              <img src={Gold} alt="" />
+              <span className="gold">1</span>
+            </div>
+            {
+               arr !== undefined &&
+              arr[i-1] && <div>
+                <h3>{arr[i-1].name}</h3>
+              <p className="points">
+                {arr[i-1].totalPoints} Points
+              </p>
+              </div> 
+            }
+          </div>
+          <div className="card">
+            <div className="imgBox">
+              <img src={Bronze} alt="" />
+              <span className="bronze">3</span>
+            </div>
+            {
+               arr !== undefined &&
+              arr[i+1] && <div>
+                <h3>{arr[i+1].name}</h3>
+              <p className="points">
+                {arr[i+1].totalPoints} Points
+              </p>
+              </div> 
+            }
+          </div>
+        </div>
+        <ul className="Leaderboard_container">
+          {
+            data?.leaderBoard?.users !== undefined &&
+          data.leaderBoard.users.map((user) => {
+          j++;
+            if(j>i+3 && user)
+            return (
+              <li>
+                <div className="left">
+                  <p>{j}</p>
                   <h4>{user.name}</h4>
                 </div>
                 <p className="points">{user.totalPoints} Points</p>
