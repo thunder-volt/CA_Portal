@@ -124,7 +124,7 @@ function MarkTasks() {
             <option value='0'>CAMPUS AMBASSADOR</option>
             { 
               data?.getUsers?.users.map(el => { console.log(el)
-                return(<option value={el.id}>{el.name}</option>)})  
+                return(<option value={el.name}>{el.name}</option>)})  
             }
           </select>
         </div>
