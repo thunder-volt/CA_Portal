@@ -41,6 +41,8 @@ function MarkTasks() {
 
   const history = useHistory()
   const [id, setId] = useState('')
+
+  var url: string[] = []
   if(error?.message.includes("Access denied!")|| taskError?.message.includes("Access denied!"))
   {
     const closeHandler= () => {history.push('/login')}
@@ -265,7 +267,17 @@ function MarkTasks() {
                   <tr>
                     <td>{R.reviewID}</td>
                     <td>{t.brief}</td>
-                    <td><a href={R.taskurl}>{R.taskurl}</a></td>
+                    <td>
+                      <ul>
+                        {
+                          R.taskurl?.split(" ")?.map((u:any) => {
+                            return(
+                              <li><a href={u}>{u}</a></li>
+                            )
+                          })
+                        }
+                      </ul>
+                    </td>
                     <td>
                       <input
                         value={R.points!}
