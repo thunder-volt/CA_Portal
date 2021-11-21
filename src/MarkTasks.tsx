@@ -133,8 +133,8 @@ function MarkTasks() {
         {
           data?.getUsers?.users.filter(u => {
             if(caName === "") return u;
-            else if(u.name?.toLocaleLowerCase().includes(caName)) return u;
-                 else if(!u.name?.toLocaleLowerCase().includes(caName)) {}
+            else if(u.name?.toLocaleLowerCase().includes(caName.toLocaleLowerCase())) return u;
+                 else if(!u.name?.toLocaleLowerCase().includes(caName.toLocaleLowerCase())) {}
           })
           .map(el => {
             console.log(el.taskReviews)
