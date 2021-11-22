@@ -21,6 +21,16 @@ import AWS from 'aws-sdk'
 const uploadFile = require('react-s3')
 const S3FileUpload = require('react-s3')
 
+declare module 'react' {
+  interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+    // extends React's HTMLAttributes
+    directory?: string;
+    webkitdirectory?:string;
+    moxdirectory?:string;
+  }
+}
+
+
 function Task() {
   const history = useHistory()
   var i = 1
@@ -53,6 +63,8 @@ function Task() {
       }
     })
   }
+
+
   // var pts = 0;
   // var comp = 0;
   // tasks?.getTasks.map(t => {
@@ -295,6 +307,7 @@ function Task() {
                           <p className='taskDesc'>{task.details}</p>
                           <div className='formGroup'>
                             <p>Upload proof for above task</p>
+<<<<<<< HEAD
                             <input
                               multiple
                               type='file'
@@ -309,8 +322,42 @@ function Task() {
                             />
                             <button
                               onClick={async (e) => {
+=======
+                            <input multiple type="file" onChange={async (e : any) => {
+                                let output = document.getElementById("listing");
+                                let files = e?.target.files;
+                              
+                                for (let i=0; i<files.length; i++) {
+                                  let item = document.createElement("li");    
+                                  item.innerHTML = files[i].webkitRelativePath;
+                                  output?.appendChild(item);
+                                  await setNewFile(old => [...old, `https://ca21.s3-ap-south-1.amazonaws.com/${files![i].name}`])
+                                  await setFile((old) => [...old, files![i]])
+                                };
+                                console.log(await file)
+                            }} id="filepicker" name="fileList" moxdirectory="" webkitdirectory="" directory="" />
+                            <ul id="listing"></ul>
+                            {/* {
+                              document.getElementById("filepicker")?.addEventListener("change", async function(event : any) {
+                                let output = document.getElementById("listing");
+                                let files = event?.target.files;
+                              
+                                for (let i=0; i<files.length; i++) {
+                                  let item = document.createElement("li");    
+                                  item.innerHTML = files[i].webkitRelativePath;
+                                  output?.appendChild(item);
+                                  await setFile((old) => [...old, files![i]])
+                                };
+                                console.log(await file)
+                              }, false)
+                            } */}
+                            <button onClick={
+                              async (e) => {
+>>>>>>> 34b891e6d425c12016324d7b4e36db0b086ff048
                                 e.preventDefault()
+                                console.log(newFile)
                                 file.map(async (f) => {
+<<<<<<< HEAD
                                   await UploadImageToS3WithNativeSdk(f)
                                   //  setNewFile((old) => [...old,`https://ca21.s3-ap-south-1.amazonaws.com/${f.name}`])
                                   setNewFile([
@@ -330,6 +377,14 @@ function Task() {
                                   })
                                   console.log(newFile)
                                 } catch (e) {
+=======
+                                 await UploadImageToS3WithNativeSdk(f)
+                                })
+                                try{
+                                   submitTaskMutation({variables:{data: {taskid:task.id, taskurl: newFile }}})
+                                  console.log(await newFile)
+                                }catch(e){
+>>>>>>> 34b891e6d425c12016324d7b4e36db0b086ff048
                                   console.log(e)
                                 }
                                 console.log(submit?.submitTask.valueOf)
@@ -383,6 +438,7 @@ function Task() {
                             />
                             <p>{date.toLocaleDateString()}</p>
                           </div>
+<<<<<<< HEAD
                           <p className='taskDesc'>{task.details}</p>
                           <div className='formGroup'>
                             <div className='submitted-proofs'>
@@ -434,6 +490,53 @@ function Task() {
                                     Delete
                                   </button>
                                 </div>
+=======
+                          <p className="taskDesc">{task.details}</p>
+                          <div className="formGroup">
+                          <div className="submitted-proofs">
+                            <button id="edit" onClick={async () => {
+                              if(task.taskReviews[0] !== null)
+                              {   
+                                document.getElementById("delete")!.style.display = "block"
+                              }
+                              document.getElementById('edit')!.style.display = "none"
+                              document.getElementById('edit-submit')!.style.display = "block"
+                              setFile([])
+                              // console.log(reviews?.getTaskreview)
+                              // reviews?.getTaskreview.map(t => {
+                              //   setNewFile((old) => [...old, t.taskurl])
+                              // })
+                              console.log(task.taskReviews)
+                              task.taskReviews[0].taskurl.split(" ").map(async (u: any) => {
+                                await setNewFile((old) => [...old, u])
+                                console.log(u)
+                              })
+                            }}>Edit Proofs</button>
+                            <div className="proof-group">
+                              {/* <p>{task.taskReviews[0].taskurl}</p> */}
+                              <ul id="listingEdit">
+                                {
+                                  newFile.map((u: any) => {
+                                    return(
+                                      <li>
+                                        {u}
+                                      </li>
+                                    )
+                                  })
+                                }
+                              </ul>
+                              <div className="button-group">
+                                <button id="delete" onClick={async (e) => {
+                                e.preventDefault()
+                                try{
+                                  await editTaskSubmissionMutation({variables:{data: {taskid:task.id, taskurl: [``] }}})
+                                }catch(e){
+                                  console.log(e)
+                                }
+                                setFile([])
+                                setNewFile([])
+                              }}>Delete</button>
+>>>>>>> 34b891e6d425c12016324d7b4e36db0b086ff048
                               </div>
                               {/* {
                             reviews?.getTaskreview.map(el => {
@@ -452,6 +555,7 @@ function Task() {
                             </div>
                             })
                           } */}
+<<<<<<< HEAD
                             </div>
                             <div id='edit-submit'>
                               <p>Upload proof for above task</p>
@@ -496,6 +600,41 @@ function Task() {
                                 Submit changes
                               </button>
                             </div>
+=======
+                          </div>
+                           <div id="edit-submit">
+                           <p>Upload proof for above task</p>
+                           <input multiple type="file" onChange={async (e : any) => {
+                                let output = document.getElementById("listingEdit");
+                                let files = e?.target.files;
+                              
+                                for (let i=0; i<files.length; i++) {
+                                  let item = document.createElement("li");    
+                                  item.innerHTML = files[i].webkitRelativePath;
+                                  output?.appendChild(item);
+                                  await setNewFile(old => [...old, `https://ca21.s3-ap-south-1.amazonaws.com/${files![i].name}`])
+                                  await setFile((old) => [...old, files![i]])
+                                };
+                                console.log(await file)
+                            }} id="filepickerEdit" name="fileList" moxdirectory="" webkitdirectory="" directory="" />
+                            <button onClick={
+                              async (e) => {
+                                e.preventDefault()
+                                file.map(f => {
+                                  UploadImageToS3WithNativeSdk(f)
+                                  setNewFile(old => [...old, `https://ca21.s3-ap-south-1.amazonaws.com/${f.name}`])
+                                })
+                                try{
+                                  editTaskSubmissionMutation({variables:{data: {taskid:task.id, taskurl: newFile }}})
+                                }catch(e){
+                                  console.log(e)
+                                }
+                                setFile([])
+                                setNewFile([])
+                              }
+                            }>Submit changes</button>
+                           </div>
+>>>>>>> 34b891e6d425c12016324d7b4e36db0b086ff048
                           </div>
                         </div>
                       ) : (

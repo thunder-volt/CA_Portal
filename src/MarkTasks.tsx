@@ -41,6 +41,8 @@ function MarkTasks() {
 
   const history = useHistory()
   const [id, setId] = useState('')
+
+  var url: string[] = []
   if(error?.message.includes("Access denied!")|| taskError?.message.includes("Access denied!"))
   {
     const closeHandler= () => {history.push('/login')}
@@ -133,8 +135,8 @@ function MarkTasks() {
         {
           data?.getUsers?.users.filter(u => {
             if(caName === "") return u;
-            else if(u.name?.toLocaleLowerCase().includes(caName)) return u;
-                 else if(!u.name?.toLocaleLowerCase().includes(caName)) {}
+            else if(u.name?.toLocaleLowerCase().includes(caName.toLocaleLowerCase())) return u;
+                 else if(!u.name?.toLocaleLowerCase().includes(caName.toLocaleLowerCase())) {}
           })
           .map(el => {
             console.log(el.taskReviews)
@@ -265,7 +267,17 @@ function MarkTasks() {
                   <tr>
                     <td>{R.reviewID}</td>
                     <td>{t.brief}</td>
-                    <td><a href={R.taskurl}>{R.taskurl}</a></td>
+                    <td>
+                      <ul>
+                        {
+                          R.taskurl?.split(" ")?.map((u:any) => {
+                            return(
+                              <li><a href={u}>{u}</a></li>
+                            )
+                          })
+                        }
+                      </ul>
+                    </td>
                     <td>
                       <input
                         value={R.points!}

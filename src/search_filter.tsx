@@ -11,6 +11,7 @@ function App() {
   const [opt, setOption] = useState("")
   const [coord, setCoord] = useState("")
   const [id, setId] = useState("")
+  const [ca, setCa] = useState("")
 
   const {data, loading, error} = useGetUsersQuery({
     variables: {
@@ -44,7 +45,8 @@ function App() {
       <input
         type="text"
         id="myInput"
-        onKeyUp={myFunction}
+        // onKeyUp={myFunction}
+        onChange={(e: any) => {setCa(e.target.value)}}
         placeholder="Search for CA.."
       />
       <select name="" id="role" onChange={roleHandler}>
@@ -76,7 +78,11 @@ function App() {
       }
       <table id="myTable">
         {
-          data?.getUsers?.users.map(el => {
+          data?.getUsers?.users.filter(u => {
+            if(ca === "") return u;
+            else if(u.name?.toLocaleLowerCase().includes(ca.toLocaleLowerCase())) return u;
+                 else if(!u.name?.toLocaleLowerCase().includes(ca.toLocaleLowerCase())) {}
+          }).map(el => {
             // setId(el.id)
           //   questionnaire?.getQuestionnaireByUserId ? <tr>
           //   <td>{i++}</td>
