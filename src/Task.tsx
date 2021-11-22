@@ -299,7 +299,6 @@ function Task() {
                           <ReactMarkdown
                             children={task.details}
                             remarkPlugins={[remarkGfm]}
-                            className='taskDesc'
                           />
                           <div className='formGroup'>
                             <p>Upload proof for above task</p>
@@ -413,7 +412,6 @@ function Task() {
                           <ReactMarkdown
                             children={task.details}
                             remarkPlugins={[remarkGfm]}
-                            className='taskDesc'
                           />
                           <div className='formGroup'>
                             <div className='submitted-proofs'>
@@ -598,7 +596,6 @@ function Task() {
                           <ReactMarkdown
                             children={task.details}
                             remarkPlugins={[remarkGfm]}
-                            className='taskDesc'
                           />
                           <div className='formGroup'>
                             <div className='submitted-proofs'>
