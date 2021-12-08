@@ -43,12 +43,13 @@ function EditTask(props: FuncProps) {
   const {data: task, loading: taskLoad, error: taskError} = useGetTaskQuery({variables: {taskid: id}})
 
   var dateString = new Date(parseInt(task?.getTask.deadline!))
-  console.log(dateString.toLocaleDateString())
-  console.log(task)
-  const [name, setname] = useState(task?.getTask.brief!)
-  const [description, setdescription] = useState(task?.getTask.details!)
-  const [inputdate, Setinputdate] = useState(dateString.toLocaleDateString('zh-Hans-CN'))
-  const [points, setpoints] = useState(task?.getTask.maxPoints!)
+
+  const [name, setname] = useState(task?.getTask.brief ? task.getTask.brief : '')
+  const [description, setdescription] = useState('')
+  console.log(description)
+  const [date, setDate] = useState(task?.getTask.deadline)
+  const [inputdate, Setinputdate] = useState('')
+  const [points, setpoints] = useState(0)
   const [selectedTab, setSelectedTab] = React.useState<'write' | 'preview'>(
     'write'
   )
@@ -61,15 +62,16 @@ function EditTask(props: FuncProps) {
 
   async function handleSubmit(e: any) {
     // alert('You have submitted the form')
-    e.preventDefault()
+    e.preventDefault();
+    console.log(name, description)
     try{
       await editTaskMutation({
         variables: {
           data: {
             brief: name,
-            deadline: new Date(inputdate).toISOString()!,
-            details: description,
-            maxPoints: points
+            deadline: inputdate !== '' ? new Date(inputdate).toISOString()! : new Date(dateString.toLocaleDateString()).toISOString()!,
+            details: description !== '' ? description! : task?.getTask.details!,
+            maxPoints: points !== 0 ? points : task?.getTask.maxPoints!
           },
           taskid: id
         }
@@ -77,8 +79,7 @@ function EditTask(props: FuncProps) {
     }
     catch(err) {console.log(err)}
   }
-  if (data?.editTask == true) {
-    console.log(data)
+  if (data?.editTask == true) { 
     const closeHandler = () => {
       history.push('/admintask')
     }
@@ -119,12 +120,11 @@ function EditTask(props: FuncProps) {
           <input
             type='text'
             placeholder={task?.getTask.brief}
-            value={name}
             onChange={(e) => setname(e.target.value)}
           ></input>
         </div>
         <div className='input-ctn'>
-          <p>Description :</p>
+          <p>Description : {task?.getTask.details}</p>
           <ReactMde
             value={description}
             onChange={setdescription}
@@ -136,11 +136,9 @@ function EditTask(props: FuncProps) {
           />
         </div>
         <div className='input-ctn'>
-          <p>Deadline : {inputdate}</p>
+          <p>Deadline : {dateString.toLocaleDateString()}</p>
           <input
-          placeholder={inputdate}
             type='date'
-            value={inputdate}
             onChange={(e) => {
               // var d = e.target.value.split('-')
               // var newD = d[2] + '/' + d[1] + '/' + d[0]
@@ -156,7 +154,6 @@ function EditTask(props: FuncProps) {
           <input
           placeholder={`${task?.getTask.maxPoints!}`}
             type='number'
-            value={points}
             onChange={(e) => setpoints(parseInt(e.target.value))}
           ></input>
         </div>
