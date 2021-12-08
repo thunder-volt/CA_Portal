@@ -1,3 +1,38 @@
+.edit
+{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: auto;
+}
+.edit button
+{
+  padding: 0.5vw;
+  border: none;
+  border-radius: 12px;
+  margin: 1vh auto;
+  color: white;
+}
+.edit .top-ctn
+{
+  width: 100%;
+}
+.edit .top-ctn button{
+  width: 10vw;
+  background-color: rgb(134, 73, 73);
+}
+.edit .top-ctn p 
+{
+  width: 50%;
+  font-size: 2vw;
+}
+.edit .main-form button 
+{
+  width: 100%;
+  background-color: rgb(63, 97, 80);
+}
+
 .task-form {
   background-color: #ffffff;
   border: 1px solid #a3a3a3;

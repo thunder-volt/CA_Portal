@@ -95,3 +95,9 @@
   font-style: normal;
   font-size: 20px;
 }
+
+.task-lists .edit-button
+{
+  background-color: rgb(79, 131, 120) !important;
+  margin-right: 2vw !important;
+}

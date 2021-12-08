@@ -3,18 +3,46 @@ import React from 'react'
 import { useState } from 'react'
 import './AdminTasks.css'
 import TaskForm from './TaskForm'
+import {Flex} from "@chakra-ui/react"
 import Logo from './assests/ShaastraLogo.png'
+import {
+  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  FormControl,
+  Input,
+  FormLabel,
+  useDisclosure
+} from '@chakra-ui/react'
 import { Dialog } from '@material-ui/core'
-import { useDeleteTaskMutation, useGetTasksAdminQuery } from './generated'
+import { useDeleteTaskMutation, useGetTasksAdminQuery, useEditTaskMutation } from './generated'
 import Header from './Header'
 import { useHistory } from 'react-router'
+import ReactMde from 'react-mde'
+import * as Showdown from 'showdown'
+import 'react-mde/lib/styles/css/react-mde-all.css'
+
+
+const converter = new Showdown.Converter({
+  tables: true,
+  simplifiedAutoLink: true,
+  strikethrough: true,
+  tasklists: true,
+})
 
 function AdminTasks() {
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const history = useHistory()
   const [taskId, setTaskId] = useState("")
   const [display, setdisplay] = useState(false)
   const {data,loading,error} = useGetTasksAdminQuery({variables:{skip:null, limit:100}})
   const [deleteTaskMutation, {data: deleteData, loading: deleteLoad, error: deleteError}] = useDeleteTaskMutation()
+  
 
   if(error?.message.includes("Access denied!"))
   {
@@ -53,6 +81,14 @@ var i =1;
                         <p>{el.brief}</p>
                         <p>SUBMISSIONS: {el.taskReviewsCount}</p>
                       </div>
+                      <Flex>
+                      <button className="edit-button"
+                        onClick={() => {
+                          history.push(`/edittask/${el.id}`)
+                        }}
+                      >
+                        Edit task
+                      </button>
                       <button onClick={async () => {
                         await deleteTaskMutation({variables: {taskid: el.id}})
                         if(deleteData) window.location.reload()
@@ -67,6 +103,7 @@ var i =1;
                           )
                         }
                       }}>Delete task</button>
+                      </Flex>
                   </li>
               )
             })

@@ -455,7 +455,7 @@ export type GetTasksAdminQueryVariables = Exact<{
 }>;
 
 
-export type GetTasksAdminQuery = { getTasks: Array<{ id: string, brief: string, details: string, maxPoints: number, taskReviewsCount: number, status: string, taskReviews: Array<{ review?: Maybe<string> }> }> };
+export type GetTasksAdminQuery = { getTasks: Array<{ id: string, brief: string, details: string, maxPoints: number, deadline: string, taskReviewsCount: number, status: string, taskReviews: Array<{ review?: Maybe<string> }> }> };
 
 export type GetTaskreviewQueryVariables = Exact<{
   filter: FilterTaskReview;
@@ -520,6 +520,21 @@ export type EditTaskSubmissionMutationVariables = Exact<{
 
 
 export type EditTaskSubmissionMutation = { editTaskSubmission: boolean };
+
+export type EditTaskMutationVariables = Exact<{
+  data: TaskInput;
+  taskid: Scalars['String'];
+}>;
+
+
+export type EditTaskMutation = { editTask: boolean };
+
+export type GetTaskQueryVariables = Exact<{
+  taskid: Scalars['String'];
+}>;
+
+
+export type GetTaskQuery = { getTask: { id: string, brief: string, details: string, maxPoints: number, deadline: string } };
 
 
 export const GetQuestionnaireDocument = gql`
@@ -1045,6 +1060,7 @@ export const GetTasksAdminDocument = gql`
     brief
     details
     maxPoints
+    deadline
     taskReviewsCount
     taskReviews {
       review
@@ -1385,3 +1401,77 @@ export function useEditTaskSubmissionMutation(baseOptions?: ApolloReactHooks.Mut
 export type EditTaskSubmissionMutationHookResult = ReturnType<typeof useEditTaskSubmissionMutation>;
 export type EditTaskSubmissionMutationResult = ApolloReactCommon.MutationResult<EditTaskSubmissionMutation>;
 export type EditTaskSubmissionMutationOptions = ApolloReactCommon.BaseMutationOptions<EditTaskSubmissionMutation, EditTaskSubmissionMutationVariables>;
+export const EditTaskDocument = gql`
+    mutation editTask($data: TaskInput!, $taskid: String!) {
+  editTask(data: $data, taskid: $taskid)
+}
+    `;
+export type EditTaskMutationFn = ApolloReactCommon.MutationFunction<EditTaskMutation, EditTaskMutationVariables>;
+
+/**
+ * __useEditTaskMutation__
+ *
+ * To run a mutation, you first call `useEditTaskMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditTaskMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editTaskMutation, { data, loading, error }] = useEditTaskMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *      taskid: // value for 'taskid'
+ *   },
+ * });
+ */
+export function useEditTaskMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<EditTaskMutation, EditTaskMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<EditTaskMutation, EditTaskMutationVariables>(EditTaskDocument, options);
+      }
+export type EditTaskMutationHookResult = ReturnType<typeof useEditTaskMutation>;
+export type EditTaskMutationResult = ApolloReactCommon.MutationResult<EditTaskMutation>;
+export type EditTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<EditTaskMutation, EditTaskMutationVariables>;
+export const GetTaskDocument = gql`
+    query getTask($taskid: String!) {
+  getTask(taskid: $taskid) {
+    id
+    brief
+    details
+    maxPoints
+    deadline
+  }
+}
+    `;
+
+/**
+ * __useGetTaskQuery__
+ *
+ * To run a query within a React component, call `useGetTaskQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTaskQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTaskQuery({
+ *   variables: {
+ *      taskid: // value for 'taskid'
+ *   },
+ * });
+ */
+export function useGetTaskQuery(baseOptions: ApolloReactHooks.QueryHookOptions<GetTaskQuery, GetTaskQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<GetTaskQuery, GetTaskQueryVariables>(GetTaskDocument, options);
+      }
+export function useGetTaskLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTaskQuery, GetTaskQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<GetTaskQuery, GetTaskQueryVariables>(GetTaskDocument, options);
+        }
+export type GetTaskQueryHookResult = ReturnType<typeof useGetTaskQuery>;
+export type GetTaskLazyQueryHookResult = ReturnType<typeof useGetTaskLazyQuery>;
+export type GetTaskQueryResult = ApolloReactCommon.QueryResult<GetTaskQuery, GetTaskQueryVariables>;
+export function refetchGetTaskQuery(variables?: GetTaskQueryVariables) {
+      return { query: GetTaskDocument, variables: variables }
+    }

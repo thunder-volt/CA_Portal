@@ -175,6 +175,7 @@ query getTasksAdmin($skip: Float, $limit: Float){
     brief,
     details,
     maxPoints,
+    deadline,
     taskReviewsCount,
     taskReviews
     {
@@ -230,4 +231,20 @@ mutation deleteTask($taskid: String!) {
 mutation editTaskSubmission($data: SubmitTaskInput!)
 {
   editTaskSubmission(data: $data)
+}
+
+mutation editTask($data: TaskInput!, $taskid: String!){
+  editTask(data: $data, taskid: $taskid)
+}
+
+query getTask($taskid: String!)
+{
+  getTask(taskid: $taskid)
+  {
+    id,
+    brief,
+    details,
+    maxPoints,
+    deadline,
+  }
 }

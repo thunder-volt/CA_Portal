@@ -26,6 +26,7 @@ import MarkTasks from './MarkTasks'
 import ResetPassword from './ResetPassword'
 import ResendVerificationMail from './ResendVerificationMail'
 import MyApplication from './MyApplication'
+import EditTask from './EditTask'
 import Verify from './Verify'
 //import { Route, Route, Route } from "./utils/routes";
 
@@ -99,6 +100,7 @@ const App = () => {
               </Route>
               <Route exact path='/admintask' component={AdminTasks}></Route>
               <Route exact path='/marktask' component={MarkTasks}></Route>
+              <Route exact path="/edittask/:id" component={EditTask}></Route>
             </Switch>
           )}
         </Router>
