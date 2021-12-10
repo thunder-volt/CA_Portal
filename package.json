@@ -1,7 +1,6 @@
 {
   "name": "ca-portal",
   "version": "0.1.0",
-  "homepage": ".",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.4.12",
