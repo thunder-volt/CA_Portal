@@ -9,22 +9,14 @@ import { Dialog } from '@material-ui/core';
 import Header from "./Header"
 import { GetUsersFilter, useGetTaskreviewQuery, useGetTasksQuery, useGetUsersQuery, useReviewTaskMutation, UserRole} from "./generated";
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
+  Box,
   Button
 } from "@chakra-ui/react"
 import { stringify } from 'querystring'
 
 function MarkTasks() {
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
-    
+  const [open, setOpen] = useState(false)
   const [reviewTaskMutation, {data:review, loading:reviewLoad, error:reviewError}] = useReviewTaskMutation()
   const [caName, setcaName] = React.useState('')
   const [points, setpoints] = React.useState(0)
@@ -41,6 +33,14 @@ function MarkTasks() {
 
   const history = useHistory()
   const [id, setId] = useState('')
+
+  const onOpenForm = () => {
+    setOpen(true)
+  }
+
+  const onCloseForm = () => {
+    setOpen(false)
+  }
 
   var url: string[] = []
   if(error?.message.includes("Access denied!")|| taskError?.message.includes("Access denied!"))
@@ -293,12 +293,8 @@ function MarkTasks() {
                         placeholder='Feedback'
                       ></input>
                     </td>
-                    <Button onClick={onOpen}>Edit</Button>
-
-                    <Modal isOpen={isOpen} onClose={onClose}>
-                      <ModalOverlay />
-                      <ModalContent width="50vw" margin="auto" marginTop="10vh" backgroundColor="#574ed3b2" padding="1vw" borderRadius="24px" boxShadow="5px 10px 20px rgba(0, 0, 0, 0.486)">
-                        <ModalBody>
+                    <Button onClick={onOpenForm}>Edit</Button>
+                     {open ? ( <Box width="50vw" margin="auto" marginTop="10vh" backgroundColor="#574ed3b2" padding="1vw" borderRadius="24px" boxShadow="5px 10px 20px rgba(0, 0, 0, 0.486)">
                           <input 
                             name='id'
                             type='text'
@@ -342,19 +338,14 @@ function MarkTasks() {
                           }}>
                           Save Changes
                         </button>
-                        </ModalBody>
-
-                        <ModalFooter>
                           <Button borderRadius="12px"
-                          colorScheme="blue" mr={3} onClick={onClose} backgroundColor="white" border="none" padding="0.5vw">
+                          colorScheme="blue" mr={3} onClick={onCloseForm} backgroundColor="white" border="none" padding="0.5vw">
                             Close
                           </Button>
-                        </ModalFooter>
-                      </ModalContent>
-                    </Modal>
+                      </Box> ): null}
                 </tr>
                 )
-              }
+            }
               else 
               return(
                 <tr>

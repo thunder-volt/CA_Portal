@@ -1,3 +1,15 @@
+.register-ctn{
+   display:inline-block !important;
+   justify-content: center !important;
+   text-align: center !important;
+   }
+
+.register-ctn .contentText{
+  margin-bottom: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 .Login {
   width: 100%;
   min-height: 100vh;
