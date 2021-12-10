@@ -3,6 +3,7 @@ mutation login($loginInput: LoginInput!) {
     name
     email
     role
+    referral
   }
 }
 

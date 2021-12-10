@@ -50,6 +50,10 @@ function Profile() {
           <div className='contentBox'>
             <h1>{localStorage.getItem('name')?.toLocaleUpperCase()}</h1>
             <p>{localStorage.getItem('email')?.toLocaleUpperCase()}</p>
+            {
+              localStorage.getItem('referral') !== '' && localStorage.getItem('referral') !== null && <p>Referral: {localStorage.getItem('referral')}</p>
+            }
+
             {data?.getQuestionnaire ? (
               <p>
                 {data?.getQuestionnaire.college.toLocaleUpperCase()},{' '}

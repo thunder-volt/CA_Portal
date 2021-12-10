@@ -376,7 +376,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { login?: Maybe<{ name: string, email: string, role: string, id: string, totalPoints?: Maybe<number> }> };
+export type LoginMutation = { login?: Maybe<{ name: string, email: string, role: string, id: string, totalPoints?: Maybe<number>, referral: string }> };
 
 export type CreateUserMutationVariables = Exact<{
   createUserInput: CreateUserInput;
@@ -647,6 +647,7 @@ export const LoginDocument = gql`
     role
     id
     totalPoints
+    referral
   }
 }
     `;

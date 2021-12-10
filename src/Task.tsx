@@ -303,7 +303,6 @@ function Task() {
                           <div className='formGroup'>
                             <p>Upload proof for above task</p>
                             <input
-                              multiple
                               type='file'
                               onChange={async (e: any) => {
                                 let output = document.getElementById('listing')
@@ -325,9 +324,7 @@ function Task() {
                               }}
                               id='filepicker'
                               name='fileList'
-                              moxdirectory=''
-                              webkitdirectory=''
-                              directory=''
+                              multiple
                             />
                             <ul id='listing'></ul>
                             {/* {
@@ -521,9 +518,6 @@ function Task() {
                                 }}
                                 id='filepickerEdit'
                                 name='fileList'
-                                moxdirectory=''
-                                webkitdirectory=''
-                                directory=''
                               />
                               <button
                                 onClick={async (e) => {
@@ -578,6 +572,7 @@ function Task() {
                       <p>{task.brief}</p>
                       <p>{date.toLocaleDateString()}</p>
                       <p>{task.taskReviews[0].points} pts</p>
+                      <p>{task.taskReviews[0].review}</p>
                       {curr_task === task.id ? (
                         <div className='fullTaskView'>
                           <button
