@@ -44,6 +44,7 @@ function Login(props: Props) {
         localStorage.setItem('name', data?.login.name)
         localStorage.setItem('email', data?.login.email)
         localStorage.setItem('role', data?.login.role)
+        localStorage.setItem('referral', data.login.referral)
         setRole(data?.login.role)
       }
     },

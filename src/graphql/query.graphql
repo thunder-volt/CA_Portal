@@ -46,6 +46,7 @@ mutation login($loginInput: LoginInput!) {
     role
     id
     totalPoints
+    referral
   }
 }
 
