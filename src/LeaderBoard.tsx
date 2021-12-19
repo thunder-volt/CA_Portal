@@ -15,7 +15,8 @@ function LeaderBoard() {
   var j=0;
   // var arr = data?.leaderBoard?.users.filter(el => el?.totalPoints !== null)
   console.log(data?.leaderBoard?.users)
-  var arr = data?.leaderBoard?.users.map(el => {
+  var arr: any = []
+  arr = data?.leaderBoard?.users.map(el => {
     if(el.totalPoints === null) 
     {
       return({name: el.name, totalPoints: 0})
@@ -23,8 +24,20 @@ function LeaderBoard() {
     }
     else return el;
   })
-  arr = arr?.sort(function(a,b){return(b.totalPoints! - a.totalPoints!)})
+  arr = arr?.sort(function(a: any,b: any){return(b.totalPoints! - a.totalPoints!)})
   console.log(arr)
+  React.useEffect(() => {
+    arr = data?.leaderBoard?.users.map(el => {
+      if(el.totalPoints === null) 
+      {
+        return({name: el.name, totalPoints: 0})
+  
+      }
+      else return el;
+    })
+    arr = arr?.sort(function(a: any,b: any){return(b.totalPoints! - a.totalPoints!)})
+    console.log(arr)
+  }, [])
 
   data?.leaderBoard?.users.map(u => {
     if(u.totalPoints === null) i++;
