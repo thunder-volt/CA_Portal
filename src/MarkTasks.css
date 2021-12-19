@@ -178,3 +178,10 @@
   border: 1px solid black;
   padding: 8px;
 }
+
+.btn-ctn{
+  background-color: #564ed3;
+  color: white;
+  font-size: 20px;
+  padding: 2px;
+}

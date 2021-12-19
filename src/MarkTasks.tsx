@@ -139,7 +139,7 @@ function MarkTasks() {
                  else if(!u.name?.toLocaleLowerCase().includes(caName.toLocaleLowerCase())) {}
           })
           .map(el => {
-            console.log(el.taskReviews)
+            //console.log(el.taskReviews)
             return(
               <div className='task-lists'>
         <div className='list-header'>
@@ -253,7 +253,7 @@ function MarkTasks() {
           {
             tasks?.getTasks.map(t => {
               var R:any = {}
-              console.log(t.taskReviews)
+              //console.log(t.taskReviews)
               el.taskReviews.map(r => {
                 t.taskReviews.map(tr => {
                   if(tr.reviewID  === r.reviewID) R = tr
@@ -293,7 +293,7 @@ function MarkTasks() {
                         placeholder='Feedback'
                       ></input>
                     </td>
-                    <Button onClick={onOpen} className='edit-button'>Edit</Button>
+                    <Button onClick={onOpen} className='btn-ctn'>Edit</Button>
                     <Modal isOpen={isOpen} onClose={onClose}>
                       <ModalOverlay />
                      <ModalContent width="50vw" margin="auto" marginTop="10vh" backgroundColor="#574ed3b2" padding="1vw" borderRadius="24px" boxShadow="5px 10px 20px rgba(0, 0, 0, 0.486)">
@@ -327,7 +327,7 @@ function MarkTasks() {
                         ></input>
                         <br />
                         <button className='save-btn' onClick={async (e) => {
-                          console.log(R, id)
+                          //console.log(R, id)
                             try 
                             {
                               await reviewTaskMutation({variables: {data: {
