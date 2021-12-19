@@ -10,7 +10,7 @@ import Header from "./Header"
 import { GetUsersFilter, useGetTaskreviewQuery, useGetTasksQuery, useGetUsersQuery, useReviewTaskMutation, UserRole} from "./generated";
 import { stringify } from 'querystring'
 import { useDisclosure } from "react-use-disclosure";
-import {Box} from "@chakra-ui/react"
+import {Box,Modal} from "@chakra-ui/react"
 
 function MarkTasks() {
 
@@ -302,7 +302,13 @@ function MarkTasks() {
             })
           }
         </table>
-          {isModalOpen ? ( <Box width="50vw" margin="auto" marginTop="10vh" backgroundColor="#574ed3b2" padding="1vw" borderRadius="24px" boxShadow="5px 10px 20px rgba(0, 0, 0, 0.486)">
+      </div>
+            )
+          })
+        }
+         
+      </div>
+       {isModalOpen ? ( <Box width="50vw" margin="auto" marginTop="10vh" backgroundColor="#574ed3b2" padding="1vw" borderRadius="24px" boxShadow="5px 10px 20px rgba(0, 0, 0, 0.486)" className='points-form-ctn'>
                           <input 
                             name='id'
                             type='text'
@@ -350,12 +356,6 @@ function MarkTasks() {
                             Close
                           </button>
                         </Box>):(<div></div>)}
-      </div>
-          
-            )
-          })
-        }
-      </div>
     </div>
   )
 }
