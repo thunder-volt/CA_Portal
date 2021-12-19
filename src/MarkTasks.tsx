@@ -8,22 +8,17 @@ import { useHistory } from 'react-router'
 import { Dialog } from '@material-ui/core';
 import Header from "./Header"
 import { GetUsersFilter, useGetTaskreviewQuery, useGetTasksQuery, useGetUsersQuery, useReviewTaskMutation, UserRole} from "./generated";
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-  Button
-} from "@chakra-ui/react"
 import { stringify } from 'querystring'
+import { useDisclosure } from "react-use-disclosure";
+import {Box} from "@chakra-ui/react"
 
 function MarkTasks() {
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const {
+   isOpen: isModalOpen,
+   open: openModal,
+   close: closeModal
+  } = useDisclosure();
 
   const [reviewTaskMutation, {data:review, loading:reviewLoad, error:reviewError}] = useReviewTaskMutation()
   const [caName, setcaName] = React.useState('')
@@ -293,11 +288,8 @@ function MarkTasks() {
                         placeholder='Feedback'
                       ></input>
                     </td>
-                    <Button onClick={onOpen} className='btn-ctn'>Edit</Button>
-                    <Modal isOpen={isOpen} onClose={onClose}>
-                      <ModalOverlay />
-                     <ModalContent width="50vw" margin="auto" marginTop="10vh" backgroundColor="#574ed3b2" padding="1vw" borderRadius="24px" boxShadow="5px 10px 20px rgba(0, 0, 0, 0.486)">
-                          <ModalBody>
+                    <button onClick={openModal} className='btn-ctn'>Edit</button>
+                         {isModalOpen ? ( <Box width="50vw" margin="auto" marginTop="10vh" backgroundColor="#574ed3b2" padding="1vw" borderRadius="24px" boxShadow="5px 10px 20px rgba(0, 0, 0, 0.486)">
                           <input 
                             name='id'
                             type='text'
@@ -341,15 +333,10 @@ function MarkTasks() {
                           }}>
                           Save Changes
                         </button>
-                        </ModalBody>
-                        <ModalFooter>
-                          <Button borderRadius="12px"
-                          colorScheme="blue" mr={3} onClick={onClose} backgroundColor="white" border="none" padding="0.5vw">
+                          <button onClick={closeModal} className='save-btn'>
                             Close
-                          </Button>
-                          </ModalFooter>
-                          </ModalContent>
-                         </Modal>  
+                          </button>
+                        </Box>):(<div></div>)}
                 </tr>
                 )
             }
