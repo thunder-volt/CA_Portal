@@ -3,7 +3,7 @@ import shaastraLogo from './assets/Shaastra_logo.png'
 import { FaSearch, FaBars } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import './MarkTasks.css'
-import { useState } from 'react'
+import { useState,useRef } from 'react'
 import { useHistory } from 'react-router'
 import { Dialog } from '@material-ui/core';
 import Header from "./Header"
@@ -19,7 +19,7 @@ function MarkTasks() {
    open: openModal,
    close: closeModal
   } = useDisclosure();
-
+  const focusRow = useRef(null);
   const [reviewTaskMutation, {data:review, loading:reviewLoad, error:reviewError}] = useReviewTaskMutation()
   const [caName, setcaName] = React.useState('')
   const [points, setpoints] = React.useState(0)
@@ -288,8 +288,21 @@ function MarkTasks() {
                         placeholder='Feedback'
                       ></input>
                     </td>
-                    <button onClick={openModal} className='btn-ctn'>Edit</button>
-                         {isModalOpen ? ( <Box width="50vw" margin="auto" marginTop="10vh" backgroundColor="#574ed3b2" padding="1vw" borderRadius="24px" boxShadow="5px 10px 20px rgba(0, 0, 0, 0.486)">
+                    <button onClick={openModal} className='btn-ctn'>Edit</button>   
+                </tr>
+                )
+            }
+              else 
+              return(
+                <tr>
+                  <td>{t.brief}</td>
+                  <td>proof not submitted</td>
+                </tr>
+              )
+            })
+          }
+        </table>
+          {isModalOpen ? ( <Box width="50vw" margin="auto" marginTop="10vh" backgroundColor="#574ed3b2" padding="1vw" borderRadius="24px" boxShadow="5px 10px 20px rgba(0, 0, 0, 0.486)">
                           <input 
                             name='id'
                             type='text'
@@ -337,19 +350,6 @@ function MarkTasks() {
                             Close
                           </button>
                         </Box>):(<div></div>)}
-                </tr>
-                )
-            }
-              else 
-              return(
-                <tr>
-                  <td>{t.brief}</td>
-                  <td>proof not submitted</td>
-                </tr>
-              )
-            })
-          }
-        </table>
       </div>
           
             )
