@@ -13,7 +13,17 @@ function LeaderBoard() {
 
   var i = 0;
   var j=0;
-  var arr = data?.leaderBoard?.users.filter(el => el?.totalPoints !== null)
+  // var arr = data?.leaderBoard?.users.filter(el => el?.totalPoints !== null)
+  console.log(data?.leaderBoard?.users)
+  var arr = data?.leaderBoard?.users.map(el => {
+    if(el.totalPoints === null) 
+    {
+      return({name: el.name, totalPoints: 0})
+
+    }
+    else return el;
+  })
+  arr = arr?.sort(function(a,b){return(b.totalPoints! - a.totalPoints!)})
   console.log(arr)
 
   data?.leaderBoard?.users.map(u => {
