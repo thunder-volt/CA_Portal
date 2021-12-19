@@ -185,3 +185,10 @@
   font-size: 20px;
   padding: 2px;
 }
+
+.points-form-ctn{
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
