@@ -188,7 +188,18 @@
 
 .points-form-ctn{
   position: fixed;
-  width: 100%;
+  width: 100% !important;
   top: 0;
   left: 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.points-form-ctn .save-btn{
+   margin-top: 10px;
+  width: 15%;
+  border-radius: 3px;
+  border: 1px solid black;
+  padding: 8px;
 }
