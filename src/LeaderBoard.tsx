@@ -2,13 +2,14 @@ import React from "react";
 import Header from "./Header";
 import "./LeaderBoard.css";
 import profile from "./assets/profile.png";
-import { useLeaderBoardQuery } from "./generated";
+import { useGetUserQuery, useGetUsersQuery, useLeaderBoardQuery } from "./generated";
 import Gold from "./gold.png"
 import Silver from "./silver.png"
 import Bronze from "./bronze.png"
 
 function LeaderBoard() {
   const {data, loading, error} = useLeaderBoardQuery({variables: {limit:10, skip:null}})
+  const {data: users, loading: usersLoad, error: usersError} = useGetUsersQuery()
   
 
   var i = 0;
@@ -27,7 +28,7 @@ function LeaderBoard() {
   arr = arr?.sort(function(a: any,b: any){return(b.totalPoints! - a.totalPoints!)})
   console.log(arr)
   React.useEffect(() => {
-    arr = data?.leaderBoard?.users.map(el => {
+    arr = users?.getUsers?.users.map(el => {
       if(el.totalPoints === null) 
       {
         return({name: el.name, totalPoints: 0})
@@ -36,6 +37,7 @@ function LeaderBoard() {
       else return el;
     })
     arr = arr?.sort(function(a: any,b: any){return(b.totalPoints! - a.totalPoints!)})
+    arr = arr?.slice(0, 15)
     console.log(arr)
   }, [])
 
