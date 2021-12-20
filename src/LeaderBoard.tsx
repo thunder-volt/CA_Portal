@@ -39,10 +39,11 @@ function LeaderBoard() {
     console.log(arr)
   }, [])
 
-  data?.leaderBoard?.users.map(u => {
-    if(u.totalPoints === null) i++;
-  })
+  // data?.leaderBoard?.users.map(u => {
+  //   if(u.totalPoints === null) i++;
+  // })
 
+  // i = arr.lenght() -1;
   return (
     <>
       {/* <Header />
@@ -125,10 +126,10 @@ function LeaderBoard() {
             </div>
             {
               arr !== undefined &&
-              arr[i] && <div>
-                <h3>{arr[i].name}</h3>
+              arr[1] && <div>
+                <h3>{arr[1].name}</h3>
               <p className="points">
-                {arr[i].totalPoints} Points
+                {arr[1].totalPoints} Points
               </p>
               </div> 
             }
@@ -140,10 +141,10 @@ function LeaderBoard() {
             </div>
             {
                arr !== undefined &&
-              arr[i-1] && <div>
-                <h3>{arr[i-1].name}</h3>
+              arr[0] && <div>
+                <h3>{arr[0].name}</h3>
               <p className="points">
-                {arr[i-1].totalPoints} Points
+                {arr[0].totalPoints} Points
               </p>
               </div> 
             }
@@ -155,10 +156,10 @@ function LeaderBoard() {
             </div>
             {
                arr !== undefined &&
-              arr[i+1] && <div>
-                <h3>{arr[i+1].name}</h3>
+              arr[2] && <div>
+                <h3>{arr[2].name}</h3>
               <p className="points">
-                {arr[i+1].totalPoints} Points
+                {arr[2].totalPoints} Points
               </p>
               </div> 
             }
@@ -166,14 +167,14 @@ function LeaderBoard() {
         </div>
         <ul className="Leaderboard_container">
           {
-            data?.leaderBoard?.users !== undefined &&
-          data.leaderBoard.users.map((user) => {
+            arr !== undefined &&
+          arr.map((user: any) => {
           j++;
-            if(j>i+3 && user)
+            if(j>3 && user)
             return (
               <li>
                 <div className="left">
-                  <p>{j}</p>
+                  <p>{j}&nbsp;</p>
                   <h4>{user.name}</h4>
                 </div>
                 <p className="points">{user.totalPoints} Points</p>
