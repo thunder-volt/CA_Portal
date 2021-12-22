@@ -2,21 +2,33 @@ import React from "react";
 import Header from "./Header";
 import "./LeaderBoard.css";
 import profile from "./assets/profile.png";
-import { useLeaderBoardQuery } from "./generated";
+import { useGetUserQuery, useGetUsersQuery, useLeaderBoardQuery, UserRole } from "./generated";
 import Gold from "./gold.png"
 import Silver from "./silver.png"
 import Bronze from "./bronze.png"
 
 function LeaderBoard() {
   const {data, loading, error} = useLeaderBoardQuery({variables: {limit:10, skip:null}})
+  const {data: user, loading: usersLoad, error: usersError} = useGetUsersQuery({variables: {filter:{role: UserRole.Selected}}})
   
 
   var i = 0;
   var j=0;
   // var arr = data?.leaderBoard?.users.filter(el => el?.totalPoints !== null)
-  console.log(data?.leaderBoard?.users)
+  // console.log(data?.leaderBoard?.users)
   var arr: any = []
-  arr = data?.leaderBoard?.users.map(el => {
+  // arr = data?.leaderBoard?.users.map(el => {
+  //   if(el.totalPoints === null) 
+  //   {
+  //     return({name: el.name, totalPoints: 0})
+
+  //   }
+  //   else return el;
+  // })
+  // arr = arr?.sort(function(a: any,b: any){return(b.totalPoints! - a.totalPoints!)})
+  // console.log(arr)
+  console.log(user?.getUsers?.users)
+  arr = user?.getUsers?.users.map(el => {
     if(el.totalPoints === null) 
     {
       return({name: el.name, totalPoints: 0})
@@ -24,20 +36,23 @@ function LeaderBoard() {
     }
     else return el;
   })
-  arr = arr?.sort(function(a: any,b: any){return(b.totalPoints! - a.totalPoints!)})
   console.log(arr)
-  React.useEffect(() => {
-    arr = data?.leaderBoard?.users.map(el => {
-      if(el.totalPoints === null) 
-      {
-        return({name: el.name, totalPoints: 0})
+  arr = arr?.sort(function(a: any,b: any){return(b.totalPoints! - a.totalPoints!)})
+  arr = arr?.slice(0, 15)
+  console.log(arr)
+  // React.useEffect(() => {
+  //   arr = users?.getUsers?.users.map(el => {
+  //     if(el.totalPoints === null) 
+  //     {
+  //       return({name: el.name, totalPoints: 0})
   
-      }
-      else return el;
-    })
-    arr = arr?.sort(function(a: any,b: any){return(b.totalPoints! - a.totalPoints!)})
-    console.log(arr)
-  }, [])
+  //     }
+  //     else return el;
+  //   })
+  //   arr = arr?.sort(function(a: any,b: any){return(b.totalPoints! - a.totalPoints!)})
+  //   arr = arr?.slice(0, 15)
+  //   console.log(arr)
+  // }, [])
 
   // data?.leaderBoard?.users.map(u => {
   //   if(u.totalPoints === null) i++;
