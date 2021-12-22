@@ -12,6 +12,7 @@ import {
   UserRole,
 } from "./generated";
 import Header from "./Header";
+import './Application.css'
 
 function Application() {
   let { id }: any = useParams();
@@ -27,6 +28,7 @@ function Application() {
   } = useGetUserQuery({ variables: { userId: id } });
   const history = useHistory();
   const [coord, setCoord] = React.useState("");
+  const [points,setPoints] = React.useState(0)
   var [input, setInput] = React.useState<ApplicationResultInput>({
     coord: "",
     id: id,
@@ -63,6 +65,10 @@ function Application() {
     history.push("/application");
   };
 
+  async function handlePointsChange() {
+      
+  }
+
   if (getUserData)
     return (
       <div className="Application">
@@ -81,6 +87,15 @@ function Application() {
             </div>
           </div>
           <div className="column">
+            {localStorage.getItem("role") === UserRole.Selected ? (
+            <div className="points-ctn">
+              <h3>Total Points:</h3>
+              <div className="edit-points-ctn">
+                <h3>Edit Points:</h3>
+                <input placeholder='Points' type="number" value={points} onChange={(e)=>setPoints(parseInt(e.target.value))}></input>
+                <button onClick={handlePointsChange}>Save Changes</button>
+              </div>
+            </div>) : null}
             <div>
               <ul className="ul11">
                 <li>

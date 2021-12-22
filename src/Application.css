@@ -1,0 +1,16 @@
+.points-ctn {
+    margin-top: 15px;
+}
+.points-ctn h3{
+    color: yellowgreen;
+}
+
+.edit-points-ctn{
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.edit-points-ctn input{
+    margin-left: 5px;
+}
