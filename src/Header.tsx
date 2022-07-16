@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { FaBars } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-import shaastraLogo from './assets/Shaastra_logo.png'
+import shaastraLogo from '../src/assets/logo.png'
 import { useGetQuestionnaireQuery } from './generated'
 import './Header.css'
 import AuthContext from './utils/context'
@@ -15,6 +15,7 @@ function Header() {
     <div className='Header'>
       <Link to='/'>
         <img src={shaastraLogo} alt='' />
+
       </Link>
       <button onClick={() => setHeader(!header)}>
         <FaBars />

@@ -40,6 +40,8 @@
 .App {
   width: 100%;
   overflow: hidden;
+  background-color: #141E61;
+  color: #EEE;
 }
 
 .App-logo {
@@ -72,6 +74,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

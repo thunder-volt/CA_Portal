@@ -66,28 +66,28 @@ const App = () => {
           {(role === 'SELECTED' ||
             role === 'REGISTERED' ||
             role === 'REJECTED') && (
-            <Switch>
-              <Route exact path='/' component={Home} />
-              <Route exact path='/profile' component={Profile} />
-              {role === 'REGISTERED' && (
-                <Route exact path='/me' component={Body1} />
-              )}
-              {role === 'SELECTED' && (
-                <Route exact path='/me' component={Selected} />
-              )}
-              {role === 'SELECTED' && (
-                <Route exact path='/task' component={Task}></Route>
-              )}
-              {role === 'REJECTED' && (
-                <Route exact path='/me' component={Rejected} />
-              )}
-              <Route exact path='/questionaire' component={Questionaire} />
-              <Route exact path='/leaderboard' component={LeaderBoard} />
-              <Route exact path='/tasks' component={Task} />
-              <Route exact path='/logout' component={Logout} />
-              <Route exact path='/my-application' component={MyApplication} />
-            </Switch>
-          )}
+              <Switch>
+                <Route exact path='/' component={Home} />
+                <Route exact path='/profile' component={Profile} />
+                {role === 'REGISTERED' && (
+                  <Route exact path='/me' component={Body1} />
+                )}
+                {role === 'SELECTED' && (
+                  <Route exact path='/me' component={Selected} />
+                )}
+                {role === 'SELECTED' && (
+                  <Route exact path='/task' component={Task}></Route>
+                )}
+                {role === 'REJECTED' && (
+                  <Route exact path='/me' component={Rejected} />
+                )}
+                <Route exact path='/questionaire' component={Questionaire} />
+                <Route exact path='/leaderboard' component={LeaderBoard} />
+                <Route exact path='/tasks' component={Task} />
+                <Route exact path='/logout' component={Logout} />
+                <Route exact path='/my-application' component={MyApplication} />
+              </Switch>
+            )}
           {role === 'ADMIN' && (
             <Switch>
               <Route exact path='/' component={Home} />

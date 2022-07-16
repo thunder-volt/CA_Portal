@@ -131,7 +131,7 @@ function Home() {
           <h1>JOIN THE FAMILY</h1>
           <h3>CAMPUS AMBASSADOR</h3>
           <p>
-          Want to be the face of Shaastra in your campus?
+            Want to be the face of Shaastra in your campus?
           </p>
           {(role === null || role === "") && <Link to="/login">REGISTER</Link>}
         </div>
@@ -385,17 +385,17 @@ function Home() {
                   style={
                     show[faq.no]
                       ? {
-                          transform: "rotate(-90deg)",
-                          transition: "0.5s",
-                        }
+                        transform: "rotate(-90deg)",
+                        transition: "0.5s",
+                      }
                       : {
-                          transform: "rotate(0deg)",
-                          transition: "0.5s",
-                        }
+                        transform: "rotate(0deg)",
+                        transition: "0.5s",
+                      }
                   }
                   className="down-arrow"
                 >
-                  
+
                   <IoIosArrowDown />
                 </span>
               </span>
@@ -403,13 +403,13 @@ function Home() {
                 style={
                   show[faq.no]
                     ? {
-                        height: "max-content",
-                        paddingTop: "15px",
-                      }
+                      height: "max-content",
+                      paddingTop: "15px",
+                    }
                     : {
-                        height: "0px",
-                        paddingTop: "0px",
-                      }
+                      height: "0px",
+                      paddingTop: "0px",
+                    }
                 }
                 className="panel"
               >
@@ -534,8 +534,8 @@ function Home() {
           </div>
         </div>
         <div className="row">
-          <p className="sec-row">Shaastra 2021 © All Rights Reserved</p>
-          <p className="sec-row">DESIGNED BY SHAASTRA WEBOPS 2022</p>
+          <p className="sec-row">Shaastra 2022 © All Rights Reserved</p>
+          <p className="sec-row">DESIGNED BY AKSHAY, JAINAV, BALAKUMAR, ARVIND | WEB OPERATIONS | SHAASTRA</p>
         </div>
       </div>
     </>
